@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>language labels for t3sportstats frontend strings</description>
+		<type>database</type>
+		<csh_table></csh_table>
+		<fileId>EXT:t3sportstats/locallang.xml</fileId>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="error">Error</label>
+			<label index="label_total">Members total</label>
+			<label index="label_online">Members online</label>
+
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="error">Fehler</label>
+			<label index="label_total">Mitgliederanzahl</label>
+			<label index="label_online">Mitglieder online</label>
+			
+		</languageKey>
+	</data>
+</T3locallang>

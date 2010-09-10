@@ -1,0 +1,23 @@
+# setup
+includeLibs.tx_rnbase_controller = EXT:rn_base/class.tx_rnbase_controller.php
+
+
+plugin.tx_t3sportstats                = USER_INT
+plugin.tx_t3sportstats.flexform       = flexform_main.xml
+plugin.tx_t3sportstats.userFunc       = tx_rnbase_controller->main
+plugin.tx_t3sportstats.defaultAction  = tx_t3sportstats_actions_PlayerStats
+plugin.tx_t3sportstats.qualifier      = t3sportstats
+plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/templates
+plugin.tx_t3sportstats.locallangFilename = EXT:t3sportstats/locallang.xml
+
+
+tt_content.list.20.tx_t3sportstats    =< plugin.tx_t3sportstats
+
+# Ab hier Konfiguration der einzelnen Views 
+plugin.tx_t3sportstats {
+
+  playerstats {
+  }
+
+}
+

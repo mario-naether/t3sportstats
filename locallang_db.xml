@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 't3sportstats'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="plugin.t3sportstats.label">t3sportstats</label>
+			<label index="plugin.t3sportstats.flexform.tab.common">Common</label>
+			<label index="plugin.t3sportstats.flexform.tab.TSSetup">TS-Setup</label>
+			<label index="plugin.t3sportstats.flexform.tssetup">plugin.tx_t3sportstats.</label>
+			<label index="plugin.t3sportstats.flexform.action">View</label>
+
+			<label index="service_t3sports_statistics_title">Statistics service</label>
+
+		</languageKey>
+		<languageKey index="de" type="array">
+
+		</languageKey>
+	</data>
+</T3locallang>
