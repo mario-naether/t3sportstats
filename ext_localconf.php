@@ -32,9 +32,13 @@ tx_rnbase::load('tx_t3sportstats_util_Config');
 tx_t3sportstats_util_Config::registerSimpleStatistics('goals', '10,11,12');
 tx_t3sportstats_util_Config::registerSimpleStatistics('assists', '31');
 tx_t3sportstats_util_Config::registerSimpleStatistics('goalsheader', '11');
+tx_t3sportstats_util_Config::registerSimpleStatistics('goalspenalty', '12');
+tx_t3sportstats_util_Config::registerSimpleStatistics('goalsown', '30');
 tx_t3sportstats_util_Config::registerSimpleStatistics('cardyellow', '70');
 tx_t3sportstats_util_Config::registerSimpleStatistics('cardyr', '71');
 tx_t3sportstats_util_Config::registerSimpleStatistics('cardred', '72');
+tx_t3sportstats_util_Config::registerSimpleStatistics('changein', '80');
+tx_t3sportstats_util_Config::registerSimpleStatistics('changeout', '81');
 
 /*
 $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['matchnotetypes'] = array(
