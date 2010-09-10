@@ -71,6 +71,15 @@ league_1:
             player_home: 100
             player_guest: 0
         - 
+          # Gelbe Karte
+          record: 
+            uid: 27
+            minute: 33
+            type: 70
+            game: 11
+            player_home: 100
+            player_guest: 0
+        - 
           # Tor zum 3:0
           record: 
             uid: 30
