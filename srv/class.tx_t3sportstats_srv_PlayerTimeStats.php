@@ -30,7 +30,7 @@ require_once(PATH_t3lib.'class.t3lib_svbase.php');
  * 
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_srv_PlayerStats extends t3lib_svbase {
+class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 	private $types = array();
 
 	/**
@@ -43,31 +43,42 @@ class tx_t3sportstats_srv_PlayerStats extends t3lib_svbase {
 	public function indexPlayerStats($dataBag, $match, $mnProv, $isHome) {
 		// Wir betrachten das Spiel für einen bestimmten Spieler
 		$profId = $dataBag->getParentUid();
-		$this->indexSimple($dataBag, $mnProv);
-	}
-	/**
-	 *
-	 * @param tx_t3sportstats_util_DataBag $dataBag
-	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
-	 */
-	private function indexSimple($dataBag, $mnProv) {
-		$profId = $dataBag->getParentUid();
-		// Wir benötigen die Events des Spielers
 		$notes = $mnProv->getMatchNotes4Profile($profId);
-
-		if(!$notes || count($notes) == 0) return;
-		$data = array();
-		$statTypes = tx_t3sportstats_util_Config::getSimpleStatistics();
+		$startMin = $this->isStartPlayer($profId, $match, $isHome) ? 0 : -1;
+		$isEndPlayer = $startMin == 0 ? true : false;
+		$time = 0;
 
 		foreach($notes As $note) {
-			foreach($statTypes As $type => $info) {
-				// Entspricht die Note dem Type in der Info
-				if($this->isType($note->getType(), $info['types'])) {
-					$dataBag->addType($type, 1);
-				}
+			if($this->isChangeIn($note) ) {
+				$startMin = $note->getMinute();
+				$isEndPlayer = true;
+			}
+			if($this->isChangeOut($note) ) {
+				$time = $note->getMinute() - $startMin;
+				$isEndPlayer = false;
 			}
 		}
+		if($isEndPlayer) {
+			$time = 90 - $startMin;
+		}
+		$dataBag->addType('playtime', $time);
 	}
+	private function isChangeIn($note) {
+		return $note->getType() == 81;
+	}
+	private function isChangeOut($note) {
+		return $note->getType() == 80;
+	}
+	/**
+	 * 
+	 * @param tx_cfcleague_models_Match $match
+	 * @param boolean $isHome
+	 */
+	private function isStartPlayer($player, $match, $isHome) {
+		$startPlayer = array_flip(t3lib_div::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
+		return array_key_exists($player, $startPlayer);
+	}
+
 	private function isType($type, $typeList) {
 		if(!array_key_exists($typeList, $this->types)) {
 			$this->types[$typeList] = array_flip(t3lib_div::intExplode(',', $typeList));
@@ -77,8 +88,8 @@ class tx_t3sportstats_srv_PlayerStats extends t3lib_svbase {
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_PlayerStats.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_PlayerStats.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_PlayerTimeStats.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_PlayerTimeStats.php']);
 }
 
 ?>

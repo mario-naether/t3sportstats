@@ -46,10 +46,10 @@ class tx_t3sportstats_tests_srvStatistics_testcase extends tx_phpunit_testcase {
 		$matches = tx_t3sportstats_tests_Util::getMatches();
 		$srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
 		$bags = $srv->getPlayerBags($matches[0], true);
-		$this->assertEquals(6, count($bags), 'Number of databags is wrong.');
+		$this->assertEquals(7, count($bags), 'Number of databags is wrong.');
 
 		$bags = $srv->getPlayerBags($matches[0], false);
-		$this->assertEquals(7, count($bags), 'Number of databags is wrong.');
+		$this->assertEquals(8, count($bags), 'Number of databags is wrong.');
 	}
 }
 

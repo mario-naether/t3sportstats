@@ -38,6 +38,8 @@ class tx_t3sportstats_tests_utilMatchNoteProvider_testcase extends tx_phpunit_te
 		$this->assertEquals(3, count($notes), 'Number of notes for player is wrong');
 		$notes = $mnProv->getMatchNotes4Profile(202);
 		$this->assertEquals(1, count($notes), 'Number of notes for player is wrong');
+		$notes = $mnProv->getMatchNotes4Profile(110);
+		$this->assertEquals(2, count($notes), 'Number of notes for player is wrong');
 	}
 }
 

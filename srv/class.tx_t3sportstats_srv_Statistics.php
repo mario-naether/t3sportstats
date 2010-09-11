@@ -77,12 +77,12 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 				// handle Hometeam
 				$dataBags = $this->getPlayerBags($matches[$j], true);
 				foreach($dataBags As $dataBag) {
-					$service->indexPlayerStats($dataBag, $matches[$j], $mnProv);
+					$service->indexPlayerStats($dataBag, $matches[$j], $mnProv, true);
 				}
 				// handle Guestteam
 				$dataBags = $this->getPlayerBags($matches[$j], false);
 				foreach($dataBags As $dataBag) {
-					$service->indexPlayerStats($dataBag, $matches[$j], $matchNotes);
+					$service->indexPlayerStats($dataBag, $matches[$j], $matchNotes, false);
 				}
 
 //				$times[$i] = $times[$i] + t3lib_div::milliseconds() - $time;

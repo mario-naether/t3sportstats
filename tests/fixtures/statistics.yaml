@@ -46,8 +46,8 @@ league_1:
         goals_guest_2: 1
         goals_home: 3
         goals_guest: 1
-        players_home: 100,102,103,104
-        players_guest: 200,202,203,204
+        players_home: 100,101,102,103,104
+        players_guest: 200,201,202,203,204
         substitutes_home: 110,112
         substitutes_guest: 220,212,213
       matchnotes:
@@ -78,6 +78,24 @@ league_1:
             type: 70
             game: 11
             player_home: 100
+            player_guest: 0
+        - 
+          # Einwechslung
+          record: 
+            uid: 55
+            minute: 48
+            type: 81
+            game: 11
+            player_home: 110
+            player_guest: 0
+        - 
+          # Auswechslung
+          record: 
+            uid: 56
+            minute: 48
+            type: 80
+            game: 11
+            player_home: 102
             player_guest: 0
         - 
           # Tor zum 3:0

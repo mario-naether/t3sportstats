@@ -51,6 +51,7 @@ class tx_t3sportstats_util_MatchNoteProvider {
 			if($note->isGuest())
 				$this->notesGuest[$profile][] = $note;
 		}
+
 	}
 	/**
 	 * @return array[tx_cfcleague_models_MatchNote]
