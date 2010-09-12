@@ -43,17 +43,17 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase 
 		$notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
 
 		$mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($notes);
-		$this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv);
+		$this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv, true);
 
 //		t3lib_div::debug($bagHash[110], 'class.tx_t3sportstats_tests_srvPlayerStats_testcase.php'); // TODO: remove me
 		$this->assertEquals(2, $bagHash[100]->getTypeValue('goals'), 'Goals count is wrong');
 		$this->assertEquals(1, $bagHash[100]->getTypeValue('goalsheader', 'Goals header count is wrong'));
 
-		$this->getService()->indexPlayerStats($bagHash[110], $match, $mnProv);
+		$this->getService()->indexPlayerStats($bagHash[110], $match, $mnProv, true);
 		$this->assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
 		$this->assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
 		
-		$this->getService()->indexPlayerStats($bagHash[102], $match, $mnProv);
+		$this->getService()->indexPlayerStats($bagHash[102], $match, $mnProv, true);
 		$this->assertEquals(1, $bagHash[102]->getTypeValue('changeout'), 'Changeout is wrong');
 
 	}

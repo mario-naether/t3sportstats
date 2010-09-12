@@ -101,11 +101,65 @@ league_1:
           # Tor zum 3:0
           record: 
             uid: 30
-            minute: 48
+            minute: 50
             type: 10
             game: 11
             player_home: 110
             player_guest: 0
+        - 
+          # Einwechslung
+          record: 
+            uid: 55
+            minute: 60
+            type: 81
+            game: 11
+            player_home: 0
+            player_guest: 220
+        - 
+          # Auswechslung
+          record: 
+            uid: 56
+            minute: 60
+            type: 80
+            game: 11
+            player_home: 0
+            player_guest: 200
+        - 
+          # Rote Karte
+          record: 
+            uid: 31
+            minute: 65
+            type: 72
+            game: 11
+            player_home: 0
+            player_guest: 201
+        - 
+          # Einwechslung
+          record: 
+            uid: 55
+            minute: 70
+            type: 81
+            game: 11
+            player_home: 0
+            player_guest: 200
+        - 
+          # Auswechslung
+          record: 
+            uid: 56
+            minute: 70
+            type: 80
+            game: 11
+            player_home: 0
+            player_guest: 220
+        - 
+          # Gelb-Rote Karte
+          record: 
+            uid: 32
+            minute: 89
+            type: 71
+            game: 11
+            player_home: 0
+            player_guest: 204
         - 
           # Tor zum 3:1
           record: 

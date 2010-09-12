@@ -25,6 +25,7 @@
 require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
 require_once(PATH_t3lib.'class.t3lib_svbase.php');
 
+tx_rnbase::load('tx_cfcleague_util_MatchNote');
 
 /**
  * 
@@ -49,25 +50,21 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 		$time = 0;
 
 		foreach($notes As $note) {
-			if($this->isChangeIn($note) ) {
+			if(tx_cfcleague_util_MatchNote::isChangeIn($note) ) {
 				$startMin = $note->getMinute();
 				$isEndPlayer = true;
 			}
-			if($this->isChangeOut($note) ) {
-				$time = $note->getMinute() - $startMin;
+			elseif(tx_cfcleague_util_MatchNote::isChangeOut($note) || 
+				tx_cfcleague_util_MatchNote::isCardYellowRed($note) ||
+				tx_cfcleague_util_MatchNote::isCardRed($note) ) {
+				$time = $note->getMinute() - $startMin + $time;
 				$isEndPlayer = false;
-			}
+				}
 		}
 		if($isEndPlayer) {
-			$time = 90 - $startMin;
+			$time = 90 - $startMin + $time;
 		}
 		$dataBag->addType('playtime', $time);
-	}
-	private function isChangeIn($note) {
-		return $note->getType() == 81;
-	}
-	private function isChangeOut($note) {
-		return $note->getType() == 80;
 	}
 	/**
 	 * 

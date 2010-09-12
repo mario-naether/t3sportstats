@@ -30,7 +30,7 @@ tx_rnbase::load('tx_rnbase_util_Spyc');
 tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
 
 class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testcase {
-	public function test_indexPlayerStats() {
+	public function test_indexPlayerStatsHome() {
 		$matchIdx = 0;
 		$matches = tx_t3sportstats_tests_Util::getMatches();
 
@@ -48,10 +48,40 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
 		$this->assertEquals(90, $bagHash[100]->getTypeValue('playtime'), 'Playtime is wrong');
 
 		$this->getService()->indexPlayerStats($bagHash[110], $match, $mnProv, true);
-		$this->assertEquals(43, $bagHash[110]->getTypeValue('playtime'), 'Playtime is wrong');
+		$this->assertEquals(42, $bagHash[110]->getTypeValue('playtime'), 'Playtime is wrong');
 		
 		$this->getService()->indexPlayerStats($bagHash[102], $match, $mnProv, true);
 		$this->assertEquals(48, $bagHash[102]->getTypeValue('playtime'), 'Playtime is wrong');
+
+	}
+	public function test_indexPlayerStatsGuest() {
+		$matchIdx = 0;
+		$matches = tx_t3sportstats_tests_Util::getMatches();
+
+		$match = $matches[$matchIdx];
+		$srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+		$bagHash = array();
+		$bags = $srv->getPlayerBags($match, false);
+		foreach($bags As $bag)
+			$bagHash[$bag->getParentUid()] = $bag;
+		$notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
+
+		$mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($notes);
+
+		$this->getService()->indexPlayerStats($bagHash[202], $match, $mnProv, false);
+		$this->assertEquals(90, $bagHash[202]->getTypeValue('playtime'), 'Playtime is wrong');
+
+		$this->getService()->indexPlayerStats($bagHash[204], $match, $mnProv, false);
+		$this->assertEquals(89, $bagHash[204]->getTypeValue('playtime'), 'Playtime is wrong');
+
+		$this->getService()->indexPlayerStats($bagHash[201], $match, $mnProv, false);
+		$this->assertEquals(65, $bagHash[201]->getTypeValue('playtime'), 'Playtime is wrong');
+
+		$this->getService()->indexPlayerStats($bagHash[220], $match, $mnProv, false);
+		$this->assertEquals(10, $bagHash[220]->getTypeValue('playtime'), 'Playtime is wrong');
+
+		$this->getService()->indexPlayerStats($bagHash[200], $match, $mnProv, false);
+		$this->assertEquals(80, $bagHash[200]->getTypeValue('playtime'), 'Playtime is wrong');
 
 	}
 	public function testGetInstance() {
