@@ -36,6 +36,7 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 
 	/**
 	 * Update statistics for a player
+	 * playtime, played
 	 *
 	 * @param tx_t3sportstats_util_DataBag $dataBag
 	 * @param tx_cfcleague_models_Match $match
@@ -47,12 +48,15 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 		$notes = $mnProv->getMatchNotes4Profile($profId);
 		$startMin = $this->isStartPlayer($profId, $match, $isHome) ? 0 : -1;
 		$isEndPlayer = $startMin == 0 ? true : false;
+		if($isEndPlayer)
+			$dataBag->setType('played', 1);
 		$time = 0;
 
 		foreach($notes As $note) {
 			if(tx_cfcleague_util_MatchNote::isChangeIn($note) ) {
 				$startMin = $note->getMinute();
 				$isEndPlayer = true;
+				$dataBag->setType('played', 1);
 			}
 			elseif(tx_cfcleague_util_MatchNote::isChangeOut($note) || 
 				tx_cfcleague_util_MatchNote::isCardYellowRed($note) ||

@@ -70,19 +70,24 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
 
 		$this->getService()->indexPlayerStats($bagHash[202], $match, $mnProv, false);
 		$this->assertEquals(90, $bagHash[202]->getTypeValue('playtime'), 'Playtime is wrong');
-
+		$this->assertEquals(1, $bagHash[202]->getTypeValue('played'), 'Played is wrong');
+		
 		$this->getService()->indexPlayerStats($bagHash[204], $match, $mnProv, false);
 		$this->assertEquals(89, $bagHash[204]->getTypeValue('playtime'), 'Playtime is wrong');
-
+		$this->assertEquals(1, $bagHash[204]->getTypeValue('played'), 'Played is wrong');
+		
 		$this->getService()->indexPlayerStats($bagHash[201], $match, $mnProv, false);
 		$this->assertEquals(65, $bagHash[201]->getTypeValue('playtime'), 'Playtime is wrong');
-
+		$this->assertEquals(1, $bagHash[201]->getTypeValue('played'), 'Played is wrong');
+		
 		$this->getService()->indexPlayerStats($bagHash[220], $match, $mnProv, false);
 		$this->assertEquals(10, $bagHash[220]->getTypeValue('playtime'), 'Playtime is wrong');
-
+		$this->assertEquals(1, $bagHash[220]->getTypeValue('played'), 'Played is wrong');
+		
 		$this->getService()->indexPlayerStats($bagHash[200], $match, $mnProv, false);
 		$this->assertEquals(80, $bagHash[200]->getTypeValue('playtime'), 'Playtime is wrong');
-
+		$this->assertEquals(1, $bagHash[200]->getTypeValue('played'), 'Played is wrong');
+		
 	}
 	public function testGetInstance() {
 		$this->assertTrue(is_object(tx_rnbase_util_Misc::getService('t3sportsPlayerStats', 'playtime')), 'Service not registered.');
@@ -96,8 +101,8 @@ class tx_t3sportstats_tests_srvPlayerTimeStats_testcase extends tx_phpunit_testc
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerStats_testcase.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerStats_testcase.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerTimeStats_testcase.php']) {
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srvPlayerTimeStats_testcase.php']);
 }
 
 ?>

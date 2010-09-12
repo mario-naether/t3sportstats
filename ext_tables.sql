@@ -20,7 +20,7 @@ CREATE TABLE tx_t3sportstats_players (
 	clubopp int(11) DEFAULT '0' NOT NULL,
 
 
-	playtime int(11) DEFAULT '0' NOT NULL,
+	played tinyint(4) DEFAULT '0' NOT NULL,
 	cardyellow tinyint(4) DEFAULT '0' NOT NULL,
 	cardyr tinyint(4) DEFAULT '0' NOT NULL,
 	cardred tinyint(4) DEFAULT '0' NOT NULL,
