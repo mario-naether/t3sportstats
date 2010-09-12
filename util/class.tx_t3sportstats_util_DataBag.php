@@ -40,8 +40,11 @@ class tx_t3sportstats_util_DataBag {
 	public function addType($type, $value) {
 		$this->data[$type] = intval($this->data[$type]) + $value;
 	}
+	public function setType($type, $value) {
+		$this->data[$type] = $value;
+	}
 	public function getTypeValue($type) {
-		return $this->data[$type];
+		return intval($this->data[$type]);
 	}
 	public function getTypeValues() {
 		return $this->data;

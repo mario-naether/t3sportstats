@@ -69,7 +69,7 @@ class tx_t3sportstats_util_MatchNoteProvider {
 			return $this->notesHome[$profileUid];
 		if(array_key_exists($profileUid, $this->notesGuest))
 			return $this->notesGuest[$profileUid];
-		return false;
+		return array();
 	}
 }
 

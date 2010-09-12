@@ -37,6 +37,16 @@ t3lib_extMgm::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3
   )
 );
 
+t3lib_extMgm::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3sportstats_srv_PlayerGoalStats' /* sv key */,
+  array(
+    'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'goals',
+    'available' => TRUE, 'priority' => 50, 'quality' => 50,
+    'os' => '', 'exec' => '',
+    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_PlayerGoalStats.php',
+    'className' => 'tx_t3sportstats_srv_PlayerGoalStats',
+  )
+);
+
 tx_rnbase::load('tx_t3sportstats_util_Config');
 
 tx_t3sportstats_util_Config::registerSimpleStatistics('goals', '10,11,12');
