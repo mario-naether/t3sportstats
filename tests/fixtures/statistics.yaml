@@ -1,11 +1,14 @@
 ---
 league_1: 
   # Diese Liga besteht aus vier Teams und fünf absolvierten Spielen
-  clazz: tx_cfcleaguefe_models_competition
-  record: 
-    uid: 1
-    teams: 1,2,3,4
-    point_system: 1
+  clazz: tx_cfcleague_models_Competition
+  - 
+    record: 
+      uid: 1
+      teams: 1,2,3,4
+      point_system: 1
+      agegroup: 2
+      saison: 10
   teams: 
     clazz: tx_cfcleague_models_Team
     - 

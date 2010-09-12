@@ -75,25 +75,31 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			for($i=0, $servicesArrCnt=count($servicesArr); $i < $servicesArrCnt; $i++) {
 				$service =& $servicesArr[$i];
 				// handle Hometeam
-				$dataBags = $this->getPlayerBags($matches[$j], true);
-				foreach($dataBags As $dataBag) {
-					$service->indexPlayerStats($dataBag, $matches[$j], $mnProv, true);
-				}
+				$this->indexPlayerData($matches[$j], $mnProv, true);
 				// handle Guestteam
-				$dataBags = $this->getPlayerBags($matches[$j], false);
-				foreach($dataBags As $dataBag) {
-					$service->indexPlayerStats($dataBag, $matches[$j], $matchNotes, false);
-				}
+				$this->indexPlayerData($matches[$j], $mnProv, false);
 
 //				$times[$i] = $times[$i] + t3lib_div::milliseconds() - $time;
 			}
+		}
+	}
+	/**
+	 * Indizierung der Daten und Speicherung in der DB
+	 * @param tx_cfcleague_models_Match $match
+	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+	 * @param boolean $homeTeam
+	 */
+	private function indexPlayerData($match, $mnProv, $homeTeam) {
+		$dataBags = $this->getPlayerBags($match, $homeTeam);
+		foreach($dataBags As $dataBag) {
+			$service->indexPlayerStats($dataBag, $match, $mnProv, $homeTeam);
 		}
 	}
 
 	/**
 	 * Liefert die DataBags für die Spieler eines beteiligten Teams.
 	 *
-	 * @param tx_cfcleaguefe_models_match $match
+	 * @param tx_cfcleague_models_Match $match
 	 * @param boolean $home true, wenn das Heimteam geholt werden soll
 	 * @return array[tx_t3sportstats_util_DataBag]
 	 */
@@ -110,9 +116,34 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		foreach($playerIds As $uid) {
 			$bag = tx_rnbase::makeInstance('tx_t3sportstats_util_DataBag');
 			$bag->setParentUid($uid);
+			// Hier noch die allgemeinen Daten rein!
+			$bag->setType('t3match', $match->getUid());
+			$bag->setType('player', $uid);
+			$competition = $match->getCompetition();
+			$bag->setType('saison', $competition->getSaisonUid());
+			// Altersgruppe ist zunächst die AG des Teams, danach die des Wettbewerbs
+			$team = $home ? $match->getHome() : $match->getGuest();
+			$groupUid = $this->getGroupUid($team, $competition);
+			$bag->setType('group', $groupUid);
+			$bag->setType('team', $team->getUid());
+			$bag->setType('club', $team->getClubUid());
+			$bag->setType('ishome', $home ? 1 : 0);
+
+			$team = $home ? $match->getGuest() : $match->getHome();
+			$groupUid = $this->getGroupUid($team, $competition);
+			$bag->setType('oppgroup', $groupUid);
+			$bag->setType('oppclub', $team->getClubUid());
+
 			$bags[] = $bag;
 		}
 		return $bags;
+	}
+	private function getGroupUid($team, $competition) {
+		$groupUid = $team->getGroupUid();
+		if(!$groupUid) {
+			$groupUid = $competition->getFirstGroupUid();
+		}
+		return $groupUid;
 	}
 }
 

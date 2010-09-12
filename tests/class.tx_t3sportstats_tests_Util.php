@@ -29,11 +29,19 @@ tx_rnbase::load('tx_rnbase_util_Spyc');
 
 class tx_t3sportstats_tests_Util {
 
+	public static function createCompetition($uid, $saison, $agegroup) {
+		return new tx_cfcleague_models_Competition(array('uid'=>$uid, 'saison'=>$saison, 'agegroup' => $agegroup));
+	}
 
 	public static function getMatches() {
 		$data = tx_rnbase_util_Spyc::YAMLLoad(self::getFixturePath('statistics.yaml'));
+		$comps = self::makeInstances($data['league_1'], $data['league_1']['clazz']);
+
 		$data = $data['league_1']['matches'];
 		$matches = self::makeInstances($data, $data['clazz']);
+		foreach($matches As $match) {
+			$match->setCompetition($comps[0]);
+		}
 		return $matches;
 	}
 	public static function getMatchNotes($matchIdx) {
