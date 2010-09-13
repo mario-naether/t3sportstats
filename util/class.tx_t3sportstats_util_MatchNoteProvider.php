@@ -29,7 +29,9 @@ require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
  * Data container
  */
 class tx_t3sportstats_util_MatchNoteProvider {
-	private $notes, $notesHome, $notesGuest;
+	private $notes=array();
+	private $notesHome = array();
+	private $notesGuest = array();
 
 	private function __construct($notes) {
 		$this->setMatchNotes($notes);
@@ -43,7 +45,9 @@ class tx_t3sportstats_util_MatchNoteProvider {
 		return new tx_t3sportstats_util_MatchNoteProvider($notes);
 	}
 	private function setMatchNotes($notes) {
-		$this->notes = $notes;
+		$this->notes = is_array($notes) ? $notes : array();
+		$this->notesHome = array();
+		$this->notesGuest = array();
 		foreach($notes As $note) {
 			$profile = $note->getPlayer();
 			if($note->isHome())

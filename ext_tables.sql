@@ -5,18 +5,17 @@
 #
 CREATE TABLE tx_t3sportstats_players (
 	uid int(11) NOT NULL auto_increment,
-	tstamp int(11) DEFAULT '0' NOT NULL,
-	crdate int(11) DEFAULT '0' NOT NULL,
+	crdate datetime DEFAULT '0000-00-00 00:00:00',
 
 	player int(11) DEFAULT '0' NOT NULL,
 	t3match int(11) DEFAULT '0' NOT NULL,
 	saison int(11) DEFAULT '0' NOT NULL,
 	competition int(11) DEFAULT '0' NOT NULL,
-	group int(11) DEFAULT '0' NOT NULL,
+	agegroup int(11) DEFAULT '0' NOT NULL,
 	team int(11) DEFAULT '0' NOT NULL,
 	club int(11) DEFAULT '0' NOT NULL,
 	ishome tinyint(4)  DEFAULT '0' NOT NULL,
-	groupopp int(11) DEFAULT '0' NOT NULL,
+	agegroupopp int(11) DEFAULT '0' NOT NULL,
 	clubopp int(11) DEFAULT '0' NOT NULL,
 
 
@@ -38,14 +37,15 @@ CREATE TABLE tx_t3sportstats_players (
 
 
 	PRIMARY KEY (uid),
-	KEY parent (pid)
+	KEY playmatch (player, t3match)
 );
 
 #
 # Table structure for table 'tx_t3sportstats_players'
 # Scope data for a match
 #
-CREATE TABLE tx_t3sportstats_matchdata (
+/*
+CREATE TABLE tx_t3sportstats_matchs (
 	uid int(11) NOT NULL auto_increment,
 	tstamp int(11) DEFAULT '0' NOT NULL,
 	crdate int(11) DEFAULT '0' NOT NULL,
@@ -66,4 +66,4 @@ CREATE TABLE tx_t3sportstats_matchdata (
 	PRIMARY KEY (uid),
 	KEY parent (pid)
 );
-
+*/

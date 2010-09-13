@@ -5,6 +5,8 @@ require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_t3sportstats_util_ServiceRegistry');
 tx_rnbase::load('tx_rnbase_util_SearchBase');
 
+$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['clearStatistics_hook'][] = 'EXT:' . $_EXTKEY . '/hooks/class.tx_t3sportstats_hooks_ClearStats.php:&tx_t3sportstats_hooks_ClearStats->clearStats4Comp';
+
 
 t3lib_extMgm::addService($_EXTKEY,  't3sportstats' /* sv type */,  'tx_t3sportstats_srv_Statistics' /* sv key */,
   array(

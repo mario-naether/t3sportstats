@@ -49,6 +49,14 @@ class tx_t3sportstats_util_DataBag {
 	public function getTypeValues() {
 		return $this->data;
 	}
+	function __toString() {
+		$out = "\n\nData:\n";
+		while (list($key,$val)=each($this->data))	{
+			$out .= $key. ' = ' . $val . "\n";
+		}
+		reset($this->data);
+		return $out; //t3lib_div::view_array($this->record);
+	}
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_DataBag.php']){

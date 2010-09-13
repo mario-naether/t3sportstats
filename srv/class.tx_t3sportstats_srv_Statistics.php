@@ -24,6 +24,10 @@
 
 require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
 require_once(PATH_t3lib.'class.t3lib_svbase.php');
+tx_rnbase::load('tx_rnbase_util_Logger');
+tx_rnbase::load('tx_rnbase_util_Dates');
+tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
+
 
 
 /**
@@ -38,7 +42,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 	 *
 	 * @param tx_cfcleague_models_Competition $competition
 	 */
-	public function indexPlayerStatsByCompetition($competition, $options) {
+	public function indexPlayerStatsByCompetition($competition) {
 		// Der Service lädt alle DatenServices für Spielerdaten
 		// Danach lädt er die Spiele eines Wettbewerbs
 		// Für jedes Spiel werden die Events geladen
@@ -50,7 +54,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		$builder->setStatus(2);
 		$builder->getFields($fields, $options);
 		$matches = $mSrv->search($fields, $options);
-		$this->indexPlayerStatsByMatches($matches, false);
+		$this->indexPlayerStatsByMatches($matches);
 	}
 	/**
 	 * Returns all registered services for player statistics
@@ -64,23 +68,20 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		}
 		return $ret;
 	}
-	public function indexPlayerStatsByMatches($matches, $options) {
+	public function indexPlayerStatsByMatches($matches) {
 		// Services laden
 		$servicesArr = $this->lookupPlayerServices();
+
+		tx_rnbase_util_Logger::info('Start player statistics run for ' . count($matches) . ' matches.', 't3sportstats');
 
 		// Über alle Spiele iterieren und die Spieler an die Services geben
 		for($j=0, $mc = count($matches); $j < $mc; $j++){
 			$matchNotes = tx_cfcleague_util_ServiceRegistry::getMatchService()->retrieveMatchNotes($matches[$j], true);
 			$mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($matchNotes);
-			for($i=0, $servicesArrCnt=count($servicesArr); $i < $servicesArrCnt; $i++) {
-				$service =& $servicesArr[$i];
-				// handle Hometeam
-				$this->indexPlayerData($matches[$j], $mnProv, true);
-				// handle Guestteam
-				$this->indexPlayerData($matches[$j], $mnProv, false);
-
-//				$times[$i] = $times[$i] + t3lib_div::milliseconds() - $time;
-			}
+			// handle Hometeam
+			$this->indexPlayerData($matches[$j], $mnProv, $servicesArr, true);
+			// handle Guestteam
+			$this->indexPlayerData($matches[$j], $mnProv, $servicesArr, false);
 		}
 	}
 	/**
@@ -89,13 +90,38 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
 	 * @param boolean $homeTeam
 	 */
-	private function indexPlayerData($match, $mnProv, $homeTeam) {
+	private function indexPlayerData($match, $mnProv, $servicesArr, $homeTeam) {
+		$del = $this->clearPlayerData($match);
+		tx_rnbase_util_Logger::debug('Player statistics: ' . $del . ' old records deleted.', 't3sportstats');
+		
 		$dataBags = $this->getPlayerBags($match, $homeTeam);
-		foreach($dataBags As $dataBag) {
-			$service->indexPlayerStats($dataBag, $match, $mnProv, $homeTeam);
+		for($i=0, $servicesArrCnt=count($servicesArr); $i < $servicesArrCnt; $i++) {
+			$service =& $servicesArr[$i];
+			foreach($dataBags As $dataBag) {
+				$service->indexPlayerStats($dataBag, $match, $mnProv, $homeTeam);
+			}
 		}
+		// Jetzt die Daten wegspeichern
+		$this->savePlayerData($dataBags);
+		unset($dataBags);
 	}
 
+	/**
+	 * Delete all player data in database for a match
+	 * @param tx_cfcleague_models_Match $match
+	 */
+	private function clearPlayerData($match) {
+		$where = 't3match = ' . $match->getUid();
+		return tx_rnbase_util_DB::doDelete('tx_t3sportstats_players', $where);
+	}
+	private function savePlayerData($dataBags) {
+		$now = tx_rnbase_util_Dates::datetime_tstamp2mysql(time());
+		foreach($dataBags As $dataBag) {
+			$data = $dataBag->getTypeValues();
+			$data['crdate'] = $now;
+			tx_rnbase_util_DB::doInsert('tx_t3sportstats_players', $data);
+		}
+	}
 	/**
 	 * Liefert die DataBags für die Spieler eines beteiligten Teams.
 	 *
@@ -124,15 +150,15 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			// Altersgruppe ist zunächst die AG des Teams, danach die des Wettbewerbs
 			$team = $home ? $match->getHome() : $match->getGuest();
 			$groupUid = $this->getGroupUid($team, $competition);
-			$bag->setType('group', $groupUid);
+			$bag->setType('agegroup', $groupUid);
 			$bag->setType('team', $team->getUid());
 			$bag->setType('club', $team->getClubUid());
 			$bag->setType('ishome', $home ? 1 : 0);
 
 			$team = $home ? $match->getGuest() : $match->getHome();
 			$groupUid = $this->getGroupUid($team, $competition);
-			$bag->setType('oppgroup', $groupUid);
-			$bag->setType('oppclub', $team->getClubUid());
+			$bag->setType('agegroupopp', $groupUid);
+			$bag->setType('clubopp', $team->getClubUid());
 
 			$bags[] = $bag;
 		}
