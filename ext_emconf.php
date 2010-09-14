@@ -16,7 +16,9 @@ $EM_CONF[$_EXTKEY] = array(
 	'category' => 'plugin',
 	'author' => 'Rene Nitzsche',
 	'author_email' => 'rene@system25.de',
+	'author_company' => 'System 25',
 	'shy' => '',
+	'version' => '0.1.0',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -26,12 +28,13 @@ $EM_CONF[$_EXTKEY] = array(
 	'uploadfolder' => 0,
 	'createDirs' => '',
 	'modify_tables' => '',
-	'clearCacheOnLoad' => 0,
+	'clearCacheOnLoad' => 1,
 	'lockType' => '',
-	'author_company' => 'System 25',
-	'version' => '0.0.1',
 	'constraints' => array(
 		'depends' => array(
+			'cms' => '',
+			'rn_base' => '0.9.0-0.0.0',
+			'cfc_league' => '0.7.5-0.0.0',
 		),
 		'conflicts' => array(
 		),
