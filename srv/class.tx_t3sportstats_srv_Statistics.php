@@ -73,7 +73,9 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		$servicesArr = $this->lookupPlayerServices();
 
 		tx_rnbase_util_Logger::info('Start player statistics run for ' . count($matches) . ' matches.', 't3sportstats');
-
+		$time = microtime(true);
+		$memStart = memory_get_usage();
+		
 		// Über alle Spiele iterieren und die Spieler an die Services geben
 		for($j=0, $mc = count($matches); $j < $mc; $j++){
 			$matchNotes = tx_cfcleague_util_ServiceRegistry::getMatchService()->retrieveMatchNotes($matches[$j], true);
@@ -83,6 +85,17 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			// handle Guestteam
 			$this->indexPlayerData($matches[$j], $mnProv, $servicesArr, false);
 		}
+		if(tx_rnbase_util_Logger::isInfoEnabled()) {
+			$memEnd = memory_get_usage();
+			tx_rnbase_util_Logger::info('Player statistics finished.','t3sportstats', array(
+				'Execution Time'=>(microtime(true)-$time),
+				'Matches'=>count($matches),
+				'Memory Start'=>$memStart,
+				'Memory End'=>$memEnd,
+				'Memory Consumed'=>($memEnd-$memStart),
+			));
+		}
+
 	}
 	/**
 	 * Indizierung der Daten und Speicherung in der DB
@@ -91,7 +104,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 	 * @param boolean $homeTeam
 	 */
 	private function indexPlayerData($match, $mnProv, $servicesArr, $homeTeam) {
-		$del = $this->clearPlayerData($match);
+		$del = $this->clearPlayerData($match, $homeTeam);
 		tx_rnbase_util_Logger::debug('Player statistics: ' . $del . ' old records deleted.', 't3sportstats');
 		
 		$dataBags = $this->getPlayerBags($match, $homeTeam);
@@ -110,8 +123,8 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 	 * Delete all player data in database for a match
 	 * @param tx_cfcleague_models_Match $match
 	 */
-	private function clearPlayerData($match) {
-		$where = 't3match = ' . $match->getUid();
+	private function clearPlayerData($match, $isHome) {
+		$where = 't3match = ' . $match->getUid() . ' AND ishome='.($isHome ? 1 : 0);
 		return tx_rnbase_util_DB::doDelete('tx_t3sportstats_players', $where);
 	}
 	private function savePlayerData($dataBags) {
