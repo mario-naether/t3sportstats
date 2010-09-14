@@ -153,6 +153,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		$bags = array();
 		$playerIds = t3lib_div::intExplode(',', $ids);
 		foreach($playerIds As $uid) {
+			if($uid <= 0) continue; // skip dummy records
 			$bag = tx_rnbase::makeInstance('tx_t3sportstats_util_DataBag');
 			$bag->setParentUid($uid);
 			// Hier noch die allgemeinen Daten rein!
@@ -183,6 +184,19 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			$groupUid = $competition->getFirstGroupUid();
 		}
 		return $groupUid;
+	}
+
+	/**
+	 * Search database for player stats
+	 *
+	 * @param array $fields
+	 * @param array $options
+	 * @return array of tx_a4base_models_trade
+	 */
+	public function searchPlayerStats($fields, $options) {
+		tx_rnbase::load('tx_rnbase_util_SearchBase');
+		$searcher = tx_rnbase_util_SearchBase::getInstance('tx_t3sportstats_search_PlayerStats');
+		return $searcher->search($fields, $options);
 	}
 }
 

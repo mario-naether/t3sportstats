@@ -16,5 +16,5 @@ t3lib_extMgm::addPlugin(Array('LLL:EXT:'.$_EXTKEY.'/locallang_db.php:plugin.t3sp
 # Add plugin wizard
 if (TYPO3_MODE=='BE')	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_t3sportstats_util_wizicon'] = t3lib_extMgm::extPath($_EXTKEY).'util/class.tx_t3sportstats_util_Wizicon.php';
 
-t3lib_extMgm::addStaticFile($_EXTKEY,'static/ts/', 'Ext Start');
+t3lib_extMgm::addStaticFile($_EXTKEY,'static/ts/', 'T3sportstats');
 ?>

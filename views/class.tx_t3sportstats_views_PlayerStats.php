@@ -34,35 +34,30 @@ tx_rnbase::load('tx_rnbase_util_Templates');
  */
 class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 
-  function createOutput($template, &$viewData, &$configurations, &$formatter) {
-  	// Wir holen die Daten von der Action ab
-    $data =& $viewData->offsetGet('data');
-    
-    // Das Array jetzt als Markerarray aufbereiten
-    // Durch Verwendung dieser Funktion können wir alle Daten automatisch auch per 
-    // stdWrap mit Typoscript konfigurieren!
-    // Parameter:
-    // 1. Das Array mit den Daten (immer nur Key-Value, keine verschachtelten Arrays verwenden!)
-    // 2. Typoscript-Pfad für die Formatierung. Die einzelnen Daten werden dann über ihren
-    //    Namen angesprochen: showusersummary.total.wrap = <b>|</b>
-    // 3. uninteressant
-    // 4. ein Marker-Prefix. Wenn 'BLA_' wird aus ###TOTAL### der Marker ###BLA_TOTAL###
-    // 5. Array mit Namen von Markern. Diese werden dann immer leer angelegt. (uninteressant)
-    $markerArray = $formatter->getItemMarkerArrayWrapped($data, 'showusersummary.' , 0, '',null);
-		$out = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray);
+	function createOutput($template, &$viewData, &$configurations, &$formatter) {
 
+		$items =& $viewData->offsetGet('items');
+		$listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
+		$out = '';
+		foreach($items As $type => $data) {
+			$subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
+//t3lib_div::debug($data[0], 'class.tx_t3sportstats_views_PlayerStats.php '); // TODO: remove me
+			$out .= $listBuilder->render($data,
+					$viewData, $subTemplate, 'tx_t3sportstats_marker_PlayerStats',
+					$this->getController()->getConfId().'data.', 'DATA', $formatter);
+		}
 		return $out;
-  }
+	}
 
-  /**
-   * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
-   * createOutput automatisch als $template übergeben. 
-   *
-   * @return string
-   */
-  function getMainSubpart() {
-  	return '###SHOWUSERSUMMARY###';
-  }
+	/**
+	 * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
+	 * createOutput automatisch als $template übergeben. 
+	 *
+	 * @return string
+	 */
+	function getMainSubpart() {
+		return '###PLAYERSTATS###';
+	}
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_PlayerStats.php']){

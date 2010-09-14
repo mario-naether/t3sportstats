@@ -9,8 +9,15 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="error">Error</label>
-			<label index="label_total">Members total</label>
-			<label index="label_online">Members online</label>
+			<label index="label_matches">Matches</label>
+			<label index="label_change">Change</label>
+			<label index="label_cards">Cards</label>
+			<label index="label_player">Player</label>
+			<label index="label_matchcount">Count</label>
+			<label index="label_minutes">Minutes</label>
+			<label index="label_cardyellow">Y</label>
+			<label index="label_cardyr">YR</label>
+			<label index="label_cardred">R</label>
 
 		</languageKey>
 		<languageKey index="de" type="array">

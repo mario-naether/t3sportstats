@@ -12,6 +12,8 @@
 			<label index="plugin.t3sportstats.flexform.tssetup">plugin.tx_t3sportstats.</label>
 			<label index="plugin.t3sportstats.flexform.action">View</label>
 
+			<label index="plugin.t3sportstats.flexform.action.playerstats">Player statistics</label>
+
 			<label index="service_t3sports_statistics_title">Statistics service</label>
 
 		</languageKey>
