@@ -53,7 +53,7 @@ tx_rnbase::load('tx_t3sportstats_util_Config');
 
 tx_t3sportstats_util_Config::registerSimpleStatistics('goals', '10,11,12');
 tx_t3sportstats_util_Config::registerSimpleStatistics('assists', '31');
-tx_t3sportstats_util_Config::registerSimpleStatistics('goalsheader', '11');
+tx_t3sportstats_util_Config::registerSimpleStatistics('goalshead', '11');
 tx_t3sportstats_util_Config::registerSimpleStatistics('goalspenalty', '12');
 tx_t3sportstats_util_Config::registerSimpleStatistics('goalsown', '30');
 tx_t3sportstats_util_Config::registerSimpleStatistics('cardyellow', '70');

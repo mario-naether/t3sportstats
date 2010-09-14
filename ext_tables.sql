@@ -32,6 +32,7 @@ CREATE TABLE tx_t3sportstats_players (
 	goalsfreekick int(11) DEFAULT '0' NOT NULL,
 	goalspenalty int(11) DEFAULT '0' NOT NULL,
 	goalsjoker int(11) DEFAULT '0' NOT NULL,
+	goalsown int(11) DEFAULT '0' NOT NULL,
 	changein int(11) DEFAULT '0' NOT NULL,
 	changeout int(11) DEFAULT '0' NOT NULL,
 
