@@ -49,7 +49,7 @@ class tx_t3sportstats_srv_PlayerGoalStats extends t3lib_svbase {
 		$profId = $dataBag->getParentUid();
 		$notes = $mnProv->getMatchNotes4Profile($profId);
 		$startPlayer = $this->isStartPlayer($profId, $match, $isHome);
-		$statTypes = tx_t3sportstats_util_Config::getSimpleStatistics();
+		$statTypes = tx_t3sportstats_util_Config::getPlayerStatsSimple();
 		$goalTypes = $statTypes['goals']['types'];
 		$homeAwayType = $isHome ? 'goalshome' : 'goalsaway';
 		foreach($notes As $note) {

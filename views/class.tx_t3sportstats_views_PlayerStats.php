@@ -41,10 +41,9 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 		$out = '';
 		foreach($items As $type => $data) {
 			$subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
-//t3lib_div::debug($data[0], 'class.tx_t3sportstats_views_PlayerStats.php '); // TODO: remove me
 			$out .= $listBuilder->render($data,
 					$viewData, $subTemplate, 'tx_t3sportstats_marker_PlayerStats',
-					$this->getController()->getConfId().'data.', 'DATA', $formatter);
+					$this->getController()->getConfId().$type.'.data.', 'DATA', $formatter);
 		}
 		return $out;
 	}

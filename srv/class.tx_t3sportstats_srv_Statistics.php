@@ -160,6 +160,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			$bag->setType('t3match', $match->getUid());
 			$bag->setType('player', $uid);
 			$competition = $match->getCompetition();
+			$bag->setType('competition', $competition->getUid());
 			$bag->setType('saison', $competition->getSaisonUid());
 			// Altersgruppe ist zunächst die AG des Teams, danach die des Wettbewerbs
 			$team = $home ? $match->getHome() : $match->getGuest();

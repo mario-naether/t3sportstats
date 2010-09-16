@@ -67,6 +67,7 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 		}
 		if($isEndPlayer) {
 			$time = 90 - $startMin + $time;
+			$time = $time ? $time : 1; // Give the player at least 1 minute.
 		}
 		$dataBag->addType('playtime', $time);
 	}

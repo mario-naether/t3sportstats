@@ -11,6 +11,7 @@
 
 
 ###DEFAULT###
+###DATAS###
 <table class="cfcleague-statistic-table">
 <tr>
   <th>&nbsp;</th>
@@ -30,14 +31,13 @@
   <th>###LABEL_CARDRED###</th>
   <th>###LABEL_GOALS###</th>
   <th>###LABEL_ASSISTS###</th>
-  <th>###LABEL_GOALS_OWN###</th>
-  <th>###LABEL_CHANGE_IN###</th>
-  <th>###LABEL_CHANGE_OUT###</th>
+  <th>###LABEL_GOALSOWN###</th>
+  <th>###LABEL_CHANGEIN###</th>
+  <th>###LABEL_CHANGEOUT###</th>
 </tr>
-###DATAS###
 ###DATA###
-<tr>
-  <td class="cfcleague-statistic-label">###DATA_PLAYER_LAST_NAME###, ###DATA_PLAYER_FIRST_NAME###</td>
+<tr class="cfcleague-matchtable-row###DATA_ROLL###">
+  <td class="cfcleague-statistic-label">###DATA_PLAYER_DCNAMEREV###</td>
   <td class="cfcleague-statistic-value-r">###DATA_PLAYED###</td>
   <td class="cfcleague-statistic-value-r">###DATA_PLAYTIME###</td>
   <td class="cfcleague-statistic-value-r">###DATA_CARDYELLOW###</td>
@@ -51,17 +51,112 @@
 
 </tr>
 ###DATA###
-###DATAS###
 </table>
+
+<!-- ###PAGEBROWSER### START -->
+<div class="t3sports-pagebrowser">
+###PAGEBROWSER_CURRENT_PAGE### Seite ###PAGEBROWSER_CURRENT_PAGE_NUMBER### ###PAGEBROWSER_CURRENT_PAGE###
+###PAGEBROWSER_NORMAL_PAGE### 
+###PAGEBROWSER_NORMAL_PAGE_LINK###Seite ###PAGEBROWSER_NORMAL_PAGE_NUMBER### ###PAGEBROWSER_NORMAL_PAGE_LINK###
+###PAGEBROWSER_NORMAL_PAGE###
+###PAGEBROWSER_PREV_PAGE###&nbsp;###PAGEBROWSER_PREV_PAGE_LINK###<###PAGEBROWSER_PREV_PAGE_LINK###&nbsp;###PAGEBROWSER_PREV_PAGE###
+###PAGEBROWSER_NEXT_PAGE###&nbsp;###PAGEBROWSER_NEXT_PAGE_LINK###>###PAGEBROWSER_NEXT_PAGE_LINK###&nbsp;###PAGEBROWSER_NEXT_PAGE###
+###PAGEBROWSER_FIRST_PAGE### ###PAGEBROWSER_FIRST_PAGE_LINK### |< ###PAGEBROWSER_FIRST_PAGE_LINK### ###PAGEBROWSER_FIRST_PAGE###
+###PAGEBROWSER_LAST_PAGE### ###PAGEBROWSER_LAST_PAGE_LINK### >| ###PAGEBROWSER_LAST_PAGE_LINK### ###PAGEBROWSER_LAST_PAGE###
+</div>
+<!-- ###PAGEBROWSER### END -->
+
+###DATAS###
 ###DEFAULT###
 
 
-###SCORER###
-Scorer
-###SCORER###
+
+
+
+###SCORERLIST###
+<h2>###LABEL_HEADLINE_SCORERLIST###</h2>
+
+###DATAS###
+<table class="cfcleague-statistic-table">
+<tr>
+  <th>###LABEL_PLAYER###</th>
+  <th class="center">###LABEL_GOALS### (###LABEL_PER_MATCH###)</th>
+  <th class="center">###LABEL_MINUTES_PER_GOAL###</th>
+  <th>###LABEL_HOME###</th>
+  <th>###LABEL_AWAY###</th>
+  <th>###LABEL_HEAD### (###LABEL_PER_MATCH###)</th>
+  <th>###LABEL_PENALTY###</th>
+  <th>###LABEL_JOKER###</th>
+</tr>
+
+###DATA###
+<tr class="cfcleague-matchtable-row###DATA_ROLL###">
+  <td class="cfcleague-statistic-label">###DATA_PLAYER_DCNAMEREV###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_GOALS### ###DATA_GOALS_PER_MATCH###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_GOALS_AFTER_MINUTES###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_GOALSHOME###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_GOALSAWAY###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_GOALSHEAD### ###DATA_GOALSHEAD_PER_MATCH###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_GOALSPENALTY###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_GOALSJOKER###</td>
+</tr>
+###DATA###
+</table>
+<!-- ###PAGEBROWSER### START -->
+<div class="t3sports-pagebrowser">
+###PAGEBROWSER_CURRENT_PAGE### Seite ###PAGEBROWSER_CURRENT_PAGE_NUMBER### ###PAGEBROWSER_CURRENT_PAGE###
+###PAGEBROWSER_NORMAL_PAGE### 
+###PAGEBROWSER_NORMAL_PAGE_LINK###Seite ###PAGEBROWSER_NORMAL_PAGE_NUMBER### ###PAGEBROWSER_NORMAL_PAGE_LINK###
+###PAGEBROWSER_NORMAL_PAGE###
+###PAGEBROWSER_PREV_PAGE###&nbsp;###PAGEBROWSER_PREV_PAGE_LINK###<###PAGEBROWSER_PREV_PAGE_LINK###&nbsp;###PAGEBROWSER_PREV_PAGE###
+###PAGEBROWSER_NEXT_PAGE###&nbsp;###PAGEBROWSER_NEXT_PAGE_LINK###>###PAGEBROWSER_NEXT_PAGE_LINK###&nbsp;###PAGEBROWSER_NEXT_PAGE###
+###PAGEBROWSER_FIRST_PAGE### ###PAGEBROWSER_FIRST_PAGE_LINK### |< ###PAGEBROWSER_FIRST_PAGE_LINK### ###PAGEBROWSER_FIRST_PAGE###
+###PAGEBROWSER_LAST_PAGE### ###PAGEBROWSER_LAST_PAGE_LINK### >| ###PAGEBROWSER_LAST_PAGE_LINK### ###PAGEBROWSER_LAST_PAGE###
+</div>
+<!-- ###PAGEBROWSER### END -->
+
+###DATAS###
+###SCORERLIST###
+
+
+
+###ASSISTLIST###
+<h2>###LABEL_HEADLINE_ASSISTLIST###</h2>
+###DATAS###
+<table class="cfcleague-statistic-table">
+<tr>
+  <th>###LABEL_PLAYER###</th>
+  <th>###LABEL_MATCHES###</th>
+  <th class="center">###LABEL_ASSISTS### (###LABEL_PER_MATCH###)</th>
+</tr>
+
+###DATA###
+<tr class="cfcleague-matchtable-row###DATA_ROLL###">
+  <td class="cfcleague-statistic-label">###DATA_PLAYER_DCNAMEREV###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_PLAYED###</td>
+  <td class="cfcleague-statistic-value-r">###DATA_ASSISTS### ###DATA_ASSISTS_PER_MATCH###</td>
+</tr>
+###DATA###
+</table>
+<!-- ###PAGEBROWSER### START -->
+<div class="t3sports-pagebrowser">
+###PAGEBROWSER_CURRENT_PAGE### Seite ###PAGEBROWSER_CURRENT_PAGE_NUMBER### ###PAGEBROWSER_CURRENT_PAGE###
+###PAGEBROWSER_NORMAL_PAGE### 
+###PAGEBROWSER_NORMAL_PAGE_LINK###Seite ###PAGEBROWSER_NORMAL_PAGE_NUMBER### ###PAGEBROWSER_NORMAL_PAGE_LINK###
+###PAGEBROWSER_NORMAL_PAGE###
+###PAGEBROWSER_PREV_PAGE###&nbsp;###PAGEBROWSER_PREV_PAGE_LINK###<###PAGEBROWSER_PREV_PAGE_LINK###&nbsp;###PAGEBROWSER_PREV_PAGE###
+###PAGEBROWSER_NEXT_PAGE###&nbsp;###PAGEBROWSER_NEXT_PAGE_LINK###>###PAGEBROWSER_NEXT_PAGE_LINK###&nbsp;###PAGEBROWSER_NEXT_PAGE###
+###PAGEBROWSER_FIRST_PAGE### ###PAGEBROWSER_FIRST_PAGE_LINK### |< ###PAGEBROWSER_FIRST_PAGE_LINK### ###PAGEBROWSER_FIRST_PAGE###
+###PAGEBROWSER_LAST_PAGE### ###PAGEBROWSER_LAST_PAGE_LINK### >| ###PAGEBROWSER_LAST_PAGE_LINK### ###PAGEBROWSER_LAST_PAGE###
+</div>
+<!-- ###PAGEBROWSER### END -->
+
+###DATAS###
+
+###ASSISTLIST###
+
 
 ###PLAYERSTATS###
-
 
 </body>
 </html>

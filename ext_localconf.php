@@ -49,18 +49,26 @@ t3lib_extMgm::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3
   )
 );
 
+// Register a new matchnote type
+tx_rnbase::load('tx_cfcleague_util_Misc');
+tx_cfcleague_util_Misc::registerMatchNote('LLL:EXT:t3sportstats/locallang_db.xml:tx_cfcleague_match_notes.type.goalfreekick', '13');
+
 tx_rnbase::load('tx_t3sportstats_util_Config');
 
-tx_t3sportstats_util_Config::registerSimpleStatistics('goals', '10,11,12');
-tx_t3sportstats_util_Config::registerSimpleStatistics('assists', '31');
-tx_t3sportstats_util_Config::registerSimpleStatistics('goalshead', '11');
-tx_t3sportstats_util_Config::registerSimpleStatistics('goalspenalty', '12');
-tx_t3sportstats_util_Config::registerSimpleStatistics('goalsown', '30');
-tx_t3sportstats_util_Config::registerSimpleStatistics('cardyellow', '70');
-tx_t3sportstats_util_Config::registerSimpleStatistics('cardyr', '71');
-tx_t3sportstats_util_Config::registerSimpleStatistics('cardred', '72');
-tx_t3sportstats_util_Config::registerSimpleStatistics('changeout', '80');
-tx_t3sportstats_util_Config::registerSimpleStatistics('changein', '81');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('goals', '10,11,12,13');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('assists', '31');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('goalshead', '11');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('goalspenalty', '12');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('goalsown', '30');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardyellow', '70');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardyr', '71');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardred', '72');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('changeout', '80');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('changein', '81');
+
+tx_t3sportstats_util_Config::registerPlayerStatsReport('default');
+tx_t3sportstats_util_Config::registerPlayerStatsReport('scorerlist');
+tx_t3sportstats_util_Config::registerPlayerStatsReport('assistlist');
 
 /*
 $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['matchnotetypes'] = array(

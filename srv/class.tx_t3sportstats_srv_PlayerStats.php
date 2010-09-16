@@ -57,8 +57,7 @@ class tx_t3sportstats_srv_PlayerStats extends t3lib_svbase {
 
 		if(!$notes || count($notes) == 0) return;
 		$data = array();
-		$statTypes = tx_t3sportstats_util_Config::getSimpleStatistics();
-
+		$statTypes = tx_t3sportstats_util_Config::getPlayerStatsSimple();
 		foreach($notes As $note) {
 			foreach($statTypes As $type => $info) {
 				// Entspricht die Note dem Type in der Info

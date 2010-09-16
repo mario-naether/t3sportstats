@@ -11,14 +11,23 @@
 			<label index="plugin.t3sportstats.flexform.tab.TSSetup">TS-Setup</label>
 			<label index="plugin.t3sportstats.flexform.tssetup">plugin.tx_t3sportstats.</label>
 			<label index="plugin.t3sportstats.flexform.action">View</label>
+			<label index="plugin.t3sportstats.flexform.reporttype">Report Type</label>
 
 			<label index="plugin.t3sportstats.flexform.action.playerstats">Player statistics</label>
 
 			<label index="service_t3sports_statistics_title">Statistics service</label>
 
+			<label index="tx_cfcleague_match_notes.type.goalfreekick">Free kick goal</label>
+
+			<label index="plugin.t3sportstats.common.template">Html-Template</label>
+			<label index="plugin.t3sportstats.common.sqldebug">Debug SQL</label>
+
 		</languageKey>
 		<languageKey index="de" type="array">
-
+			<label index="plugin.t3sportstats.flexform.reporttype">Auswertung</label>
+			<label index="plugin.t3sportstats.flexform.action.playerstats">Spielerstatistik</label>
+			<label index="service_t3sports_statistics_title">Statistik Service</label>
+			<label index="tx_cfcleague_match_notes.type.goalfreekick">Freistoßtor</label>
 		</languageKey>
 	</data>
 </T3locallang>

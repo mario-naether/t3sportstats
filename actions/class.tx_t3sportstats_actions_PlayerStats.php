@@ -55,7 +55,6 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC {
 		foreach ($types as $type) {
 			$statsData[$type] = $this->findData($parameters, $configurations, $viewData, $type);
 		}
-		
 		$viewData->offsetSet('items', $statsData);
 		return null;
 	}
@@ -68,8 +67,11 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC {
 		$fields = array();
 		$options = array('enablefieldsoff' => 1);
 		$filter->init($fields, $options);
+		$debug = $configurations->get($this->getConfId().'options.debug');
+		if($debug)
+			$options['debug'] = 1;
 
-		tx_rnbase_filter_BaseFilter::handlePageBrowser($configurations, 
+		self::handlePageBrowser($configurations, 
 			$confId.'data.pagebrowser', $viewData, $fields, $options, array(
 			'searchcallback'=> array($srv, 'searchPlayerStats'),
 			'pbid' => $type.'ps',
@@ -79,6 +81,45 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC {
 		$items = $srv->searchPlayerStats($fields, $options);
 		return $items;
 	}
+	/**
+	 * Pagebrowser vorbereiten. Für die Statistik benötigen wir eine spezielle Anfrage zu Ermittlung der Listenlänge
+	 *
+	 * @param string $confid Die Confid des PageBrowsers. z.B. myview.org.pagebrowser ohne Punkt!
+	 * @param tx_rnbase_configurations $configurations
+	 * @param array_object $viewdata
+	 * @param array $fields
+	 * @param array $options
+   */
+	private static function handlePageBrowser(&$configurations, $confid, &$viewdata, &$fields, &$options, $cfg = array()) {
+		$confid .= '.';
+		if(is_array($configurations->get($confid))) {
+			// Die Gesamtzahl der Items ist entweder im Limit gesetzt oder muss ermittelt werden
+			$listSize = intval($options['limit']);
+			if(!$listSize) {
+				// Mit Pagebrowser benötigen wir zwei Zugriffe, um die Gesamtanzahl der Items zu ermitteln
+				$options['count']= 1;
+				$oldWhat = $options['what'];
+				$options['what'] = 'count(DISTINCT player) AS cnt';
+				$searchCallback=$cfg['searchcallback'];
+				if(!$searchCallback) throw new Exception('No search callback defined!');
+				$listSize = call_user_func($searchCallback, $fields, $options);
+				//$listSize = $service->search($fields, $options);
+				unset($options['count']);
+				$options['what'] = $oldWhat;
+			}
+			// PageBrowser initialisieren
+			$pbId = $cfg['pbid'] ? $cfg['pbid'] : 'pb';
+			$pageBrowser = tx_rnbase::makeInstance('tx_rnbase_util_PageBrowser', $pbId);
+	  	$pageSize = intval($configurations->get($confid.'limit'));
+
+	  	$pageBrowser->setState($configurations->getParameters(), $listSize, $pageSize);
+			$limit = $pageBrowser->getState();
+			$options = array_merge($options, $limit);
+			if($viewdata)
+				$viewdata->offsetSet('pagebrowser', $pageBrowser);
+		}
+	}
+
 	function getTemplateName() { return 'playerstats';}
 	function getViewClassName() { return 'tx_t3sportstats_views_PlayerStats';}
 }

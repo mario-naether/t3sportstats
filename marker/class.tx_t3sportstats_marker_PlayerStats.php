@@ -48,14 +48,13 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 		}
 //$time = t3lib_div::milliseconds();
 
-		$this->prepareFields($item);
+		$this->prepareFields($item, $template, $marker);
 		tx_rnbase_util_Misc::callHook('t3sportstats','playerStatsMarker_initRecord', 
 			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 
-		// Das Markerarray wird mit den Spieldaten und den Teamdaten gefüllt
+		// Das Markerarray wird gefüllt
 		$ignore = self::findUnusedCols($item->record, $template, $marker);
 		$markerArray = $formatter->getItemMarkerArrayWrapped($item->record, $confId, $ignore, $marker.'_');
-
 		$wrappedSubpartArray = array();
 		$subpartArray = array();
 
@@ -72,7 +71,7 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 	}
 
 	/**
-	 * Bindet die Arena ein
+	 * Bindet den Spieler ein
 	 *
 	 * @param string $template
 	 * @param tx_t3sportstats_models_PlayerStat $item
@@ -99,9 +98,23 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 	 * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber 
 	 * Karte diese z.B. neben seinem Namen angezeigt bekommt.
 	 *
-	 * @param tx_cfcleaguefe_models_match $match
+	 * @param tx_t3sportstats_models_PlayerStat $item
 	 */
-	private function prepareFields(&$match) {
+	private function prepareFields($item, $template, $markerPrefix) {
+		$perMatch = array();
+		foreach($item->record As $key => $value) {
+			if(self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_PER_MATCH')) {
+				$perMatch[$key.'_per_match'] = intval($item->record['played']) ? 
+						intval($item->record[$key]) / intval($item->record['played']) : 0;
+			}
+			if(self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_AFTER_MINUTES')) {
+				$perMatch[$key.'_after_minutes'] = (intval($item->record[$key])) ? 
+					 intval($item->record['playtime']) / intval($item->record[$key]) : 0;
+				
+			}
+		}
+		$item->record = array_merge($item->record, $perMatch);
+		
 	}
 
 	/**

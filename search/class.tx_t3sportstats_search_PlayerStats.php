@@ -63,7 +63,7 @@ class tx_t3sportstats_search_PlayerStats extends tx_rnbase_util_SearchBase {
 			$join .= ' JOIN tx_cfcleague_games AS MATCH ON PLAYERSTAT.t3match = MATCH.uid ';
 		}
 		if(isset($tableAliases['PLAYER'])) {
-			$join .= ' JOIN tx_cfcleague_profiles AS PLAYER ON PLAYERSTAT.t3match = PLAYER.uid ';
+			$join .= ' JOIN tx_cfcleague_profiles AS PLAYER ON PLAYERSTAT.player = PLAYER.uid ';
 		}
 		if(isset($tableAliases['COMPETITION'])) {
 			$join .= ' JOIN tx_cfcleague_competition AS COMPETITION ON COMPETITION.uid = PLAYERSTAT.competition ';

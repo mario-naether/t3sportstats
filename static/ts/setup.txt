@@ -6,12 +6,44 @@ plugin.tx_t3sportstats                = USER_INT
 plugin.tx_t3sportstats.flexform       = flexform_main.xml
 plugin.tx_t3sportstats.userFunc       = tx_rnbase_controller->main
 plugin.tx_t3sportstats.defaultAction  = tx_t3sportstats_actions_PlayerStats
-plugin.tx_t3sportstats.qualifier      = t3sportstats
+plugin.tx_t3sportstats.qualifier      = cfc_league_fe
 plugin.tx_t3sportstats.templatePath   = EXT:t3sportstats/templates
 plugin.tx_t3sportstats.locallangFilename = EXT:t3sportstats/locallang.xml
 
 
 tt_content.list.20.tx_t3sportstats    =< plugin.tx_t3sportstats
+
+lib.t3sports.statsData {
+  pagebrowser =< lib.t3sports.pagebrowser
+  roll.value = 1
+
+  player =< lib.t3sports.profile
+  goals.ifEmpty = -
+  goals_per_match {
+    wrap = (|)
+  	number_format.decimal = 2
+    # Auch an ganze Zahlen Nachkommastellen anfügen
+    number_format.dontCheckFloat = 1
+    ifEmpty = -
+  }
+  goals_after_minutes.number_format.decimal = 0
+  goals_after_minutes.number_format.dontCheckFloat = 1
+  goalshome.ifEmpty = -
+  goalsaway.ifEmpty = -
+  goalsown.ifEmpty = -
+  goalshead.ifEmpty = -
+  goalshead_per_match =< lib.t3sports.statsData.goals_per_match
+  goalspenalty.ifEmpty = -
+  goalsjoker.ifEmpty = -
+  goalsfreekick.ifEmpty = -
+  assists.ifEmpty = -
+  assists_per_match =< lib.t3sports.statsData.goals_per_match
+  cardyellow.ifEmpty = -
+  cardyr.ifEmpty = -
+  cardred.ifEmpty = -
+  changein.ifEmpty = -
+  changeout.ifEmpty = -
+}
 
 # Ab hier Konfiguration der einzelnen Views 
 plugin.tx_t3sportstats {
@@ -25,19 +57,24 @@ plugin.tx_t3sportstats {
     	options.forcewrapper = 1
     	options.groupby = PLAYERSTAT.player
     	options.orderby.PLAYER.LAST_NAME = asc
-    	columns = played,cardyellow,cardyr,cardred,playtime,goals,assists,goalshome,goalsaway,goalshead,goalsown,goalspenalty,goalsfreekick,changein,changeout
+    	columns = played,cardyellow,cardyr,cardred,playtime,goals,assists,goalshome,goalsaway,goalshead,goalsjoker,goalsown,goalspenalty,goalsfreekick,changein,changeout
+      data =< lib.t3sports.statsData
     }
     scorerlist < .default
     scorerlist {
-    	filter = tx_t3sportstats_filter_PlayerStats
-    	options.orderby >
-    	options.orderby.CUSTOM = goals desc
+      filter = tx_t3sportstats_filter_PlayerStats
+      fields.PLAYERSTAT.GOALS.OP_GT_INT = 0
+      options.orderby >
+      options.orderby.CUSTOM = goals desc
+      data =< lib.t3sports.statsData
     }
     assistlist < .default
     assistlist {
     	filter = tx_t3sportstats_filter_PlayerStats
+      fields.PLAYERSTAT.ASSISTS.OP_GT_INT = 0
     	options.orderby >
-    	options.orderby.CUSTOM = goals desc
+    	options.orderby.CUSTOM = assists desc
+      data =< lib.t3sports.statsData
     }
   }
 }
