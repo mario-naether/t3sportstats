@@ -50,7 +50,7 @@
 			<label index="label_changein">Ein</label>
 			<label index="label_changeout">Aus</label>
 			<label index="label_assists">Assists</label>
-			<label index="label_goals">Tote</label>
+			<label index="label_goals">Tore</label>
 			<label index="label_goalsown">ET</label>
 			<label index="label_home">Heim</label>
 			<label index="label_away">Ausw</label>
