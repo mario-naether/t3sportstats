@@ -22,7 +22,7 @@
  ***************************************************************/
 
 require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
+tx_rnbase::load('tx_rnbase_filter_BaseFilter');
 
 /**
  * Extend marker classes
@@ -38,7 +38,46 @@ class tx_t3sportstats_hooks_Marker {
 	 */
 	public function parseProfile($params, $parent) {
 //t3lib_div::debug($params, 'class.tx_t3sportstats_hooks_Marker.php'); // TODO: remove me
+		// Wir benötigen mehrere Statistiken pro Person
+		// Diese müssen per TS konfiguriert werden
+		// stats.liga.fields..
+		// Marker: ###PROFILE_STATS_LIGA###
+		$config = $params['conf'];
+		$confId = $params['confId'].'stats.';
+		$profile = $params['item'];
+		$template = $params['template'];
+		$markerPrefix = $params['marker'];
+		
+		$marker = tx_rnbase::makeInstance('tx_t3sportstats_marker_PlayerStats');
+		$subpartArray = array();
+		$statKeys = $config->getKeyNames($confId);
+		foreach($statKeys As $statKey) {
+			// Die Daten holen
+			$subpartMarker = $markerPrefix.'_STATS_'.strtoupper($statKey);
 
+			$subpart = tx_rnbase_util_Templates::getSubpart($template, '###'.$subpartMarker.'###');
+			if(!$subpart) continue;
+			$items = $this->findData($profile, $config, $confId, $statKey);
+			// Wir sollten nur einen Datensatz haben und können diesen jetzt ausgeben
+			$subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId, $subpartMarker);
+		}
+
+		$params['template'] = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArray);
+	}
+
+	private function findData($profile, $configurations, $confId, $type) {
+		$srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+		$confId = $confId.$type.'.';
+		$filter = tx_rnbase_filter_BaseFilter::createFilter(new ArrayObject(), $configurations, new ArrayObject(), $confId);
+
+		$fields = array();
+		$fields['PLAYERSTAT.PLAYER'][OP_EQ_INT] = $profile->getUid();
+		$options = array('enablefieldsoff' => 1);
+//		$options['debug'] = 1;
+		$filter->init($fields, $options);
+
+		$items = $srv->searchPlayerStats($fields, $options);
+		return $items;
 	}
 }
 

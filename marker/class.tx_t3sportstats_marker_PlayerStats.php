@@ -63,7 +63,7 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 
 		if($this->containsMarker($template, $marker.'_PLAYER_'))
 			$template = $this->_addPlayer($template, $item, $formatter, $confId.'player.', $marker.'_PLAYER');
-		
+
 		$template = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
 		tx_rnbase_util_Misc::callHook('t3sportstats','playerStatsMarker_afterSubst', 
 			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);

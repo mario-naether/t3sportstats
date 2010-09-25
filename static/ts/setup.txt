@@ -79,3 +79,15 @@ plugin.tx_t3sportstats {
   }
 }
 
+# Register freekick goal
+lib.t3sports.matchreport.tickerType.cObject.13 < lib.t3sports.matchreport.tickerType.cObject.10
+
+
+plugin.tx_cfcleaguefe_report {
+  profileview.profile.stats {
+    # Define a new statistics
+    league =< plugin.tx_t3sportstats.playerstats.default
+    league {
+    }
+  }
+}
