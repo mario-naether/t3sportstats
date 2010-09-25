@@ -63,7 +63,7 @@ plugin.tx_t3sportstats {
     scorerlist < .default
     scorerlist {
       filter = tx_t3sportstats_filter_PlayerStats
-      fields.PLAYERSTAT.GOALS.OP_GT_INT = 0
+#      fields.PLAYERSTAT.GOALS.OP_GT_INT = 0
       options.orderby >
       options.orderby.CUSTOM = goals desc
       data =< lib.t3sports.statsData
@@ -71,7 +71,7 @@ plugin.tx_t3sportstats {
     assistlist < .default
     assistlist {
     	filter = tx_t3sportstats_filter_PlayerStats
-      fields.PLAYERSTAT.ASSISTS.OP_GT_INT = 0
+#      fields.PLAYERSTAT.ASSISTS.OP_GT_INT = 0
     	options.orderby >
     	options.orderby.CUSTOM = assists desc
       data =< lib.t3sports.statsData
