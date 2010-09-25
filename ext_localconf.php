@@ -11,6 +11,8 @@ $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league']['clearStatistics_hook'][] 
 $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['search_Match_getTableMapping_hook'][] = 'EXT:' . $_EXTKEY . '/hooks/class.tx_t3sportstats_hooks_Search.php:&tx_t3sportstats_hooks_Search->getTableMappingMatch';
 $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['search_Match_getJoins_hook'][] = 'EXT:' . $_EXTKEY . '/hooks/class.tx_t3sportstats_hooks_Search.php:&tx_t3sportstats_hooks_Search->getJoinsMatch';
 
+// Hook for profile marker
+$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['profileMarker_afterSubst'][] = 'EXT:' . $_EXTKEY . '/hooks/class.tx_t3sportstats_hooks_Marker.php:&tx_t3sportstats_hooks_Marker->parseProfile';
 
 t3lib_extMgm::addService($_EXTKEY,  't3sportstats' /* sv type */,  'tx_t3sportstats_srv_Statistics' /* sv key */,
   array(
