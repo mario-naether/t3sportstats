@@ -88,6 +88,10 @@ plugin.tx_cfcleaguefe_report {
     # Define a new statistics
     league =< plugin.tx_t3sportstats.playerstats.default
     league {
+      # Use matches from leagues only
+      fields.COMPETITION.TYPE.OP_EQ_INT = 1
+      # Use obligate matches only
+      fields.COMPETITION.OBLIGATION.OP_EQ_INT = 1
     }
   }
 }
