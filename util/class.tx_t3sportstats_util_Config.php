@@ -61,7 +61,7 @@ class tx_t3sportstats_util_Config {
 	public static function registerPlayerStatsSimple($column, $types) {
 		$column = strtolower($column);
 		if(!is_array($GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats']))
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['simpleStats'] = array();
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'] = array();
 
 		if(!array_key_exists($column, $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'])) {
 			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'][$column] = array(
