@@ -33,7 +33,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'cms' => '',
-			'rn_base' => '0.9.1-0.0.0',
+			'rn_base' => '0.9.3-0.0.0',
 			'cfc_league' => '0.7.6-0.0.0',
 			'cfc_league_fe' => '0.7.6-0.0.0',
 		),

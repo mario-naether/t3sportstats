@@ -66,6 +66,7 @@ plugin.tx_t3sportstats {
 #      fields.PLAYERSTAT.GOALS.OP_GT_INT = 0
       options.orderby >
       options.orderby.CUSTOM = goals desc
+    	options.having = sum(goals) > 0
       data =< lib.t3sports.statsData
     }
     assistlist < .default
@@ -74,6 +75,7 @@ plugin.tx_t3sportstats {
 #      fields.PLAYERSTAT.ASSISTS.OP_GT_INT = 0
     	options.orderby >
     	options.orderby.CUSTOM = assists desc
+    	options.having = sum(assists) > 0
       data =< lib.t3sports.statsData
     }
   }
