@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v0.2.2 (26.09.2010)
+ * util_Config: Avoid warning for missing array.
+
 v0.2.1 (26.09.2010)
  * Profile marker extended to display statistics for a single player
  * Hook to integrate player stats in match search
