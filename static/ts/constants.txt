@@ -1,1 +1,9 @@
 #contants
+
+plugin.tx_t3sportstats {
+  # cat=T3sportstats (Templates)/playerstats; type=string;label=HTML Template for player statistics
+  playerstatsTemplate = EXT:t3sportstats/templates/playerstats.html
+
+  # cat=T3sportstats (pages)/statsMatchtablePage; type=int+;label=PID of page for match tables for statistics
+  statsmatchtablepage = 0
+}

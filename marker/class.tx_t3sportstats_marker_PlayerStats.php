@@ -120,14 +120,29 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 	/**
 	 * Links vorbereiten
 	 *
-	 * @param tx_cfcleaguefe_models_match $match
+	 * @param tx_t3sportstats_models_PlayerStat $item
 	 * @param string $marker
 	 * @param array $markerArray
 	 * @param array $wrappedSubpartArray
 	 * @param string $confId
 	 * @param tx_rnbase_util_FormatUtil $formatter
 	 */
-	private function prepareLinks(&$match, $marker, &$markerArray, &$subpartArray, &$wrappedSubpartArray, $confId, &$formatter, $template) {
+	private function prepareLinks($item, $marker, &$markerArray, &$subpartArray, &$wrappedSubpartArray, $confId, &$formatter, $template) {
+		// Verlinkung auf Spielplan mit den Spielen der aktuellen Auswertung
+		$linkNames = $formatter->getConfigurations()->getKeyNames($confId.'links.');
+		foreach($linkNames As $linkId) {
+			if($item->record[$linkId]) {
+				// Link nur bei Wert größer 0 ausführen, damit keine leere Liste verlinkt wird.
+				$params = array('statskey' => $linkId, 'player'=>$item->record['player']);
+				$this->initLink($markerArray, $subpartArray, $wrappedSubpartArray, $formatter, $confId, $linkId, $marker, $params, $template);
+			}
+			else {
+				$linkMarker = $marker . '_' . strtoupper($linkId).'LINK';
+				$remove = intval($formatter->configurations->get($confId.'links.'.$linkId.'.removeIfDisabled'));
+				$this->disableLink($markerArray, $subpartArray, $wrappedSubpartArray, $linkMarker, $remove > 0);
+			}
+		}
+
 	}
 }
 

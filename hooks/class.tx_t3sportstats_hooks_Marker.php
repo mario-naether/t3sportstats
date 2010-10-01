@@ -59,7 +59,7 @@ class tx_t3sportstats_hooks_Marker {
 			if(!$subpart) continue;
 			$items = $this->findData($profile, $config, $confId, $statKey);
 			// Wir sollten nur einen Datensatz haben und können diesen jetzt ausgeben
-			$subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId, $subpartMarker);
+			$subpartArray['###'.$subpartMarker.'###'] = $marker->parseTemplate($subpart, $items[0], $config->getFormatter(), $confId.$statKey.'.', $subpartMarker);
 		}
 
 		$params['template'] = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, array(), $subpartArray);

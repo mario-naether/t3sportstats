@@ -2,6 +2,9 @@
 Changelog
 ----------
 
+v0.2.3 (??.09.2010)
+ * Link statsdata to matchtable to show all matches used for a given data value
+
 v0.2.2 (26.09.2010)
  * util_Config: Avoid warning for missing array.
 
