@@ -33,11 +33,18 @@ tx_rnbase::load('tx_rnbase_util_Templates');
  * Viewklasse für die Darstellung von Nutzerinformationen aus der DB
  */
 class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
+	private $playerIds = array();
 
 	function createOutput($template, &$viewData, &$configurations, &$formatter) {
 
 		$items =& $viewData->offsetGet('items');
 		$listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
+		$team =& $viewData->offsetGet('team');
+		if($team) {
+			$this->playerIds = array_flip(t3lib_div::intExplode(',',$team->record['players']));
+			$listBuilder->addVisitor(array($this, 'highlightPlayer'));
+		}
+		
 		$out = '';
 		foreach($items As $type => $data) {
 			$subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
@@ -48,6 +55,11 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 		return $out;
 	}
 
+	public function highlightPlayer($item) {
+		if(array_key_exists($item->record['player'], $this->playerIds)) {
+			$item->record['hlTeam'] = 1;
+		}
+	}
 	/**
 	 * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
 	 * createOutput automatisch als $template übergeben. 

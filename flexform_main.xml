@@ -232,6 +232,19 @@
               </config>
             </TCEforms>
           </playerstats.statisticTypes>
+          <playerstats.highlightTeam>
+            <TCEforms>
+              <exclude>1</exclude>
+              <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.highlightteam</label>
+              <config>
+                <type>group</type>
+                <internal_type>db</internal_type>
+                <allowed>tx_cfcleague_teams</allowed>
+                <multiple>0</multiple>
+                <size>1</size>
+              </config>
+            </TCEforms>
+          </playerstats.highlightTeam>
           <playerstats.options.debug>
             <TCEforms>
               <exclude>1</exclude>

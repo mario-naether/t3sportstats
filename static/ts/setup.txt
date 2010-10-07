@@ -43,6 +43,12 @@ lib.t3sports.statsData {
   cardred.ifEmpty = -
   changein.ifEmpty = -
   changeout.ifEmpty = -
+  dchl = CASE
+  dchl {
+    key.field = hlTeam
+    1 = TEXT
+    1.value = font-weight:bold
+  }
 }
 
 lib.t3sports.statsFilter {

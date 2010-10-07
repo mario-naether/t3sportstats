@@ -56,6 +56,13 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC {
 			$statsData[$type] = $this->findData($parameters, $configurations, $viewData, $type);
 		}
 		$viewData->offsetSet('items', $statsData);
+		$teamId = $configurations->get($this->getConfId().'highlightTeam');
+		if($teamId) {
+			tx_rnbase::load('tx_cfcleague_models_Team');
+			$team = tx_cfcleague_models_Team::getInstance($teamId);
+			if(is_object($team) && $team->isValid())
+				$viewData->offsetSet('team', $team);
+		}
 		return null;
 	}
 
