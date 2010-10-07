@@ -38,7 +38,7 @@ CREATE TABLE tx_t3sportstats_players (
 
 
 	PRIMARY KEY (uid),
-	KEY playmatch (player, t3match)
+	KEY playmatch (player,t3match)
 );
 
 #
