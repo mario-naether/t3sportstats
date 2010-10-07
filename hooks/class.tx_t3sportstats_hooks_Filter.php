@@ -36,7 +36,7 @@ class tx_t3sportstats_hooks_Filter {
 		$parameters = $configurations->getParameters();
 		$statsType = $parameters->get('statstype');
 		if(!$statsType) return;
-		$player = $parameters->get('player');
+		$player = $parameters->getInt('player');
 		if(!$player) return;
 		
 		$fields =& $params['fields'];
@@ -57,7 +57,7 @@ class tx_t3sportstats_hooks_Filter {
 		// fields der stats
 		tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
 		$fields['PLAYERSTATS.PLAYER'][OP_EQ_INT] = $player;
-		// TODO: Filter im FE beschreiben. 
+		$parent->addFilterData('player', $player);
 	}
 }
 
