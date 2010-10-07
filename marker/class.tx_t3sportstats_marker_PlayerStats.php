@@ -47,7 +47,6 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 			return $formatter->configurations->getLL('item_notFound');
 		}
 //$time = t3lib_div::milliseconds();
-
 		$this->prepareFields($item, $template, $marker);
 		tx_rnbase_util_Misc::callHook('t3sportstats','playerStatsMarker_initRecord', 
 			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
@@ -145,7 +144,6 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 
 	}
 }
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_PlayerStats.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_PlayerStats.php']);

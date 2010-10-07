@@ -49,6 +49,15 @@ lib.t3sports.statsData {
     1 = TEXT
     1.value = font-weight:bold
   }
+  links{
+    played {
+      pid = {$plugin.tx_t3sportstats.statsmatchtablepage}
+      useKeepVars = 1
+      useKeepVars.add = cfc_league_fe::statstype=default
+    }
+    goals < .played
+    goals.useKeepVars.add = cfc_league_fe::statstype=default
+  }
 }
 
 lib.t3sports.statsFilter {
@@ -59,15 +68,6 @@ lib.t3sports.statsFilter {
 	options.orderby.PLAYER.LAST_NAME = asc
 	columns = played,cardyellow,cardyr,cardred,playtime,goals,assists,goalshome,goalsaway,goalshead,goalsjoker,goalsown,goalspenalty,goalsfreekick,changein,changeout
   data =< lib.t3sports.statsData
-  links{
-    played {
-      pid = {$plugin.tx_t3sportstats.statsmatchtablepage}
-      useKeepVars = 1
-      useKeepVars.add = cfc_league_fe::statstype=default
-    }
-    goals < .played
-    goals.useKeepVars.add = cfc_league_fe::statstype=default
-  }
 }
 
 # Ab hier Konfiguration der einzelnen Views 
