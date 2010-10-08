@@ -32,10 +32,10 @@ require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
 class tx_t3sportstats_hooks_Search {
 
 	public function getTableMappingMatch($params, $parent) {
-		$params['tableMapping']['PLAYERSTATS'] = 'tx_t3sportstats_players';
+		$params['tableMapping']['PLAYERSTAT'] = 'tx_t3sportstats_players';
 	}
 	public function getJoinsMatch($params, $parent) {
-		if(isset($params['tableAliases']['PLAYERSTATS'])) {
+		if(isset($params['tableAliases']['PLAYERSTAT'])) {
 			$params['join'] .= ' JOIN tx_t3sportstats_players ON tx_cfcleague_games.uid = tx_t3sportstats_players.t3match ';
 		}
 	}

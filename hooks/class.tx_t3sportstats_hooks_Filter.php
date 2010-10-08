@@ -49,14 +49,14 @@ class tx_t3sportstats_hooks_Filter {
 
 		$statsKey = $parameters->get('statskey');
 		if($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
-			$fields['PLAYERSTATS.'.strtoupper($statsKey)][OP_GT_INT] = 0;
+			$fields['PLAYERSTAT.'.strtoupper($statsKey)][OP_GT_INT] = 0;
 		}
 		else return;
 
 		// Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen 
 		// fields der stats
 		tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
-		$fields['PLAYERSTATS.PLAYER'][OP_EQ_INT] = $player;
+		$fields['PLAYERSTAT.PLAYER'][OP_EQ_INT] = $player;
 		$parent->addFilterData('player', $player);
 	}
 }
