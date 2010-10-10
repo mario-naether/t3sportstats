@@ -39,11 +39,28 @@ class tx_t3sportstats_srv_PlayerStats extends t3lib_svbase {
 	 * @param tx_t3sportstats_util_DataBag $dataBag
 	 * @param tx_cfcleague_models_Match $match
 	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+	 * @param boolean $isHome
 	 */
 	public function indexPlayerStats($dataBag, $match, $mnProv, $isHome) {
 		// Wir betrachten das Spiel für einen bestimmten Spieler
 		$profId = $dataBag->getParentUid();
 		$this->indexSimple($dataBag, $mnProv);
+		$this->indexWinLoose($dataBag, $match, $isHome);
+	}
+	/**
+	 * 
+	 * @param tx_t3sportstats_util_DataBag $dataBag
+	 * @param tx_cfcleague_models_Match $match
+	 * @param boolean $isHome
+	 */
+	private function indexWinLoose($dataBag, $match, $isHome) {
+		$toto = $match->getToto();
+		$type = 'draw';
+		if($toto == 1 && $isHome || $toto == 2 && !$isHome)
+			$type = 'win';
+		elseif($toto == 2 && $isHome || $toto == 1 && !$isHome)
+			$type = 'loose';
+		$dataBag->addType($type, 1);
 	}
 	/**
 	 *

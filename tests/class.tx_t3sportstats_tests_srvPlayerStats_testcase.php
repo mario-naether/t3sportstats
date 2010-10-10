@@ -40,15 +40,20 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase 
 		$bags = $srv->getPlayerBags($match, true);
 		foreach($bags As $bag)
 			$bagHash[$bag->getParentUid()] = $bag;
+		$bags = $srv->getPlayerBags($match, false);
+		foreach($bags As $bag)
+			$bagHash[$bag->getParentUid()] = $bag;
 		$notes = tx_t3sportstats_tests_Util::getMatchNotes($matchIdx);
 
 		$mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($notes);
 		$this->getService()->indexPlayerStats($bagHash[100], $match, $mnProv, true);
 
-//		t3lib_div::debug($bagHash[110], 'class.tx_t3sportstats_tests_srvPlayerStats_testcase.php'); // TODO: remove me
+		//		t3lib_div::debug($bagHash[100], 'class.tx_t3sportstats_tests_srvPlayerStats_testcase.php'); // TODO: remove me
 		$this->assertEquals(2, $bagHash[100]->getTypeValue('goals'), 'Goals count is wrong');
-		$this->assertEquals(1, $bagHash[100]->getTypeValue('goalsheader', 'Goals header count is wrong'));
-
+		$this->assertEquals(1, $bagHash[100]->getTypeValue('goalshead'), 'Goals header count is wrong');
+		$this->assertEquals(1, $bagHash[100]->getTypeValue('win'), 'Win count is wrong');
+		$this->assertEquals(0, $bagHash[100]->getTypeValue('loose'), 'Loose count is wrong');
+		
 		$this->getService()->indexPlayerStats($bagHash[110], $match, $mnProv, true);
 		$this->assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
 		$this->assertEquals(1, $bagHash[110]->getTypeValue('changein'), 'Changein is wrong');
@@ -56,6 +61,9 @@ class tx_t3sportstats_tests_srvPlayerStats_testcase extends tx_phpunit_testcase 
 		$this->getService()->indexPlayerStats($bagHash[102], $match, $mnProv, true);
 		$this->assertEquals(1, $bagHash[102]->getTypeValue('changeout'), 'Changeout is wrong');
 
+		$this->getService()->indexPlayerStats($bagHash[200], $match, $mnProv, false);
+		$this->assertEquals(0, $bagHash[200]->getTypeValue('win'), 'Win count is wrong');
+		$this->assertEquals(1, $bagHash[200]->getTypeValue('loose'), 'Loose count is wrong');
 	}
 	public function testGetInstance() {
 		$this->assertTrue(is_object(tx_rnbase_util_Misc::getService('t3sportsPlayerStats', 'base')), 'Service not registered.');

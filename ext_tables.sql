@@ -35,10 +35,45 @@ CREATE TABLE tx_t3sportstats_players (
 	goalsown int(11) DEFAULT '0' NOT NULL,
 	changein int(11) DEFAULT '0' NOT NULL,
 	changeout int(11) DEFAULT '0' NOT NULL,
+	win tinyint(4) DEFAULT '0' NOT NULL,
+	draw tinyint(4) DEFAULT '0' NOT NULL,
+	loose tinyint(4) DEFAULT '0' NOT NULL,
 
 
 	PRIMARY KEY (uid),
 	KEY playmatch (player,t3match)
+);
+
+#
+# Table structure for table 'tx_t3sportstats_players'
+# Statistic data of player per match
+#
+CREATE TABLE tx_t3sportstats_coachs (
+	uid int(11) NOT NULL auto_increment,
+	crdate datetime DEFAULT '0000-00-00 00:00:00',
+
+	coach int(11) DEFAULT '0' NOT NULL,
+	t3match int(11) DEFAULT '0' NOT NULL,
+	saison int(11) DEFAULT '0' NOT NULL,
+	competition int(11) DEFAULT '0' NOT NULL,
+	agegroup int(11) DEFAULT '0' NOT NULL,
+	team int(11) DEFAULT '0' NOT NULL,
+	club int(11) DEFAULT '0' NOT NULL,
+	ishome tinyint(4)  DEFAULT '0' NOT NULL,
+	agegroupopp int(11) DEFAULT '0' NOT NULL,
+	clubopp int(11) DEFAULT '0' NOT NULL,
+
+	played tinyint(4) DEFAULT '0' NOT NULL,
+	win tinyint(4) DEFAULT '0' NOT NULL,
+	draw tinyint(4) DEFAULT '0' NOT NULL,
+	loose tinyint(4) DEFAULT '0' NOT NULL,
+	goals int(11) DEFAULT '0' NOT NULL,
+	goalshome int(11) DEFAULT '0' NOT NULL,
+	goalsaway int(11) DEFAULT '0' NOT NULL,
+	goalsjoker int(11) DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY idx_coachmatch (coach,t3match)
 );
 
 #

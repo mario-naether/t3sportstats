@@ -4,6 +4,7 @@ Changelog
 
 v0.2.4 (??.10.2010)
  * TS-Setup changed to make it easier to change sort order in statistics
+ * PlayerStats: count win, loose, draw
 
 v0.2.3 (05.10.2010)
  * Link statsdata to matchtable to show all matches used for a given data value
