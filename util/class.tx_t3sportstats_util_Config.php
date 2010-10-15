@@ -73,11 +73,37 @@ class tx_t3sportstats_util_Config {
 		}
 	}
 	/**
+	 * Register a new simple statistics.
+	 * @param string $column
+	 * @param mixed $types commaseparated list of match event uids
+	 */
+	public static function registerCoachStatsSimple($column, $types) {
+		$column = strtolower($column);
+		if(!is_array($GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats']))
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'] = array();
+
+		if(!array_key_exists($column, $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'])) {
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'][$column] = array(
+				'types' => $types,
+			);
+		}
+		else {
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'][$column] .= ','.$types;
+		}
+	}
+	/**
 	 * Returns all registered simple statistics
 	 * @return array
 	 */
 	public static function getPlayerStatsSimple() {
 		return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'];
+	}
+	/**
+	 * Returns all registered simple statistics for coaches
+	 * @return array
+	 */
+	public static function getCoachStatsSimple() {
+		return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'];
 	}
 }
 

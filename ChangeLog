@@ -4,6 +4,7 @@ Changelog
 
 v0.2.4 (??.10.2010)
  * TS-Setup changed to make it easier to change sort order in statistics
+ * Alias for table PLAYERSTAT in hooks fixed
  * PlayerStats: count win, loose, draw
 
 v0.2.3 (05.10.2010)

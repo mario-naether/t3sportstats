@@ -32,7 +32,7 @@ class tx_t3sportstats_util_MatchNoteProvider {
 	private $notes=array();
 	private $notesHome = array();
 	private $notesGuest = array();
-
+	
 	private function __construct($notes) {
 		$this->setMatchNotes($notes);
 	}
@@ -50,10 +50,16 @@ class tx_t3sportstats_util_MatchNoteProvider {
 		$this->notesGuest = array();
 		foreach($notes As $note) {
 			$profile = $note->getPlayer();
-			if($note->isHome())
+			if($note->isHome()) {
+				// Die Trennung der Spieler in verschiedene Array kann sinnvoll sein, 
+				// weil ein Spieler auch mal in beiden Teams spielen könnte. Abschiedsspiele
 				$this->notesHome[$profile][] = $note;
-			if($note->isGuest())
+				$this->notesHome['_all'][] = $note;
+			}
+			if($note->isGuest()) {
 				$this->notesGuest[$profile][] = $note;
+				$this->notesGuest['_all'][] = $note;
+			}
 		}
 
 	}
@@ -62,6 +68,18 @@ class tx_t3sportstats_util_MatchNoteProvider {
 	 */
 	public function getMatchNotes() {
 		return $this->notes;
+	}
+	/**
+	 * @return array[tx_cfcleague_models_MatchNote]
+	 */
+	public function getMatchNotesHome() {
+		return $this->notesHome['_all'];
+	}
+	/**
+	 * @return array[tx_cfcleague_models_MatchNote]
+	 */
+	public function getMatchNotesGuest() {
+		return $this->notesGuest['_all'];
 	}
 	/**
 	 * Returns all match notes for a profile
