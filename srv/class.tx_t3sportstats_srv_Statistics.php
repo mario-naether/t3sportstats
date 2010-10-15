@@ -36,6 +36,7 @@ tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
+	private $statsSrvArr = array();
 
 	/**
 	 * Update statistics for a competition
@@ -54,23 +55,10 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		$builder->setStatus(2);
 		$builder->getFields($fields, $options);
 		$matches = $mSrv->search($fields, $options);
-		$this->indexPlayerStatsByMatches($matches);
+		$this->indexStatsByMatches($matches);
 	}
-	/**
-	 * Returns all registered services for player statistics
-	 * @return array
-	 */
-	public function lookupPlayerServices() {
-		$srvArr = tx_rnbase_util_Misc::lookupServices('t3sportsPlayerStats');
-		$ret = array();
-		foreach($srvArr As $subType => $srvData) {
-			$ret[] = tx_rnbase_util_Misc::getService('t3sportsPlayerStats', $subType);
-		}
-		return $ret;
-	}
-	public function indexPlayerStatsByMatches($matches) {
-		// Services laden
-		$servicesArr = $this->lookupPlayerServices();
+
+	public function indexStatsByMatches($matches) {
 
 		tx_rnbase_util_Logger::info('Start player statistics run for ' . count($matches) . ' matches.', 't3sportstats');
 		$time = microtime(true);
@@ -81,9 +69,11 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			$matchNotes = tx_cfcleague_util_ServiceRegistry::getMatchService()->retrieveMatchNotes($matches[$j], true);
 			$mnProv = tx_t3sportstats_util_MatchNoteProvider::createInstance($matchNotes);
 			// handle Hometeam
-			$this->indexPlayerData($matches[$j], $mnProv, $servicesArr, true);
+			$this->indexPlayerData($matches[$j], $mnProv, true);
+			$this->indexCoachData($matches[$j], $mnProv, true);
 			// handle Guestteam
-			$this->indexPlayerData($matches[$j], $mnProv, $servicesArr, false);
+			$this->indexPlayerData($matches[$j], $mnProv, false);
+			$this->indexCoachData($matches[$j], $mnProv, false);
 		}
 		if(tx_rnbase_util_Logger::isInfoEnabled()) {
 			$memEnd = memory_get_usage();
@@ -103,7 +93,10 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
 	 * @param boolean $homeTeam
 	 */
-	private function indexPlayerData($match, $mnProv, $servicesArr, $homeTeam) {
+	private function indexPlayerData($match, $mnProv, $homeTeam) {
+		// Services laden
+		$servicesArr = $this->lookupPlayerServices();
+
 		$del = $this->clearPlayerData($match, $homeTeam);
 		tx_rnbase_util_Logger::debug('Player statistics: ' . $del . ' old records deleted.', 't3sportstats');
 		
@@ -120,6 +113,31 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 	}
 
 	/**
+	 * Indizierung der Daten und Speicherung in der DB
+	 * @param tx_cfcleague_models_Match $match
+	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
+	 * @param boolean $homeTeam
+	 */
+	private function indexCoachData($match, $mnProv, $homeTeam) {
+		// Services laden
+		$servicesArr = $this->lookupCoachServices();
+
+		$del = $this->clearCoachData($match, $homeTeam);
+		tx_rnbase_util_Logger::debug('Coach statistics: ' . $del . ' old records deleted.', 't3sportstats');
+
+		$dataBags = $this->getCoachBags($match, $homeTeam);
+		for($i=0, $servicesArrCnt=count($servicesArr); $i < $servicesArrCnt; $i++) {
+			$service =& $servicesArr[$i];
+			foreach($dataBags As $dataBag) {
+				$service->indexCoachStats($dataBag, $match, $mnProv, $homeTeam);
+			}
+		}
+		// Jetzt die Daten wegspeichern
+		$this->saveCoachData($dataBags);
+		unset($dataBags);
+	}
+
+	/**
 	 * Delete all player data in database for a match
 	 * @param tx_cfcleague_models_Match $match
 	 */
@@ -127,12 +145,28 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		$where = 't3match = ' . $match->getUid() . ' AND ishome='.($isHome ? 1 : 0);
 		return tx_rnbase_util_DB::doDelete('tx_t3sportstats_players', $where);
 	}
+	/**
+	 * Delete all player data in database for a match
+	 * @param tx_cfcleague_models_Match $match
+	 */
+	private function clearCoachData($match, $isHome) {
+		$where = 't3match = ' . $match->getUid() . ' AND ishome='.($isHome ? 1 : 0);
+		return tx_rnbase_util_DB::doDelete('tx_t3sportstats_coachs', $where);
+	}
 	private function savePlayerData($dataBags) {
 		$now = tx_rnbase_util_Dates::datetime_tstamp2mysql(time());
 		foreach($dataBags As $dataBag) {
 			$data = $dataBag->getTypeValues();
 			$data['crdate'] = $now;
 			tx_rnbase_util_DB::doInsert('tx_t3sportstats_players', $data);
+		}
+	}
+	private function saveCoachData($dataBags) {
+		$now = tx_rnbase_util_Dates::datetime_tstamp2mysql(time());
+		foreach($dataBags As $dataBag) {
+			$data = $dataBag->getTypeValues();
+			$data['crdate'] = $now;
+			tx_rnbase_util_DB::doInsert('tx_t3sportstats_coachs', $data);
 		}
 	}
 	/**
@@ -154,30 +188,49 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		$playerIds = t3lib_div::intExplode(',', $ids);
 		foreach($playerIds As $uid) {
 			if($uid <= 0) continue; // skip dummy records
-			$bag = tx_rnbase::makeInstance('tx_t3sportstats_util_DataBag');
-			$bag->setParentUid($uid);
-			// Hier noch die allgemeinen Daten rein!
-			$bag->setType('t3match', $match->getUid());
-			$bag->setType('player', $uid);
-			$competition = $match->getCompetition();
-			$bag->setType('competition', $competition->getUid());
-			$bag->setType('saison', $competition->getSaisonUid());
-			// Altersgruppe ist zunächst die AG des Teams, danach die des Wettbewerbs
-			$team = $home ? $match->getHome() : $match->getGuest();
-			$groupUid = $this->getGroupUid($team, $competition);
-			$bag->setType('agegroup', $groupUid);
-			$bag->setType('team', $team->getUid());
-			$bag->setType('club', $team->getClubUid());
-			$bag->setType('ishome', $home ? 1 : 0);
-
-			$team = $home ? $match->getGuest() : $match->getHome();
-			$groupUid = $this->getGroupUid($team, $competition);
-			$bag->setType('agegroupopp', $groupUid);
-			$bag->setType('clubopp', $team->getClubUid());
-
+			$bag = $this->createProfileBag($uid, $match, $home, 'player');
 			$bags[] = $bag;
 		}
 		return $bags;
+	}
+	/**
+	 * Liefert die DataBags für die Trainer eines beteiligten Teams.
+	 *
+	 * @param tx_cfcleague_models_Match $match
+	 * @param boolean $home true, wenn das Heimteam geholt werden soll
+	 * @return array[tx_t3sportstats_util_DataBag]
+	 */
+	public function getCoachBags($match, $home) {
+		$type = $home ? 'home' : 'guest';
+		$uid = $match->record['coach_'.$type];
+		$bags = array();
+		if($uid <= 0) return $bags; // skip dummy records
+		$bag = $this->createProfileBag($uid, $match, $home, 'coach');
+		$bags[] = $bag;
+		return $bags;
+	}
+	private function createProfileBag($uid, $match, $home, $profileField) {
+		$bag = tx_rnbase::makeInstance('tx_t3sportstats_util_DataBag');
+		$bag->setParentUid($uid);
+		// Hier noch die allgemeinen Daten rein!
+		$bag->setType('t3match', $match->getUid());
+		$bag->setType($profileField, $uid);
+		$competition = $match->getCompetition();
+		$bag->setType('competition', $competition->getUid());
+		$bag->setType('saison', $competition->getSaisonUid());
+		// Altersgruppe ist zunächst die AG des Teams, danach die des Wettbewerbs
+		$team = $home ? $match->getHome() : $match->getGuest();
+		$groupUid = $this->getGroupUid($team, $competition);
+		$bag->setType('agegroup', $groupUid);
+		$bag->setType('team', $team->getUid());
+		$bag->setType('club', $team->getClubUid());
+		$bag->setType('ishome', $home ? 1 : 0);
+
+		$team = $home ? $match->getGuest() : $match->getHome();
+		$groupUid = $this->getGroupUid($team, $competition);
+		$bag->setType('agegroupopp', $groupUid);
+		$bag->setType('clubopp', $team->getClubUid());
+		return $bag;
 	}
 	private function getGroupUid($team, $competition) {
 		$groupUid = $team->getGroupUid();
@@ -198,6 +251,36 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		tx_rnbase::load('tx_rnbase_util_SearchBase');
 		$searcher = tx_rnbase_util_SearchBase::getInstance('tx_t3sportstats_search_PlayerStats');
 		return $searcher->search($fields, $options);
+	}
+
+	/**
+	 * Returns all registered services for player statistics
+	 * @return array
+	 */
+	public function lookupPlayerServices() {
+		return $this->lookupStatsServices('t3sportsPlayerStats');
+	}
+	/**
+	 * Returns all registered services for coach statistics
+	 * @return array
+	 */
+	public function lookupCoachServices() {
+		return $this->lookupStatsServices('t3sportsCoachStats');
+	}
+
+	/**
+	 * Returns all registered services for statistics
+	 * @return array
+	 */
+	private function lookupStatsServices($key) {
+		if(!array_key_exists($key, $this->statsSrvArr)) {
+			$srvArr = tx_rnbase_util_Misc::lookupServices($key);
+			$this->statsSrvArr[$key] = array();
+			foreach($srvArr As $subType => $srvData) {
+				$this->statsSrvArr[$key][] = tx_rnbase_util_Misc::getService($key, $subType);
+			}
+		}
+		return $this->statsSrvArr[$key];
 	}
 }
 
