@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007-2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2010 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -46,6 +46,39 @@ class tx_t3sportstats_srv_CoachStats extends t3lib_svbase {
 		$profId = $dataBag->getParentUid();
 		$this->indexSimple($dataBag, $mnProv, $isHome);
 		$this->indexWinLoose($dataBag, $match, $isHome);
+		$this->indexGoals($dataBag, $match, $isHome);
+		$this->indexJokerGoals($dataBag, $match, $isHome, $mnProv);
+	}
+	/**
+	 * 
+	 * @param tx_t3sportstats_util_DataBag $dataBag
+	 * @param tx_cfcleague_models_Match $match
+	 * @param boolean $isHome
+	 */
+	private function indexJokerGoals($dataBag, $match, $isHome, $mnProv) {
+		// Wir benötigen die Events der gesamten Mannschaft
+		$notes = $isHome ? $mnProv->getMatchNotesHome() : $mnProv->getMatchNotesGuest();
+		$statTypes = tx_t3sportstats_util_Config::getPlayerStatsSimple();
+		$goalTypes = $statTypes['goals']['types'];
+		foreach($notes As $note) {
+			if($this->isType($note->getType(), $goalTypes)) {
+				$playerUid = $note->getPlayer();
+				$startPlayer = $this->isStartPlayer($playerUid, $match, $isHome);
+				if(!$startPlayer)
+					$dataBag->addType('goalsjoker', 1);
+			}
+		}
+	}
+	/**
+	 * 
+	 * @param tx_t3sportstats_util_DataBag $dataBag
+	 * @param tx_cfcleague_models_Match $match
+	 * @param boolean $isHome
+	 */
+	private function indexGoals($dataBag, $match, $isHome) {
+		$goals = $isHome ? $match->getGoalsHome() : $match->getGoalsGuest();
+		$dataBag->addType('goals', $goals);
+		$dataBag->addType($isHome ? 'goalshome':'goalsaway', $goals);
 	}
 	/**
 	 * 
@@ -73,7 +106,7 @@ class tx_t3sportstats_srv_CoachStats extends t3lib_svbase {
 
 		if(!$notes || count($notes) == 0) return;
 		$data = array();
-		$statTypes = tx_t3sportstats_util_Config::getPlayerStatsSimple();
+		$statTypes = tx_t3sportstats_util_Config::getCoachStatsSimple();
 		foreach($notes As $note) {
 			foreach($statTypes As $type => $info) {
 				// Entspricht die Note dem Type in der Info
@@ -89,6 +122,15 @@ class tx_t3sportstats_srv_CoachStats extends t3lib_svbase {
 		}
 		$types = $this->types[$typeList];
 		return array_key_exists($type, $types);
+	}
+	/**
+	 * @param int $player profile uid
+	 * @param tx_cfcleague_models_Match $match
+	 * @param boolean $isHome
+	 */
+	private function isStartPlayer($player, $match, $isHome) {
+		$startPlayer = array_flip(t3lib_div::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
+		return array_key_exists($player, $startPlayer);
 	}
 }
 

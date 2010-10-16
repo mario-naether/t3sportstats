@@ -69,10 +69,10 @@ tx_t3sportstats_util_Config::registerPlayerStatsSimple('changein', '81');
 
 // Tore kommen über das Spielergebnis
 //tx_t3sportstats_util_Config::registerCoachStatsSimple('goals', '10,11,12,13');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardyellow', '70');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardyr', '71');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardred', '72');
-tx_t3sportstats_util_Config::registerPlayerStatsSimple('changeout', '80');
+tx_t3sportstats_util_Config::registerCoachStatsSimple('cardyellow', '70');
+tx_t3sportstats_util_Config::registerCoachStatsSimple('cardyr', '71');
+tx_t3sportstats_util_Config::registerCoachStatsSimple('cardred', '72');
+tx_t3sportstats_util_Config::registerCoachStatsSimple('changeout', '80');
 
 
 tx_t3sportstats_util_Config::registerPlayerStatsReport('default');

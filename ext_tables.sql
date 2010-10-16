@@ -46,7 +46,7 @@ CREATE TABLE tx_t3sportstats_players (
 
 #
 # Table structure for table 'tx_t3sportstats_coachs'
-# Statistic data of player per match
+# Statistic data of coach per match
 #
 CREATE TABLE tx_t3sportstats_coachs (
 	uid int(11) NOT NULL auto_increment,
@@ -82,7 +82,7 @@ CREATE TABLE tx_t3sportstats_coachs (
 
 #
 # Table structure for table 'tx_t3sportstats_referees'
-# Statistic data of player per match
+# Statistic data of referee per match and club
 #
 CREATE TABLE tx_t3sportstats_referees (
 	uid int(11) NOT NULL auto_increment,
@@ -104,13 +104,21 @@ CREATE TABLE tx_t3sportstats_referees (
 	win tinyint(4) DEFAULT '0' NOT NULL,
 	draw tinyint(4) DEFAULT '0' NOT NULL,
 	loose tinyint(4) DEFAULT '0' NOT NULL,
-	goals int(11) DEFAULT '0' NOT NULL,
-	goalshome int(11) DEFAULT '0' NOT NULL,
-	goalsaway int(11) DEFAULT '0' NOT NULL,
 	goalspenalty int(11) DEFAULT '0' NOT NULL,
+	goalspenaltyown int(11) DEFAULT '0' NOT NULL,
+	goalspenaltyagainst int(11) DEFAULT '0' NOT NULL,
+	penalty int(11) DEFAULT '0' NOT NULL,
+	penaltyown int(11) DEFAULT '0' NOT NULL,
+	penaltyagainst int(11) DEFAULT '0' NOT NULL,
 	cardyellow tinyint(4) DEFAULT '0' NOT NULL,
+	cardyellowown tinyint(4) DEFAULT '0' NOT NULL,
+	cardyellowagainst tinyint(4) DEFAULT '0' NOT NULL,
 	cardyr tinyint(4) DEFAULT '0' NOT NULL,
+	cardyrown tinyint(4) DEFAULT '0' NOT NULL,
+	cardyragainst tinyint(4) DEFAULT '0' NOT NULL,
 	cardred tinyint(4) DEFAULT '0' NOT NULL,
+	cardredown tinyint(4) DEFAULT '0' NOT NULL,
+	cardredagainst tinyint(4) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY idx_refclubmatch (referee, club,t3match)
