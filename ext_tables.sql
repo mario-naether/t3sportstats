@@ -38,6 +38,7 @@ CREATE TABLE tx_t3sportstats_players (
 	win tinyint(4) DEFAULT '0' NOT NULL,
 	draw tinyint(4) DEFAULT '0' NOT NULL,
 	loose tinyint(4) DEFAULT '0' NOT NULL,
+	captain tinyint(4) DEFAULT '0' NOT NULL,
 
 
 	PRIMARY KEY (uid),

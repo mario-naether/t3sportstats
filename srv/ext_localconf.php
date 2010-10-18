@@ -76,6 +76,7 @@ tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardyr', '71');
 tx_t3sportstats_util_Config::registerPlayerStatsSimple('cardred', '72');
 tx_t3sportstats_util_Config::registerPlayerStatsSimple('changeout', '80');
 tx_t3sportstats_util_Config::registerPlayerStatsSimple('changein', '81');
+tx_t3sportstats_util_Config::registerPlayerStatsSimple('captain', '200');
 
 // Tore kommen über das Spielergebnis
 //tx_t3sportstats_util_Config::registerCoachStatsSimple('goals', '10,11,12,13');
