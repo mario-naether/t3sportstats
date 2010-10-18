@@ -45,11 +45,21 @@ t3lib_extMgm::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3
 
 t3lib_extMgm::addService($_EXTKEY,  't3sportsCoachStats' /* sv type */,  'tx_t3sportstats_srv_CoachStats' /* sv key */,
   array(
-    'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playerstats_title', 'description' => 'Statistical data about players', 'subtype' => 'base',
+    'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playerstats_title', 'description' => 'Statistical data about coaches', 'subtype' => 'base',
     'available' => TRUE, 'priority' => 50, 'quality' => 50,
     'os' => '', 'exec' => '',
     'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_CoachStats.php',
     'className' => 'tx_t3sportstats_srv_CoachStats',
+  )
+);
+
+t3lib_extMgm::addService($_EXTKEY,  't3sportsRefereeStats' /* sv type */,  'tx_t3sportstats_srv_RefereeStats' /* sv key */,
+  array(
+    'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playerstats_title', 'description' => 'Statistical data about referees', 'subtype' => 'base',
+    'available' => TRUE, 'priority' => 50, 'quality' => 50,
+    'os' => '', 'exec' => '',
+    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_RefereeStats.php',
+    'className' => 'tx_t3sportstats_srv_RefereeStats',
   )
 );
 
@@ -73,6 +83,12 @@ tx_t3sportstats_util_Config::registerCoachStatsSimple('cardyellow', '70');
 tx_t3sportstats_util_Config::registerCoachStatsSimple('cardyr', '71');
 tx_t3sportstats_util_Config::registerCoachStatsSimple('cardred', '72');
 tx_t3sportstats_util_Config::registerCoachStatsSimple('changeout', '80');
+
+tx_t3sportstats_util_Config::registerRefereeStatsSimple('goalspenalty', '12');
+tx_t3sportstats_util_Config::registerRefereeStatsSimple('penalty', '12,32');
+tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardyellow', '70');
+tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardyr', '71');
+tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardred', '72');
 
 
 tx_t3sportstats_util_Config::registerPlayerStatsReport('default');

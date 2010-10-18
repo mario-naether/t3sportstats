@@ -59,18 +59,7 @@ class tx_t3sportstats_util_Config {
 	 * @param mixed $types commaseparated list of match event uids
 	 */
 	public static function registerPlayerStatsSimple($column, $types) {
-		$column = strtolower($column);
-		if(!is_array($GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats']))
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'] = array();
-
-		if(!array_key_exists($column, $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'])) {
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'][$column] = array(
-				'types' => $types,
-			);
-		}
-		else {
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['simpleStats'][$column] .= ','.$types;
-		}
+		self::registerStatsSimple('playerStats', $column, $types);
 	}
 	/**
 	 * Register a new simple statistics.
@@ -78,17 +67,33 @@ class tx_t3sportstats_util_Config {
 	 * @param mixed $types commaseparated list of match event uids
 	 */
 	public static function registerCoachStatsSimple($column, $types) {
+		self::registerStatsSimple('coachStats', $column, $types);
+	}
+	/**
+	 * Register a new simple statistics.
+	 * @param string $column
+	 * @param mixed $types commaseparated list of match event uids
+	 */
+	public static function registerRefereeStatsSimple($column, $types) {
+		self::registerStatsSimple('refereeStats', $column, $types);
+	}
+	/**
+	 * Register a new simple statistics.
+	 * @param string $column
+	 * @param mixed $types commaseparated list of match event uids
+	 */
+	private static function registerStatsSimple($type, $column, $types) {
 		$column = strtolower($column);
-		if(!is_array($GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats']))
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'] = array();
+		if(!is_array($GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats']))
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'] = array();
 
-		if(!array_key_exists($column, $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'])) {
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'][$column] = array(
+		if(!array_key_exists($column, $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'])) {
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'][$column] = array(
 				'types' => $types,
 			);
 		}
 		else {
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'][$column] .= ','.$types;
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$type]['simpleStats'][$column] .= ','.$types;
 		}
 	}
 	/**
@@ -104,6 +109,13 @@ class tx_t3sportstats_util_Config {
 	 */
 	public static function getCoachStatsSimple() {
 		return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['simpleStats'];
+	}
+	/**
+	 * Returns all registered simple statistics for referees
+	 * @return array
+	 */
+	public static function getRefereeStatsSimple() {
+		return $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['simpleStats'];
 	}
 }
 
