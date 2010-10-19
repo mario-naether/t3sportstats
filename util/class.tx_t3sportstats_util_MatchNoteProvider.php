@@ -47,7 +47,9 @@ class tx_t3sportstats_util_MatchNoteProvider {
 	private function setMatchNotes($notes) {
 		$this->notes = is_array($notes) ? $notes : array();
 		$this->notesHome = array();
+		$this->notesHome['_all'] = array();
 		$this->notesGuest = array();
+		$this->notesGuest['_all'] = array();
 		foreach($notes As $note) {
 			$profile = $note->getPlayer();
 			if($note->isHome()) {

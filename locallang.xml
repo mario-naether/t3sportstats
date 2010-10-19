@@ -11,8 +11,11 @@
 			<label index="error">Error</label>
 			<label index="label_matches">Matches</label>
 			<label index="label_change">Change</label>
+			<label index="label_changes">Changes</label>
 			<label index="label_cards">Cards</label>
 			<label index="label_player">Player</label>
+			<label index="label_coach">Coach</label>
+			<label index="label_referee">Referee</label>
 			<label index="label_matchcount">Count</label>
 			<label index="label_minutes">Minutes</label>
 			<label index="label_cardyellow">Y</label>
@@ -23,6 +26,9 @@
 			<label index="label_assists">Assists</label>
 			<label index="label_goals">Goals</label>
 			<label index="label_goalsown">Own</label>
+			<label index="label_goalshome">Goals Home</label>
+			<label index="label_goalsaway">Goals Away</label>
+			<label index="label_total">Total</label>
 			<label index="label_home">Home</label>
 			<label index="label_away">Away</label>
 			<label index="label_joker">Joker</label>
@@ -40,8 +46,11 @@
 			<label index="error">Fehler</label>
 			<label index="label_matches">Spiele</label>
 			<label index="label_change">Wechsel</label>
+			<label index="label_changes">Wechsel</label>
 			<label index="label_cards">Karten</label>
 			<label index="label_player">Spieler</label>
+			<label index="label_coach">Trainer</label>
+			<label index="label_referee">Schiedsrichter</label>
 			<label index="label_matchcount">Anzahl</label>
 			<label index="label_minutes">Minuten</label>
 			<label index="label_cardyellow">G</label>
@@ -52,6 +61,9 @@
 			<label index="label_assists">Assists</label>
 			<label index="label_goals">Tore</label>
 			<label index="label_goalsown">ET</label>
+			<label index="label_goalshome">Heimtore</label>
+			<label index="label_goalsaway">Auswärtstore</label>
+			<label index="label_total">Gesamt</label>
 			<label index="label_home">Heim</label>
 			<label index="label_away">Ausw</label>
 			<label index="label_joker">Joker</label>

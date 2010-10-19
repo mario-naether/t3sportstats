@@ -18,6 +18,8 @@ lib.t3sports.statsData {
   roll.value = 1
 
   player =< lib.t3sports.profile
+  coach =< lib.t3sports.profile
+  referee =< lib.t3sports.profile
   goals.ifEmpty = -
   goals_per_match {
     wrap = (|)
@@ -65,33 +67,70 @@ lib.t3sports.statsFilter {
 	options.what = player
 	options.forcewrapper = 1
 	options.groupby = PLAYERSTAT.player
-	columns = played,cardyellow,cardyr,cardred,playtime,goals,assists,goalshome,goalsaway,goalshead,goalsjoker,goalsown,goalspenalty,goalsfreekick,changein,changeout,captain
+	columns = played,win,draw,loose,cardyellow,cardyr,cardred,playtime,goals,assists,goalshome,goalsaway,goalshead,goalsjoker,goalsown,goalspenalty,goalsfreekick,changein,changeout,captain
   data =< lib.t3sports.statsData
+}
+lib.t3sports.statsPlayerFilter < lib.t3sports.statsFilter
+lib.t3sports.statsPlayerFilter {
+  filter = tx_t3sportstats_filter_PlayerStats
+  options.what = player
+	options.groupby = PLAYERSTAT.player
+}
+
+lib.t3sports.statsCoachFilter < lib.t3sports.statsFilter
+lib.t3sports.statsCoachFilter {
+  filter = tx_t3sportstats_filter_CoachStats
+  options.what = coach
+	options.groupby = COACHSTAT.coach
+	columns = played,win,draw,loose,cardyellow,cardyr,cardred,goals,goalshome,goalsaway,goalsjoker,changeout
+}
+lib.t3sports.statsRefereeFilter < lib.t3sports.statsFilter
+lib.t3sports.statsRefereeFilter {
+  filter = tx_t3sportstats_filter_RefereeStats
+  options.what = referee
+	options.groupby = REFEREESTAT.referee
+	columns (
+	 played,win,draw,loose,
+	 cardyellow,cardyr,cardred,
+	 cardyellowown,cardyrown,cardredown,
+	 cardyellowagainst,cardyragainst,cardredagainst,
+	 goalspenalty,goalspenaltyown,goalspenaltyagainst,penalty,penaltyown,penaltyagainst
+	)
 }
 
 # Ab hier Konfiguration der einzelnen Views 
 plugin.tx_t3sportstats {
   scopeTemplate = {$plugin.tx_cfcleaguefe_competition.scopeTemplate}
   playerstatsTemplate = {$plugin.tx_t3sportstats.playerstatsTemplate}
+  coachstatsTemplate = {$plugin.tx_t3sportstats.coachstatsTemplate}
+  refereestatsTemplate = {$plugin.tx_t3sportstats.refereestatsTemplate}
 
 	scopeSelection =< plugin.tx_cfcleaguefe_competition.scopeSelection
   playerstats {
-    default =< lib.t3sports.statsFilter
+    default =< lib.t3sports.statsPlayerFilter
     default.options.orderby.PLAYER.LAST_NAME = asc
-    scorerlist =< lib.t3sports.statsFilter
+    scorerlist =< lib.t3sports.statsPlayerFilter
     scorerlist {
       filter = tx_t3sportstats_filter_PlayerStats
       options.orderby.CUSTOM = goals desc
     	options.having = sum(goals) > 0
       data =< lib.t3sports.statsData
     }
-    assistlist =< lib.t3sports.statsFilter
+    assistlist =< lib.t3sports.statsPlayerFilter
     assistlist {
     	filter = tx_t3sportstats_filter_PlayerStats
     	options.orderby.CUSTOM = assists desc
     	options.having = sum(assists) > 0
       data =< lib.t3sports.statsData
     }
+  }
+  coachstats {
+    default =< lib.t3sports.statsCoachFilter
+    default.options.orderby.COACH.LAST_NAME = asc
+  }
+  refereestats {
+    default =< lib.t3sports.statsRefereeFilter
+    default.options.orderby.REFEREE.LAST_NAME = asc
   }
 }
 
@@ -102,7 +141,7 @@ lib.t3sports.matchreport.tickerType.cObject.13 < lib.t3sports.matchreport.ticker
 plugin.tx_cfcleaguefe_report {
   profileview.profile.stats {
     # Define a new statistics
-    league =< lib.t3sports.statsFilter
+    league =< lib.t3sports.statsPlayerFilter
     league {
       # Use matches from leagues only
       fields.COMPETITION.TYPE.OP_EQ_INT = 1
@@ -113,6 +152,6 @@ plugin.tx_cfcleaguefe_report {
 }
 plugin.tx_cfcleaguefe_competition {
   matchtable.filter.stats {
-    default =< lib.t3sports.statsFilter
+    default =< lib.t3sports.statsPlayerFilter
   }
 }

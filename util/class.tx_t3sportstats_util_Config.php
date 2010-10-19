@@ -42,15 +42,50 @@ class tx_t3sportstats_util_Config {
 		}
 		return $config;
 	}
+	/**
+	 * Returns all configured statistics type for flexform
+	 * @return array
+	 */
+	public static function lookupCoachStatsReport($config) {
+		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']) {
+			$types = t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
+			foreach ($types As $type) {
+				$config['items'][] = array($type, $type);
+			}
+		}
+		return $config;
+	}
+	/**
+	 * Returns all configured statistics type for flexform
+	 * @return array
+	 */
+	public static function lookupRefereeStatsReport($config) {
+		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']) {
+			$types = t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
+			foreach ($types As $type) {
+				$config['items'][] = array($type, $type);
+			}
+		}
+		return $config;
+	}
 	public static function registerPlayerStatsReport($statsType) {
+		self::registerStatsReport('playerStats', $statsType);
+	}
+	public static function registerCoachStatsReport($statsType) {
+		self::registerStatsReport('coachStats', $statsType);
+	}
+	public static function registerRefereeStatsReport($statsType) {
+		self::registerStatsReport('refereeStats', $statsType);
+	}
+	private static function registerStatsReport($baseType, $statsType) {
 		$current = array();
-		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']) {
-			$current = array_flip(t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']));
+		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']) {
+			$current = array_flip(t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
 		}
 		if(!array_key_exists($statsType, $current)) {
 			$current = array_flip($current);
 			$current[] = $statsType;
-			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports'] = implode(',', $current);
+			$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports'] = implode(',', $current);
 		}
 	}
 	/**

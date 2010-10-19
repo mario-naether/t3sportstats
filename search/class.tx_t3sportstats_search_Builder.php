@@ -47,6 +47,36 @@ class tx_t3sportstats_search_Builder {
 		$result = self::setField($fields,'PLAYERSTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
 		return true;
 	}
+	/**
+	 * Search for coach statistics by scope
+	 *
+	 * @param array $fields
+	 * @param string $scope Scope Array
+	 * @return true
+	 */
+	public static function buildCoachStatsByScope(&$fields, $scope) {
+		$result = false;
+		$result = self::setField($fields,'COACHSTAT.SAISON', OP_IN_INT, $scope['SAISON_UIDS']) || $result;
+		$result = self::setField($fields,'COACHSTAT.AGEGROUP', OP_IN_INT, $scope['GROUP_UIDS']) || $result;
+		$result = self::setField($fields,'COACHSTAT.COMPETITION', OP_IN_INT, $scope['COMP_UIDS']) || $result;
+		$result = self::setField($fields,'COACHSTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
+		return true;
+	}
+	/**
+	 * Search for referee statistics by scope
+	 *
+	 * @param array $fields
+	 * @param string $scope Scope Array
+	 * @return true
+	 */
+	public static function buildRefereeStatsByScope(&$fields, $scope) {
+		$result = false;
+		$result = self::setField($fields,'REFEREESTAT.SAISON', OP_IN_INT, $scope['SAISON_UIDS']) || $result;
+		$result = self::setField($fields,'REFEREESTAT.AGEGROUP', OP_IN_INT, $scope['GROUP_UIDS']) || $result;
+		$result = self::setField($fields,'REFEREESTAT.COMPETITION', OP_IN_INT, $scope['COMP_UIDS']) || $result;
+		$result = self::setField($fields,'REFEREESTAT.CLUB', OP_IN_INT, $scope['CLUB_UIDS']) || $result;
+		return true;
+	}
 	public static function setField(&$fields, $field, $operator, $value) {
 		$result = false;
 		if(strlen(trim($value))) {

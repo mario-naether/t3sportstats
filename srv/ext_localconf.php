@@ -92,9 +92,12 @@ tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardyr', '71');
 tx_t3sportstats_util_Config::registerRefereeStatsSimple('cardred', '72');
 
 
+// Register reports for plugin
 tx_t3sportstats_util_Config::registerPlayerStatsReport('default');
 tx_t3sportstats_util_Config::registerPlayerStatsReport('scorerlist');
 tx_t3sportstats_util_Config::registerPlayerStatsReport('assistlist');
 
+tx_t3sportstats_util_Config::registerCoachStatsReport('default');
+tx_t3sportstats_util_Config::registerRefereeStatsReport('default');
 
 ?>

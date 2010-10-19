@@ -122,7 +122,7 @@ CREATE TABLE tx_t3sportstats_referees (
 	cardredagainst tinyint(4) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
-	KEY idx_refclubmatch (referee, club,t3match)
+	KEY idx_refclubmatch (referee,club,t3match)
 );
 
 #

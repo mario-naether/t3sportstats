@@ -54,6 +54,7 @@ class tx_t3sportstats_srv_CoachStats extends t3lib_svbase {
 	 * @param tx_t3sportstats_util_DataBag $dataBag
 	 * @param tx_cfcleague_models_Match $match
 	 * @param boolean $isHome
+	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
 	 */
 	private function indexJokerGoals($dataBag, $match, $isHome, $mnProv) {
 		// Wir benötigen die Events der gesamten Mannschaft
@@ -87,6 +88,7 @@ class tx_t3sportstats_srv_CoachStats extends t3lib_svbase {
 	 * @param boolean $isHome
 	 */
 	private function indexWinLoose($dataBag, $match, $isHome) {
+		$dataBag->setType('played', 1);
 		$toto = $match->getToto();
 		$type = 'draw';
 		if($toto == 1 && $isHome || $toto == 2 && !$isHome)

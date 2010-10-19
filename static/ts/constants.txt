@@ -1,6 +1,10 @@
 #contants
 
 plugin.tx_t3sportstats {
+  # cat=T3sportstats (Templates)/refereestats; type=string;label=HTML Template for referee statistics
+  refereestatsTemplate = EXT:t3sportstats/templates/coachstats.html
+  # cat=T3sportstats (Templates)/coachstats; type=string;label=HTML Template for coach statistics
+  coachstatsTemplate = EXT:t3sportstats/templates/coachstats.html
   # cat=T3sportstats (Templates)/playerstats; type=string;label=HTML Template for player statistics
   playerstatsTemplate = EXT:t3sportstats/templates/playerstats.html
 

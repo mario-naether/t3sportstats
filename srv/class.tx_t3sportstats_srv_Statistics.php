@@ -321,6 +321,31 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		return $searcher->search($fields, $options);
 	}
 
+		/**
+	 * Search database for coach stats
+	 *
+	 * @param array $fields
+	 * @param array $options
+	 * @return array of tx_a4base_models_trade
+	 */
+	public function searchCoachStats($fields, $options) {
+		tx_rnbase::load('tx_rnbase_util_SearchBase');
+		$searcher = tx_rnbase_util_SearchBase::getInstance('tx_t3sportstats_search_CoachStats');
+		return $searcher->search($fields, $options);
+	}
+	/**
+	 * Search database for referee stats
+	 *
+	 * @param array $fields
+	 * @param array $options
+	 * @return array of tx_a4base_models_trade
+	 */
+	public function searchRefereeStats($fields, $options) {
+		tx_rnbase::load('tx_rnbase_util_SearchBase');
+		$searcher = tx_rnbase_util_SearchBase::getInstance('tx_t3sportstats_search_RefereeStats');
+		return $searcher->search($fields, $options);
+	}
+
 	/**
 	 * Returns all registered services for player statistics
 	 * @return array

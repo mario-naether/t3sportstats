@@ -93,6 +93,7 @@ class tx_t3sportstats_srv_RefereeStats extends t3lib_svbase {
 	 * @param boolean $isHome
 	 */
 	private function indexWinLoose($dataBag, $match, $isHome) {
+		$dataBag->setType('played', 1);
 		$toto = $match->getToto();
 		$type = 'draw';
 		if($toto == 1 && $isHome || $toto == 2 && !$isHome)
