@@ -12,13 +12,13 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Statistics for T3sports',
-	'description' => 'Statistics extension for T3sports',
+	'description' => 'Statistics extension for T3sports.',
 	'category' => 'plugin',
 	'author' => 'Rene Nitzsche',
 	'author_email' => 'rene@system25.de',
 	'author_company' => 'System 25',
 	'shy' => '',
-	'version' => '0.2.3',
+	'version' => '0.3.0',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -33,9 +33,9 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'cms' => '',
-			'rn_base' => '0.9.3-0.0.0',
-			'cfc_league' => '0.7.6-0.0.0',
-			'cfc_league_fe' => '0.7.8-0.0.0',
+			'rn_base' => '0.9.4-0.0.0',
+			'cfc_league' => '0.8.0-0.0.0',
+			'cfc_league_fe' => '0.8.0-0.0.0',
 		),
 		'conflicts' => array(
 		),

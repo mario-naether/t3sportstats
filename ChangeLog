@@ -2,10 +2,12 @@
 Changelog
 ----------
 
-v0.2.4 (??.10.2010)
+v0.3.0 (21.10.2010)
  * TS-Setup changed to make it easier to change sort order in statistics
  * Alias for table PLAYERSTAT in hooks fixed
  * PlayerStats: count win, loose, draw
+ * Statistics for coaches and referees added
+ * Simple database statistics added
 
 v0.2.3 (05.10.2010)
  * Link statsdata to matchtable to show all matches used for a given data value
