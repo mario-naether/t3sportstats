@@ -16,6 +16,9 @@
 			<label index="label_player">Player</label>
 			<label index="label_coach">Coach</label>
 			<label index="label_referee">Referee</label>
+			<label index="label_ref">REF</label>
+			<label index="label_assistref">Assist</label>
+			<label index="label_assref">RA</label>
 			<label index="label_matchcount">Count</label>
 			<label index="label_minutes">Minutes</label>
 			<label index="label_cardyellow">Y</label>
@@ -29,6 +32,8 @@
 			<label index="label_goalshome">Goals Home</label>
 			<label index="label_goalsaway">Goals Away</label>
 			<label index="label_total">Total</label>
+			<label index="label_wins">Wins</label>
+			<label index="label_draw">Draw</label>
 			<label index="label_home">Home</label>
 			<label index="label_away">Away</label>
 			<label index="label_joker">Joker</label>
@@ -51,6 +56,9 @@
 			<label index="label_player">Spieler</label>
 			<label index="label_coach">Trainer</label>
 			<label index="label_referee">Schiedsrichter</label>
+			<label index="label_ref">SR</label>
+			<label index="label_assistref">Assistent</label>
+			<label index="label_assref">SRA</label>
 			<label index="label_matchcount">Anzahl</label>
 			<label index="label_minutes">Minuten</label>
 			<label index="label_cardyellow">G</label>
@@ -64,6 +72,7 @@
 			<label index="label_goalshome">Heimtore</label>
 			<label index="label_goalsaway">Auswärtstore</label>
 			<label index="label_total">Gesamt</label>
+			<label index="label_wins">Siege</label>
 			<label index="label_home">Heim</label>
 			<label index="label_away">Ausw</label>
 			<label index="label_joker">Joker</label>

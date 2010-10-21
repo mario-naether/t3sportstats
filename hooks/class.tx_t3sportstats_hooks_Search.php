@@ -33,10 +33,18 @@ class tx_t3sportstats_hooks_Search {
 
 	public function getTableMappingMatch($params, $parent) {
 		$params['tableMapping']['PLAYERSTAT'] = 'tx_t3sportstats_players';
+		$params['tableMapping']['COACHSTAT'] = 'tx_t3sportstats_coachs';
+		$params['tableMapping']['REFEREESTAT'] = 'tx_t3sportstats_referees';
 	}
 	public function getJoinsMatch($params, $parent) {
 		if(isset($params['tableAliases']['PLAYERSTAT'])) {
 			$params['join'] .= ' JOIN tx_t3sportstats_players ON tx_cfcleague_games.uid = tx_t3sportstats_players.t3match ';
+		}
+		if(isset($params['tableAliases']['COACHSTAT'])) {
+			$params['join'] .= ' JOIN tx_t3sportstats_coachs ON tx_cfcleague_games.uid = tx_t3sportstats_coachs.t3match ';
+		}
+		if(isset($params['tableAliases']['REFEREESTAT'])) {
+			$params['join'] .= ' JOIN tx_t3sportstats_referees ON tx_cfcleague_games.uid = tx_t3sportstats_referees.t3match ';
 		}
 	}
 

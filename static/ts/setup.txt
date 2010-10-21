@@ -58,7 +58,7 @@ lib.t3sports.statsData {
       useKeepVars.add = cfc_league_fe::statstype=default
     }
     goals < .played
-    goals.useKeepVars.add = cfc_league_fe::statstype=default
+#    goals.useKeepVars.add = cfc_league_fe::statstype=default
   }
 }
 
@@ -83,6 +83,8 @@ lib.t3sports.statsCoachFilter {
   options.what = coach
 	options.groupby = COACHSTAT.coach
 	columns = played,win,draw,loose,cardyellow,cardyr,cardred,goals,goalshome,goalsaway,goalsjoker,changeout
+  data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
+  data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
 }
 lib.t3sports.statsRefereeFilter < lib.t3sports.statsFilter
 lib.t3sports.statsRefereeFilter {
@@ -90,12 +92,14 @@ lib.t3sports.statsRefereeFilter {
   options.what = referee
 	options.groupby = REFEREESTAT.referee
 	columns (
-	 played,win,draw,loose,
+	 played,mainref,assist,win,draw,loose,
 	 cardyellow,cardyr,cardred,
 	 cardyellowown,cardyrown,cardredown,
 	 cardyellowagainst,cardyragainst,cardredagainst,
 	 goalspenalty,goalspenaltyown,goalspenaltyagainst,penalty,penaltyown,penaltyagainst
 	)
+  data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultRef
+  data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultRef
 }
 
 # Ab hier Konfiguration der einzelnen Views 
@@ -130,6 +134,7 @@ plugin.tx_t3sportstats {
   }
   refereestats {
     default =< lib.t3sports.statsRefereeFilter
+    default.fields.REFEREESTAT.ISHOME.OP_EQ_INT = 1
     default.options.orderby.REFEREE.LAST_NAME = asc
   }
 }
@@ -153,5 +158,7 @@ plugin.tx_cfcleaguefe_report {
 plugin.tx_cfcleaguefe_competition {
   matchtable.filter.stats {
     default =< lib.t3sports.statsPlayerFilter
+    defaultCoach =< lib.t3sports.statsCoachFilter
+    defaultRef =< lib.t3sports.statsRefereeFilter
   }
 }

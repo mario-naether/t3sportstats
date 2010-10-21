@@ -30,14 +30,31 @@ require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_Filter {
+	private static $tableData = array(
+		'player' => array('tableAlias' => 'PLAYERSTAT', 'colName' => 'player'),
+		'coach' => array('tableAlias' => 'COACHSTAT', 'colName' => 'coach'),
+		'referee' => array('tableAlias' => 'REFEREESTAT', 'colName' => 'referee'),
+	);
 
 	public function handleMatchFilter($params, $parent) {
 		$configurations = $params['configurations'];
 		$parameters = $configurations->getParameters();
 		$statsType = $parameters->get('statstype');
 		if(!$statsType) return;
-		$player = $parameters->getInt('player');
-		if(!$player) return;
+		$profileType = 'player';
+		$profile = $parameters->getInt($profileType);
+		if(!$profile) {
+			$profileType = 'coach';
+			$profile = $parameters->getInt($profileType);
+		}
+		if(!$profile) {
+			$profileType = 'referee';
+			$profile = $parameters->getInt($profileType);
+		}
+
+
+		if(!$profile) return;
+
 		
 		$fields =& $params['fields'];
 		$confId = $params['confid'];
@@ -49,15 +66,15 @@ class tx_t3sportstats_hooks_Filter {
 
 		$statsKey = $parameters->get('statskey');
 		if($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
-			$fields['PLAYERSTAT.'.strtoupper($statsKey)][OP_GT_INT] = 0;
+			$fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;
 		}
 		else return;
 
 		// Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen 
 		// fields der stats
 		tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
-		$fields['PLAYERSTAT.PLAYER'][OP_EQ_INT] = $player;
-		$parent->addFilterData('player', $player);
+		$fields[self::$tableData[$profileType]['tableAlias'].'.'.self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
+		$parent->addFilterData($profileType, $profile);
 	}
 }
 
