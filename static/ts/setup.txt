@@ -75,6 +75,8 @@ lib.t3sports.statsPlayerFilter {
   filter = tx_t3sportstats_filter_PlayerStats
   options.what = player
 	options.groupby = PLAYERSTAT.player
+	markerClass = tx_t3sportstats_marker_PlayerStats
+	filterType = player
 }
 
 lib.t3sports.statsCoachFilter < lib.t3sports.statsFilter
@@ -83,6 +85,8 @@ lib.t3sports.statsCoachFilter {
   options.what = coach
 	options.groupby = COACHSTAT.coach
 	columns = played,win,draw,loose,cardyellow,cardyr,cardred,goals,goalshome,goalsaway,goalsjoker,changeout
+	markerClass = tx_t3sportstats_marker_CoachStats
+	filterType = coach
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultCoach
 }
@@ -98,6 +102,8 @@ lib.t3sports.statsRefereeFilter {
 	 cardyellowagainst,cardyragainst,cardredagainst,
 	 goalspenalty,goalspenaltyown,goalspenaltyagainst,penalty,penaltyown,penaltyagainst
 	)
+	markerClass = tx_t3sportstats_marker_RefereeStats
+	filterType = referee
   data.links.played.useKeepVars.add = cfc_league_fe::statstype=defaultRef
   data.links.goals.useKeepVars.add = cfc_league_fe::statstype=defaultRef
 }
@@ -148,6 +154,15 @@ plugin.tx_cfcleaguefe_report {
     # Define a new statistics
     league =< lib.t3sports.statsPlayerFilter
     league {
+      # Use matches from leagues only
+      fields.COMPETITION.TYPE.OP_EQ_INT = 1
+      # Use obligate matches only
+      fields.COMPETITION.OBLIGATION.OP_EQ_INT = 1
+    }
+    referee =< lib.t3sports.statsRefereeFilter
+    referee {
+      # For common stats use home matches only
+      fields.REFEREESTAT.ISHOME.OP_EQ_INT = 1
       # Use matches from leagues only
       fields.COMPETITION.TYPE.OP_EQ_INT = 1
       # Use obligate matches only
