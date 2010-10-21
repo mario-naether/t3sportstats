@@ -108,8 +108,9 @@ class tx_t3sportstats_srv_RefereeStats extends t3lib_svbase {
 	 * @param tx_t3sportstats_util_MatchNoteProvider $mnProv
 	 */
 	private function indexSimple($dataBag, $mnProv, $isHome) {
-		// Wir benötigen die Events der gesamten Mannschaft
-		$notes = $isHome ? $mnProv->getMatchNotesHome() : $mnProv->getMatchNotesGuest();
+		// Wir benötigen die Events des gesamten Spiels
+//		$notes = $isHome ? $mnProv->getMatchNotesHome() : $mnProv->getMatchNotesGuest();
+		$notes = $mnProv->getMatchNotes();
 
 		if(!$notes || count($notes) == 0) return;
 		$data = array();
