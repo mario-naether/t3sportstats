@@ -100,8 +100,9 @@ CREATE TABLE tx_t3sportstats_referees (
 	agegroupopp int(11) DEFAULT '0' NOT NULL,
 	clubopp int(11) DEFAULT '0' NOT NULL,
 
-	assist tinyint(4) DEFAULT '0' NOT NULL,
 	played tinyint(4) DEFAULT '0' NOT NULL,
+	mainref tinyint(4) DEFAULT '0' NOT NULL,
+	assist tinyint(4) DEFAULT '0' NOT NULL,
 	win tinyint(4) DEFAULT '0' NOT NULL,
 	draw tinyint(4) DEFAULT '0' NOT NULL,
 	loose tinyint(4) DEFAULT '0' NOT NULL,

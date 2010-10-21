@@ -273,6 +273,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			if($uid <= 0) continue; // skip dummy records
 			$bag = $this->createProfileBag($uid, $match, $home, 'referee');
 			$bag->setType('assist', ($refereeUid == $uid ? 0 : 1));
+			$bag->setType('mainref', ($refereeUid == $uid ? 1 : 0));
 			$bags[] = $bag;
 		}
 		return $bags;
