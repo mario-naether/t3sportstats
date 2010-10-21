@@ -43,12 +43,15 @@ class tx_t3sportstats_srv_RefereeStats extends t3lib_svbase {
 	 * @param boolean $isHome
 	 */
 	public function indexRefereeStats($dataBag, $match, $mnProv, $isHome) {
-		// Wir betrachten das Spiel für einen bestimmten Spieler
+		// Wir betrachten das Spiel für einen bestimmten SR
 		$profId = $dataBag->getParentUid();
-		$this->indexSimple($dataBag, $mnProv, $isHome);
+		if(!$this->isAssist($dataBag)) {
+			// Diese Daten sind für die SRA nicht relevant
+			$this->indexSimple($dataBag, $mnProv, $isHome);
+			$this->indexPenalties($dataBag, $match, $isHome, $mnProv);
+		}
 		$this->indexWinLoose($dataBag, $match, $isHome);
 //		$this->indexGoals($dataBag, $match, $isHome);
-		$this->indexPenalties($dataBag, $match, $isHome, $mnProv);
 	}
 	/**
 	 * 
@@ -101,6 +104,13 @@ class tx_t3sportstats_srv_RefereeStats extends t3lib_svbase {
 		elseif($toto == 2 && $isHome || $toto == 1 && !$isHome)
 			$type = 'loose';
 		$dataBag->addType($type, 1);
+	}
+	/**
+	 * 
+	 * @param tx_t3sportstats_util_DataBag $dataBag
+	 */
+	private function isAssist($dataBag) {
+		return (intval($dataBag->getTypeValue('assist')) > 0);
 	}
 	/**
 	 *
