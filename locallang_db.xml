@@ -17,6 +17,7 @@
 			<label index="plugin.t3sportstats.flexform.action.playerstats">Player statistics</label>
 			<label index="plugin.t3sportstats.flexform.action.coachstats">Coach statistics</label>
 			<label index="plugin.t3sportstats.flexform.action.refereestats">Referee statistics</label>
+			<label index="plugin.t3sportstats.flexform.action.dbstats">Database statistics</label>
 
 			<label index="service_t3sports_statistics_title">Statistics service</label>
 
@@ -31,6 +32,9 @@
 			<label index="plugin.t3sportstats.flexform.highlightteam">Team Spieler hervorheben</label>
 
 			<label index="plugin.t3sportstats.flexform.action.playerstats">Spielerstatistik</label>
+			<label index="plugin.t3sportstats.flexform.action.coachstats">Trainerstatistik</label>
+			<label index="plugin.t3sportstats.flexform.action.refereestats">Schiedsrichterstatistik</label>
+			<label index="plugin.t3sportstats.flexform.action.dbstats">Datenbankstatistik</label>
 
 			<label index="service_t3sports_statistics_title">Statistik Service</label>
 

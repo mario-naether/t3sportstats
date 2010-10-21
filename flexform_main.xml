@@ -33,6 +33,10 @@
                     <numIndex index="0">LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.refereestats</numIndex>
                     <numIndex index="1">tx_t3sportstats_actions_RefereeStats</numIndex>
                   </numIndex>
+                  <numIndex index="500" type="array">
+                    <numIndex index="0">LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.action.dbstats</numIndex>
+                    <numIndex index="1">tx_t3sportstats_actions_DBStats</numIndex>
+                  </numIndex>
 
 
                 </items>

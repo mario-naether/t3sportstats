@@ -114,6 +114,7 @@ plugin.tx_t3sportstats {
   playerstatsTemplate = {$plugin.tx_t3sportstats.playerstatsTemplate}
   coachstatsTemplate = {$plugin.tx_t3sportstats.coachstatsTemplate}
   refereestatsTemplate = {$plugin.tx_t3sportstats.refereestatsTemplate}
+  dbstatsTemplate = {$plugin.tx_t3sportstats.dbstatsTemplate}
 
 	scopeSelection =< plugin.tx_cfcleaguefe_competition.scopeSelection
   playerstats {
@@ -142,6 +143,9 @@ plugin.tx_t3sportstats {
     default =< lib.t3sports.statsRefereeFilter
     default.fields.REFEREESTAT.ISHOME.OP_EQ_INT = 1
     default.options.orderby.REFEREE.LAST_NAME = asc
+  }
+  dbstats {
+    tables = tx_cfcleague_games,tx_cfcleague_profiles,tx_cfcleague_teams,tx_cfcleague_club, tx_cfcleague_match_notes
   }
 }
 

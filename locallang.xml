@@ -13,6 +13,10 @@
 			<label index="label_change">Change</label>
 			<label index="label_changes">Changes</label>
 			<label index="label_cards">Cards</label>
+			<label index="label_profiles">Profiles</label>
+			<label index="label_teams">Teams</label>
+			<label index="label_clubs">Clubs</label>
+			<label index="label_matchnotes">Match notes</label>
 			<label index="label_player">Player</label>
 			<label index="label_coach">Coach</label>
 			<label index="label_referee">Referee</label>
@@ -53,6 +57,10 @@
 			<label index="label_change">Wechsel</label>
 			<label index="label_changes">Wechsel</label>
 			<label index="label_cards">Karten</label>
+			<label index="label_profiles">Personen</label>
+			<label index="label_teams">Mannschaften</label>
+			<label index="label_clubs">Vereine</label>
+			<label index="label_matchnotes">Spielereignisse</label>
 			<label index="label_player">Spieler</label>
 			<label index="label_coach">Trainer</label>
 			<label index="label_referee">Schiedsrichter</label>
