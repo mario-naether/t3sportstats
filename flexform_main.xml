@@ -180,7 +180,7 @@
                 <multiple>0</multiple>
                 <maxitems>20</maxitems>
                 <autoSizeMax>30</autoSizeMax>
-                <size>5</size>
+                <size>15</size>
               </config>
             </TCEforms>
           </clubSelection>
