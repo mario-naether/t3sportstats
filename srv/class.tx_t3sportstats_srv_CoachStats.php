@@ -80,6 +80,10 @@ class tx_t3sportstats_srv_CoachStats extends t3lib_svbase {
 		$goals = $isHome ? $match->getGoalsHome() : $match->getGoalsGuest();
 		$dataBag->addType('goals', $goals);
 		$dataBag->addType($isHome ? 'goalshome':'goalsaway', $goals);
+
+		$goals = !$isHome ? $match->getGoalsHome() : $match->getGoalsGuest();
+		$dataBag->addType('goalsagainst', $goals);
+		$dataBag->addType($isHome ? 'goalshomeagainst':'goalsawayagainst', $goals);
 	}
 	/**
 	 * 
