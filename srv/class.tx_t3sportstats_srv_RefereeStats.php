@@ -35,7 +35,7 @@ class tx_t3sportstats_srv_RefereeStats extends t3lib_svbase {
 	private $types = array();
 
 	/**
-	 * Update statistics for a coach
+	 * Update statistics for a referee
 	 *
 	 * @param tx_t3sportstats_util_DataBag $dataBag
 	 * @param tx_cfcleague_models_Match $match
