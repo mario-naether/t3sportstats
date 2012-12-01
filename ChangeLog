@@ -5,6 +5,8 @@ Changelog
 v0.3.1 (??.12.2010)
  * Update statistics data if profiles are merged in T3sports. Hook added.
  * Count goals against for coaches
+ * New hook in action_PlayerStats
+ * Configurable markerclass in views_PlayerStats
 
 v0.3.0 (21.10.2010)
  * TS-Setup changed to make it easier to change sort order in statistics
