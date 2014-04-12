@@ -18,7 +18,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 'rene@system25.de',
 	'author_company' => 'System 25',
 	'shy' => '',
-	'version' => '0.3.0',
+	'version' => '0.3.1',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -32,10 +32,10 @@ $EM_CONF[$_EXTKEY] = array(
 	'lockType' => '',
 	'constraints' => array(
 		'depends' => array(
-			'cms' => '',
-			'rn_base' => '0.9.4-0.0.0',
-			'cfc_league' => '0.8.1-0.0.0',
-			'cfc_league_fe' => '0.8.0-0.0.0',
+			'typo3' => '4.3.0-6.2.99',
+			'rn_base' => '0.14.0-0.0.0',
+			'cfc_league' => '0.9.1-0.0.0',
+			'cfc_league_fe' => '0.9.0-0.0.0',
 		),
 		'conflicts' => array(
 		),

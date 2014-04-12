@@ -2,7 +2,11 @@
 Changelog
 ----------
 
-v0.3.1 (??.12.2010)
+v0.4.0 (??.01.2014)
+ * Support for TYPO3 6.2
+
+v0.3.1 (19.01.2013)
+ * Migration to git
  * Update statistics data if profiles are merged in T3sports. Hook added.
  * Count goals against for coaches
  * New hook in action_PlayerStats
