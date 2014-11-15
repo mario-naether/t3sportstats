@@ -44,3 +44,59 @@ löscht, dann muss man anschließend den Statistik-Cache des Wettbewerbs lösche
 
 Schritt 3: Statistik im Spieler einblenden
 ------------------------------------------
+In der Extension cfc_league_fe sind die notwendigen Subparts bereits in den Templates der 
+Personen enthalten. Sie müssen einfach mit eingebunden werden und die Daten sollten 
+angezeigt werden.
+
+Dabei werden nicht nur die Daten des Spielers angezeigt, die er für den eigenen Verein 
+erzeugt hat. Sondern es werden, wenn vorhanden, auch die Spiele ausgewertet, die er gegen 
+den eigenen Verein gespielt hat.
+
+Schritt 4: Statistik mit Plugin anzeigen
+----------------------------------------
+Für umfangreiche Statistiken wird das Plugin *T3sports: Statistics* verwendet. Im ersten Tab
+wählt man die gewünschte Statistik aus. Neben der Spielerstatistik, steht auch eine Auswertung 
+für Trainer und Schiedsrichter bereit. Außerdem liefert die Datenbankstatistik ein paar 
+allgemeine Zahlen über die gesammelten Spiele in der Datenbank. Im ersten Tab kann man den 
+Datenscope wie gewohnt weiter einschränken.
+
+Spielerstatistik
+................
+Per Typoscript kann man verschiedene Auswertungen zu den Spielern konfigurieren. Drei dieser
+Konfigurationen werden schon mitgeliefert. Die Statistik **default** entspricht dem normalen 
+Arbeitsnachweis der Spieler. Mit **scorerlist** werden die Torschützen angezeigt und mit 
+**assistlist** die besten Vorlagengeber.
+
+Die Option **Teamspieler hervorheben** kann genutzt werden, um in einer umfangreichen Spielerliste,
+die Spieler eines bestimmten Teams hervorzuheben.
+
+Trainerstatistik
+................
+Diese Statistik liefert Zahlen zur Bilanz der Trainer. Die folgenden Abbildungen sagen vermutlich
+mehr als viele Worte.
+
+.. figure:: ../Images/coach_stats_example.png
+   :alt: Example for statistics of coaches.
+
+Die Detailansicht eines Trainers:
+
+.. figure:: ../Images/coach_stats_single.png
+   :alt: Detailed statistics of a coach.
+
+
+Schiedsrichterstatistik
+.......................
+Auch für die Schiedsrichter und deren Assistenten werden Statistiken erstellt. Und auch hier
+sollen die Abbildungen einen Eindruck des möglichen Umfangs liefern:
+
+.. figure:: ../Images/referee_stats_list.png
+   :alt: Example for statistics of referees.
+
+Die Detailansicht des Schiedsrichters:
+
+.. figure:: ../Images/referee_stats_single.png
+   :alt: Detailed statistics of a referee.
+
+
+
+
