@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2014 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -86,8 +86,8 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC {
 
 		$items = $srv->searchPlayerStats($fields, $options);
 		tx_rnbase_util_Misc::callHook('t3sportstats','playerstats_finddata',
-				array('type' => $type, 'items' => &$items, 'confid'=>$confId, 
-							'fields'=>$fields, 'options'=>$options, 
+				array('type' => $type, 'items' => &$items, 'confid'=>$confId,
+							'fields'=>$fields, 'options'=>$options,
 							'configurations'=>$configurations), $this);
 		return $items;
 	}

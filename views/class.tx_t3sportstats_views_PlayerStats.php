@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2012 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2014 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -45,12 +45,13 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 			$listBuilder->addVisitor(array($this, 'highlightPlayer'));
 		}
 
-		// Marker class can be configured
-		$markerClass = $configurations->get($this->getController()->getConfId().$type.'.markerClass');
-		if($markerClass)
-			$markerClass = 'tx_t3sportstats_marker_PlayerStats';
 		$out = '';
 		foreach($items As $type => $data) {
+			// Marker class can be configured
+			$markerClass = $configurations->get($this->getController()->getConfId().$type.'.markerClass');
+			if(!$markerClass)
+				$markerClass = 'tx_t3sportstats_marker_PlayerStats';
+
 			$subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
 			$out .= $listBuilder->render($data,
 					$viewData, $subTemplate, $markerClass,
@@ -66,7 +67,7 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 	}
 	/**
 	 * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
-	 * createOutput automatisch als $template übergeben. 
+	 * createOutput automatisch als $template übergeben.
 	 *
 	 * @return string
 	 */
