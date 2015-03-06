@@ -62,13 +62,21 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 				tx_cfcleague_util_MatchNote::isCardRed($note) ) {
 				$time = $note->getMinute() - $startMin + $time;
 				$isEndPlayer = false;
-				}
+			}
 		}
 		if($isEndPlayer) {
-			$time = 90 - $startMin + $time;
+			$endTime = $this->retrieveEndTime($match);
+			$time = $endTime - $startMin + $time;
 			$time = $time ? $time : 1; // Give the player at least 1 minute.
 		}
 		$dataBag->addType('playtime', $time);
+	}
+	protected function retrieveEndTime(tx_cfcleague_models_Match $match) {
+		$sports = $match->getCompetition()->getSportsService();
+		$matchInfo = $sports->getMatchInfo();
+		$key = $match->isExtraTime() ? tx_cfcleague_sports_MatchInfo::MATCH_EXTRA_TIME : tx_cfcleague_sports_MatchInfo::MATCH_TIME;
+		$ret = $matchInfo->getInfo($key);
+		return $ret == NULL ? 90 : $ret;
 	}
 	/**
 	 * 
