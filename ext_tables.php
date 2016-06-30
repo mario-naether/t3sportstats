@@ -19,7 +19,7 @@ tx_rnbase_util_Extensions::addStaticFile($_EXTKEY,'static/ts/', 'T3sportstats');
 
 if (TYPO3_MODE=="BE")	{
 	# Add plugin wizard
-	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_t3sportstats_util_wizicon'] = t3lib_extMgm::extPath($_EXTKEY).'util/class.tx_t3sportstats_util_Wizicon.php';
+	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_t3sportstats_util_wizicon'] = tx_rnbase_util_Extensions::extPath($_EXTKEY).'util/class.tx_t3sportstats_util_Wizicon.php';
 
 	// Einbindung einer PageTSConfig
 	tx_rnbase_util_Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/mod/pageTSconfig.txt">');

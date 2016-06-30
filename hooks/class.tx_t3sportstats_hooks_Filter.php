@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 
 /**
@@ -76,7 +76,7 @@ class tx_t3sportstats_hooks_Filter {
 
 		$cols = $configurations->get($confId.'columns');
 		if(!$cols) return;
-		$cols = array_flip(t3lib_div::trimExplode(',', $cols));
+		$cols = array_flip(Tx_Rnbase_Utility_T3General::trimExplode(',', $cols));
 
 		if($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
 			$fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;

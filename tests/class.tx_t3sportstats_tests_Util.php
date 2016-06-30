@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 
 tx_rnbase::load('tx_rnbase_util_Spyc');
@@ -61,7 +61,7 @@ class tx_t3sportstats_tests_Util {
 		return $ret;
 	}
 	private static function getFixturePath($filename) {
-		return t3lib_extMgm::extPath('t3sportstats').'tests/fixtures/'.$filename;
+		return tx_rnbase_util_Extensions::extPath('t3sportstats').'tests/fixtures/'.$filename;
 	}
 }
 

@@ -22,14 +22,14 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 
 /**
  * 
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_srv_PlayerStats extends t3lib_svbase {
+class tx_t3sportstats_srv_PlayerStats extends Tx_Rnbase_Service_Base {
 	private $types = array();
 
 	/**
@@ -85,7 +85,7 @@ class tx_t3sportstats_srv_PlayerStats extends t3lib_svbase {
 	}
 	private function isType($type, $typeList) {
 		if(!array_key_exists($typeList, $this->types)) {
-			$this->types[$typeList] = array_flip(t3lib_div::intExplode(',', $typeList));
+			$this->types[$typeList] = array_flip(Tx_Rnbase_Utility_T3General::intExplode(',', $typeList));
 		}
 		$types = $this->types[$typeList];
 		return array_key_exists($type, $types);

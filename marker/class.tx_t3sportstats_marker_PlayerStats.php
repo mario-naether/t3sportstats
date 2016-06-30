@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 tx_rnbase::load('tx_rnbase_util_BaseMarker');
 tx_rnbase::load('tx_cfcleague_models_Profile');
@@ -46,7 +46,7 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 		if(!is_object($item)) {
 			return $formatter->configurations->getLL('item_notFound');
 		}
-//$time = t3lib_div::milliseconds();
+//$time = Tx_Rnbase_Utility_T3General::milliseconds();
 		$this->prepareFields($item, $template, $marker);
 		tx_rnbase_util_Misc::callHook('t3sportstats','playerStatsMarker_initRecord', 
 			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);

@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_rnbase_filter_BaseFilter');
 
 /**
@@ -42,7 +42,7 @@ class tx_t3sportstats_hooks_Marker {
 	 * @param tx_cfcleaguefe_util_ProfileMarker $parent
 	 */
 	public function parseProfile($params, $parent) {
-//t3lib_div::debug($params, 'class.tx_t3sportstats_hooks_Marker.php'); // TODO: remove me
+//Tx_Rnbase_Utility_T3General::debug($params, 'class.tx_t3sportstats_hooks_Marker.php'); // TODO: remove me
 		// Wir benötigen mehrere Statistiken pro Person
 		// Diese müssen per TS konfiguriert werden
 		// stats.liga.fields..

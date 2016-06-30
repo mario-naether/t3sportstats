@@ -1,7 +1,7 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_t3sportstats_util_ServiceRegistry');
 tx_rnbase::load('tx_rnbase_util_SearchBase');
 
@@ -18,7 +18,7 @@ $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['profileMarker_afterSub
 // Hook for match filter
 $GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['cfc_league_fe']['filterMatch_setfields'][] = 'EXT:' . $_EXTKEY . '/hooks/class.tx_t3sportstats_hooks_Filter.php:&tx_t3sportstats_hooks_Filter->handleMatchFilter';
 
-require_once(t3lib_extMgm::extPath('t3sportstats').'srv/ext_localconf.php');
+require_once(tx_rnbase_util_Extensions::extPath('t3sportstats').'srv/ext_localconf.php');
 
 
 // Register a new matchnote type

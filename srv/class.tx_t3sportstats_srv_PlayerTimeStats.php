@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 tx_rnbase::load('tx_cfcleague_util_MatchNote');
 
@@ -30,7 +30,7 @@ tx_rnbase::load('tx_cfcleague_util_MatchNote');
  * 
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
+class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base {
 	private $types = array();
 
 	/**
@@ -84,13 +84,13 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 	 * @param boolean $isHome
 	 */
 	private function isStartPlayer($player, $match, $isHome) {
-		$startPlayer = array_flip(t3lib_div::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
+		$startPlayer = array_flip(Tx_Rnbase_Utility_T3General::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
 		return array_key_exists($player, $startPlayer);
 	}
 
 	private function isType($type, $typeList) {
 		if(!array_key_exists($typeList, $this->types)) {
-			$this->types[$typeList] = array_flip(t3lib_div::intExplode(',', $typeList));
+			$this->types[$typeList] = array_flip(Tx_Rnbase_Utility_T3General::intExplode(',', $typeList));
 		}
 		$types = $this->types[$typeList];
 		return array_key_exists($type, $types);

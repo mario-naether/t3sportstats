@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 
 /**
@@ -35,7 +35,7 @@ class tx_t3sportstats_util_Config {
 	 */
 	public static function lookupPlayerStatsReport($config) {
 		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']) {
-			$types = t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']);
+			$types = Tx_Rnbase_Utility_T3General::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['playerStats']['reports']);
 			foreach ($types As $type) {
 				$config['items'][] = array($type, $type);
 			}
@@ -48,7 +48,7 @@ class tx_t3sportstats_util_Config {
 	 */
 	public static function lookupCoachStatsReport($config) {
 		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']) {
-			$types = t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
+			$types = Tx_Rnbase_Utility_T3General::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['coachStats']['reports']);
 			foreach ($types As $type) {
 				$config['items'][] = array($type, $type);
 			}
@@ -61,7 +61,7 @@ class tx_t3sportstats_util_Config {
 	 */
 	public static function lookupRefereeStatsReport($config) {
 		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']) {
-			$types = t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
+			$types = Tx_Rnbase_Utility_T3General::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats']['refereeStats']['reports']);
 			foreach ($types As $type) {
 				$config['items'][] = array($type, $type);
 			}
@@ -80,7 +80,7 @@ class tx_t3sportstats_util_Config {
 	private static function registerStatsReport($baseType, $statsType) {
 		$current = array();
 		if($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']) {
-			$current = array_flip(t3lib_div::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
+			$current = array_flip(Tx_Rnbase_Utility_T3General::trimExplode(',',$GLOBALS ['TYPO3_CONF_VARS']['EXTCONF']['t3sportstats'][$baseType]['reports']));
 		}
 		if(!array_key_exists($statsType, $current)) {
 			$current = array_flip($current);

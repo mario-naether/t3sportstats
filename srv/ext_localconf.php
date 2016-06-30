@@ -2,63 +2,63 @@
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
 
-t3lib_extMgm::addService($_EXTKEY,  't3sportstats' /* sv type */,  'tx_t3sportstats_srv_Statistics' /* sv key */,
+tx_rnbase_util_Extensions::addService($_EXTKEY,  't3sportstats' /* sv type */,  'tx_t3sportstats_srv_Statistics' /* sv key */,
   array(
     'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_statistics_title', 'description' => 'Statistical data about T3sports', 'subtype' => 'statistics',
     'available' => TRUE, 'priority' => 50, 'quality' => 50,
     'os' => '', 'exec' => '',
-    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_Statistics.php',
+    'classFile' => tx_rnbase_util_Extensions::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_Statistics.php',
     'className' => 'tx_t3sportstats_srv_Statistics',
   )
 );
 
 
-t3lib_extMgm::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3sportstats_srv_PlayerStats' /* sv key */,
+tx_rnbase_util_Extensions::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3sportstats_srv_PlayerStats' /* sv key */,
   array(
     'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playerstats_title', 'description' => 'Statistical data about players', 'subtype' => 'base',
     'available' => TRUE, 'priority' => 50, 'quality' => 50,
     'os' => '', 'exec' => '',
-    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_PlayerStats.php',
+    'classFile' => tx_rnbase_util_Extensions::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_PlayerStats.php',
     'className' => 'tx_t3sportstats_srv_PlayerStats',
   )
 );
 
-t3lib_extMgm::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3sportstats_srv_PlayerTimeStats' /* sv key */,
+tx_rnbase_util_Extensions::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3sportstats_srv_PlayerTimeStats' /* sv key */,
   array(
     'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'playtime',
     'available' => TRUE, 'priority' => 50, 'quality' => 50,
     'os' => '', 'exec' => '',
-    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_PlayerTimeStats.php',
+    'classFile' => tx_rnbase_util_Extensions::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_PlayerTimeStats.php',
     'className' => 'tx_t3sportstats_srv_PlayerTimeStats',
   )
 );
 
-t3lib_extMgm::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3sportstats_srv_PlayerGoalStats' /* sv key */,
+tx_rnbase_util_Extensions::addService($_EXTKEY,  't3sportsPlayerStats' /* sv type */,  'tx_t3sportstats_srv_PlayerGoalStats' /* sv key */,
   array(
     'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playertimestats_title', 'description' => 'Statistical data about players', 'subtype' => 'goals',
     'available' => TRUE, 'priority' => 50, 'quality' => 50,
     'os' => '', 'exec' => '',
-    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_PlayerGoalStats.php',
+    'classFile' => tx_rnbase_util_Extensions::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_PlayerGoalStats.php',
     'className' => 'tx_t3sportstats_srv_PlayerGoalStats',
   )
 );
 
-t3lib_extMgm::addService($_EXTKEY,  't3sportsCoachStats' /* sv type */,  'tx_t3sportstats_srv_CoachStats' /* sv key */,
+tx_rnbase_util_Extensions::addService($_EXTKEY,  't3sportsCoachStats' /* sv type */,  'tx_t3sportstats_srv_CoachStats' /* sv key */,
   array(
     'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playerstats_title', 'description' => 'Statistical data about coaches', 'subtype' => 'base',
     'available' => TRUE, 'priority' => 50, 'quality' => 50,
     'os' => '', 'exec' => '',
-    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_CoachStats.php',
+    'classFile' => tx_rnbase_util_Extensions::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_CoachStats.php',
     'className' => 'tx_t3sportstats_srv_CoachStats',
   )
 );
 
-t3lib_extMgm::addService($_EXTKEY,  't3sportsRefereeStats' /* sv type */,  'tx_t3sportstats_srv_RefereeStats' /* sv key */,
+tx_rnbase_util_Extensions::addService($_EXTKEY,  't3sportsRefereeStats' /* sv type */,  'tx_t3sportstats_srv_RefereeStats' /* sv key */,
   array(
     'title' => 'LLL:EXT:t3sportstats/locallang_db.xml:service_t3sports_playerstats_title', 'description' => 'Statistical data about referees', 'subtype' => 'base',
     'available' => TRUE, 'priority' => 50, 'quality' => 50,
     'os' => '', 'exec' => '',
-    'classFile' => t3lib_extMgm::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_RefereeStats.php',
+    'classFile' => tx_rnbase_util_Extensions::extPath($_EXTKEY).'srv/class.tx_t3sportstats_srv_RefereeStats.php',
     'className' => 'tx_t3sportstats_srv_RefereeStats',
   )
 );

@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 
 /**
@@ -55,7 +55,7 @@ class tx_t3sportstats_util_DataBag {
 			$out .= $key. ' = ' . $val . "\n";
 		}
 		reset($this->data);
-		return $out; //t3lib_div::view_array($this->record);
+		return $out; //Tx_Rnbase_Utility_T3General::view_array($this->record);
 	}
 }
 

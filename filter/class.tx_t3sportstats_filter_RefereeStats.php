@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_rnbase_filter_BaseFilter');
 tx_rnbase::load('tx_t3sportstats_search_Builder');
 tx_rnbase::load('tx_cfcleaguefe_util_ScopeController');
@@ -45,7 +45,7 @@ class tx_t3sportstats_filter_RefereeStats extends tx_rnbase_filter_BaseFilter {
 	protected function initFilter(&$fields, &$options, &$parameters, &$configurations, $confId) {
 //  	$options['distinct'] = 1;
 		// Wir benötigen zuerst die Spalten für WHAT
-		$cols = t3lib_div::trimExplode(',',$configurations->get($confId.'columns'));
+		$cols = Tx_Rnbase_Utility_T3General::trimExplode(',',$configurations->get($confId.'columns'));
 		$columns = array();
 		foreach($cols As $col) {
 			if($col)	$columns[] = 'sum('. $col . ') AS '.$col;

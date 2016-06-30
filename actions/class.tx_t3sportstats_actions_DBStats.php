@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 tx_rnbase::load('tx_rnbase_action_BaseIOC');
 
@@ -43,7 +43,7 @@ class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC {
 	 */
 	public function handleRequest(&$parameters,&$configurations, &$viewData){
 		// Zuerst die Art der Statistik ermitteln
-		$tables = t3lib_div::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
+		$tables = Tx_Rnbase_Utility_T3General::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
 		if(!count($tables)) {
 			// Abbruch kein Typ angegeben
 			throw new Exception('No database table configured in: ' . $this->getConfId().'tables');

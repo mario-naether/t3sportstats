@@ -36,14 +36,14 @@ class tx_t3sportstats_util_Wizicon extends tx_rnbase_util_Wizicon {
 	protected function getPluginData() {
 		$plugins = array();
 		$plugins['tx_t3sportstats'] = array(
-				'icon'=>t3lib_extMgm::extRelPath('t3sportstats').'/ext_icon.gif',
+				'icon'=>tx_rnbase_util_Extensions::extRelPath('t3sportstats').'/ext_icon.gif',
 				'title'=>'plugin.t3sportstats.label',
 				'description'=>'plugin.t3sportstats.description',
 		);
 		return $plugins;
 	}
 	protected function getLLFile() {
-		return t3lib_extMgm::extPath('t3sportstats').'locallang_db.xml';
+		return tx_rnbase_util_Extensions::extPath('t3sportstats').'locallang_db.xml';
 	}
 }
 

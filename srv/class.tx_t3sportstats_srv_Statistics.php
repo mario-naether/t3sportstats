@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_rnbase_util_Logger');
 tx_rnbase::load('tx_rnbase_util_Dates');
 tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
@@ -34,7 +34,7 @@ tx_rnbase::load('tx_t3sportstats_util_MatchNoteProvider');
  * 
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
+class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base {
 	private $statsSrvArr = array();
 
 	/**
@@ -226,7 +226,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 			else $ids = $match->record['substitutes_'.$type];
 		}
 		$bags = array();
-		$playerIds = t3lib_div::intExplode(',', $ids);
+		$playerIds = Tx_Rnbase_Utility_T3General::intExplode(',', $ids);
 		foreach($playerIds As $uid) {
 			if($uid <= 0) continue; // skip dummy records
 			$bag = $this->createProfileBag($uid, $match, $home, 'player');
@@ -267,7 +267,7 @@ class tx_t3sportstats_srv_Statistics extends t3lib_svbase {
 		}
 		
 		$bags = array();
-		$refIds = t3lib_div::intExplode(',', $ids);
+		$refIds = Tx_Rnbase_Utility_T3General::intExplode(',', $ids);
 		foreach($refIds As $uid) {
 			if($uid <= 0) continue; // skip dummy records
 			$bag = $this->createProfileBag($uid, $match, $home, 'referee');

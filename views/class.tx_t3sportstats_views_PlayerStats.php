@@ -22,7 +22,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
+require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 
 
 tx_rnbase::load('tx_rnbase_view_Base');
@@ -41,7 +41,7 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 		$listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
 		$team =& $viewData->offsetGet('team');
 		if($team) {
-			$this->playerIds = array_flip(t3lib_div::intExplode(',',$team->record['players']));
+			$this->playerIds = array_flip(Tx_Rnbase_Utility_T3General::intExplode(',',$team->record['players']));
 			$listBuilder->addVisitor(array($this, 'highlightPlayer'));
 		}
 
