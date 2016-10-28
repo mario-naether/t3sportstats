@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,8 +22,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
 
 /**
  * Data container
@@ -32,7 +30,7 @@ class tx_t3sportstats_util_MatchNoteProvider {
 	private $notes=array();
 	private $notesHome = array();
 	private $notesGuest = array();
-	
+
 	private function __construct($notes) {
 		$this->setMatchNotes($notes);
 	}
@@ -53,7 +51,7 @@ class tx_t3sportstats_util_MatchNoteProvider {
 		foreach($notes As $note) {
 			$profile = $note->getPlayer();
 			if($note->isHome()) {
-				// Die Trennung der Spieler in verschiedene Array kann sinnvoll sein, 
+				// Die Trennung der Spieler in verschiedene Array kann sinnvoll sein,
 				// weil ein Spieler auch mal in beiden Teams spielen könnte. Abschiedsspiele
 				$this->notesHome[$profile][] = $note;
 				$this->notesHome['_all'][] = $note;
@@ -100,4 +98,3 @@ class tx_t3sportstats_util_MatchNoteProvider {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_MatchNoteProvider.php']){
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_MatchNoteProvider.php']);
 }
-?>

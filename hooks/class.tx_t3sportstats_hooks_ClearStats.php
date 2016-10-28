@@ -21,18 +21,17 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-tx_rnbase::load('tx_cfcleague_models_Competition');
 
 /**
- * 
+ *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_ClearStats {
 
 	public function clearStats4Comp($params, $parent) {
 		$srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
-		$comp = tx_cfcleague_models_Competition::getInstance($params['compUid']);
+		/* @var $comp tx_cfcleague_models_Competition */
+		$comp = tx_rnbase::makeInstance('tx_cfcleague_models_Competition', $params['compUid']);
 		if($comp && $comp->isValid())
 			$srv->indexPlayerStatsByCompetition($comp);
 	}
@@ -41,5 +40,3 @@ class tx_t3sportstats_hooks_ClearStats {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_ClearStats.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_ClearStats.php']);
 }
-
-?>

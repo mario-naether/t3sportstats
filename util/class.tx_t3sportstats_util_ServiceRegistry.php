@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,14 +23,13 @@
 ***************************************************************/
 
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_rnbase_util_Misc');
 
 /**
  * Zentrale Klasse für den Zugriff auf verschiedene Services
  */
 class tx_t3sportstats_util_ServiceRegistry {
-	
+
 	/**
 	 * Liefert den Statistik-Service
 	 * @return tx_t3sportstats_srv_Statistics
@@ -42,4 +41,3 @@ class tx_t3sportstats_util_ServiceRegistry {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_ServiceRegistry.php'])	{
   include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_ServiceRegistry.php']);
 }
-?>

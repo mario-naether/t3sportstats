@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010 Rene Nitzsche
+ *  (c) 2010-2016 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -21,14 +21,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
 tx_rnbase::load('tx_rnbase_util_SearchBase');
 
 
 /**
  * Class to search player stats from database
- * 
+ *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_search_CoachStats extends tx_rnbase_util_SearchBase {
@@ -74,7 +72,7 @@ class tx_t3sportstats_search_CoachStats extends tx_rnbase_util_SearchBase {
 		if(isset($tableAliases['CLUBOPP'])) {
 			$join .= ' JOIN tx_cfcleague_club AS CLUBOPP ON CLUBOPP.uid = COACHSTAT.clubopp ';
 		}
-		
+
 		// Hook to append other tables
 		tx_rnbase_util_Misc::callHook('t3sportstats','search_CoachStats_getJoins_hook',
 			array('join' => &$join, 'tableAliases' => $tableAliases), $this);
@@ -86,5 +84,3 @@ class tx_t3sportstats_search_CoachStats extends tx_rnbase_util_SearchBase {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/search/class.tx_t3sportstats_search_CoachStats.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/search/class.tx_t3sportstats_search_CoachStats.php']);
 }
-
-?>

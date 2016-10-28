@@ -22,8 +22,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
 tx_rnbase::load('tx_rnbase_mod_ExtendedModFunc');
 
 tx_rnbase::load('tx_rnbase_util_Templates');
@@ -61,18 +59,17 @@ class tx_t3sportstats_mod_index extends tx_rnbase_mod_ExtendedModFunc {
 	protected function getSubMenuItems() {
 		$menuItems = array();
 		$menuItems[] = tx_rnbase::makeInstance('tx_cfcleague_mod1_handler_ClubStadiums');
-		tx_rnbase_util_Misc::callHook('cfc_league','modClub_tabItems', 
+		tx_rnbase_util_Misc::callHook('cfc_league','modClub_tabItems',
 			array('tabItems' => &$menuItems), $this);
 		return $menuItems;
 	}
 	protected function makeSubSelectors(&$selStr) {
 		return false;
 	}
-	
+
 }
 
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/mod1/class.tx_t3sportstats_mod_index.php']);
 }
-?>

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009-2014 Rene Nitzsche (rene[@]system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene[@]system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,6 +23,7 @@
 ***************************************************************/
 
 tx_rnbase::load('tx_rnbase_util_Wizicon');
+tx_rnbase::load('tx_rnbase_util_Extensions');
 
 /**
  * Class that adds the wizard icon.
@@ -36,14 +37,14 @@ class tx_t3sportstats_util_Wizicon extends tx_rnbase_util_Wizicon {
 	protected function getPluginData() {
 		$plugins = array();
 		$plugins['tx_t3sportstats'] = array(
-				'icon'=>t3lib_extMgm::extRelPath('t3sportstats').'/ext_icon.gif',
+				'icon'=>tx_rnbase_util_Extensions::extRelPath('t3sportstats').'/ext_icon.gif',
 				'title'=>'plugin.t3sportstats.label',
 				'description'=>'plugin.t3sportstats.description',
 		);
 		return $plugins;
 	}
 	protected function getLLFile() {
-		return t3lib_extMgm::extPath('t3sportstats').'locallang_db.xml';
+		return tx_rnbase_util_Extensions::extPath('t3sportstats').'locallang_db.xml';
 	}
 }
 

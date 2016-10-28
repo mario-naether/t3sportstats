@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -28,9 +28,8 @@ tx_rnbase::load('tx_rnbase_model_base');
  * Model for a referee stats record.
  */
 class tx_t3sportstats_models_RefereeStat extends tx_rnbase_model_base {
-	private static $instances = array();
 
-	function getTableName(){return 'tx_t3sportstats_referees';}
+	public function getTableName(){return 'tx_t3sportstats_referees';}
 
 	/**
 	 * Returns the competition uid
@@ -38,10 +37,10 @@ class tx_t3sportstats_models_RefereeStat extends tx_rnbase_model_base {
 	 * @return int
 	 */
 	public function getCompetitionUid() {
-		return $this->record['competition'];
+		return $this->getProperty('competition');
 	}
 	public function getMatchUid() {
-		return $this->record['t3match'];
+		return $this->getProperty('t3match');
 	}
 	/**
 	 * Returns the club
@@ -49,7 +48,7 @@ class tx_t3sportstats_models_RefereeStat extends tx_rnbase_model_base {
 	 * @return int
 	 */
 	public function getClubUid() {
-		return $this->record['club'];
+		return $this->getProperty('club');
 	}
 	/**
 	 * Returns the opponent club uid.
@@ -57,7 +56,7 @@ class tx_t3sportstats_models_RefereeStat extends tx_rnbase_model_base {
 	 * @return int
 	 */
 	public function getClubOppUid() {
-		return $this->record['clubopp'];
+		return $this->getProperty('clubopp');
 	}
 	/**
 	 * Returns the player uid.
@@ -65,12 +64,10 @@ class tx_t3sportstats_models_RefereeStat extends tx_rnbase_model_base {
 	 * @return int
 	 */
 	public function getRefereeUid() {
-		return $this->record['referee'];
+		return $this->getProperty('referee');
 	}
 }
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/models/class.tx_t3sportstats_models_RefereeStat.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/models/class.tx_t3sportstats_models_RefereeStat.php']);
 }
-
-?>

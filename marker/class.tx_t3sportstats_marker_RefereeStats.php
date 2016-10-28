@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,8 +22,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
 tx_rnbase::load('tx_rnbase_util_BaseMarker');
 tx_rnbase::load('tx_cfcleague_models_Profile');
 
@@ -36,7 +34,7 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 
   /**
    * @param $template das HTML-Template
-   * @param tx_cfcleaguefe_models_match $match das Spiel
+   * @param tx_cfcleaguefe_models_match $item das Spiel
    * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
    * @param $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
    * @param $marker Name des Markers für ein Spiel, z.B. MATCH
@@ -46,14 +44,13 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 		if(!is_object($item)) {
 			return $formatter->configurations->getLL('item_notFound');
 		}
-//$time = t3lib_div::milliseconds();
 		$this->prepareFields($item, $template, $marker);
-		tx_rnbase_util_Misc::callHook('t3sportstats','refereeStatsMarker_initRecord', 
+		tx_rnbase_util_Misc::callHook('t3sportstats','refereeStatsMarker_initRecord',
 			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 
 		// Das Markerarray wird gefüllt
-		$ignore = self::findUnusedCols($item->record, $template, $marker);
-		$markerArray = $formatter->getItemMarkerArrayWrapped($item->record, $confId, $ignore, $marker.'_');
+		$ignore = self::findUnusedCols($item->getProperty(), $template, $marker);
+		$markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperty(), $confId, $ignore, $marker.'_');
 		$wrappedSubpartArray = array();
 		$subpartArray = array();
 
@@ -61,10 +58,10 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 		// Es wird jetzt das Template verändert und die Daten der Teams eingetragen
 
 		if($this->containsMarker($template, $marker.'_REFEREE_'))
-			$template = $this->_addReferee($template, $item, $formatter, $confId.'referee.', $marker.'_REFEREE');
+			$template = $this->addReferee($template, $item, $formatter, $confId.'referee.', $marker.'_REFEREE');
 
 		$template = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
-		tx_rnbase_util_Misc::callHook('t3sportstats','refereeStatsMarker_afterSubst', 
+		tx_rnbase_util_Misc::callHook('t3sportstats','refereeStatsMarker_afterSubst',
 			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 		return $template;
 	}
@@ -79,7 +76,7 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 	 * @param string $markerPrefix
 	 * @return string
 	 */
-	protected function _addReferee($template, &$item, &$formatter, $confId, $markerPrefix) {
+	protected function addReferee($template, $item, &$formatter, $confId, $markerPrefix) {
 		$sub = $item->getRefereeUid();
 		if(!$sub) {
 			// Kein Stadium vorhanden. Leere Instanz anlegen und altname setzen
@@ -92,28 +89,28 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 	}
 
 	/**
-	 * Im folgenden werden einige Personenlisten per TS aufbereitet. Jede dieser Listen 
+	 * Im folgenden werden einige Personenlisten per TS aufbereitet. Jede dieser Listen
 	 * ist über einen einzelnen Marker im FE verfügbar. Bei der Ausgabe der Personen
-	 * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber 
+	 * werden auch vorhandene MatchNotes berücksichtigt, so daß ein Spieler mit gelber
 	 * Karte diese z.B. neben seinem Namen angezeigt bekommt.
 	 *
 	 * @param tx_t3sportstats_models_RefereeStat $item
 	 */
 	private function prepareFields($item, $template, $markerPrefix) {
 		$perMatch = array();
-		foreach($item->record As $key => $value) {
+		foreach($item->getProperty() As $key => $value) {
 			if(self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_PER_MATCH')) {
-				$perMatch[$key.'_per_match'] = intval($item->record['played']) ? 
-						intval($item->record[$key]) / intval($item->record['played']) : 0;
+				$perMatch[$key.'_per_match'] = intval($item->getProperty('played')) ?
+						intval($item->getProperty($key)) / intval($item->getProperty('played')) : 0;
 			}
 			if(self::containsMarker($template, $markerPrefix.'_'.strtoupper($key).'_AFTER_MINUTES')) {
-				$perMatch[$key.'_after_minutes'] = (intval($item->record[$key])) ? 
-					 intval($item->record['playtime']) / intval($item->record[$key]) : 0;
-				
+				$perMatch[$key.'_after_minutes'] = (intval($item->getProperty($key))) ?
+					 intval($item->getProperty('playtime')) / intval($item->getProperty($key)) : 0;
+
 			}
 		}
-		$item->record = array_merge($item->record, $perMatch);
-		
+		$item->setProperty(array_merge($item->getProperty(), $perMatch));
+
 	}
 
 	/**
@@ -130,14 +127,14 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 		// Verlinkung auf Spielplan mit den Spielen der aktuellen Auswertung
 		$linkNames = $formatter->getConfigurations()->getKeyNames($confId.'links.');
 		foreach($linkNames As $linkId) {
-			if($item->record[$linkId]) {
+			if($item->getProperty($linkId)) {
 				// Link nur bei Wert größer 0 ausführen, damit keine leere Liste verlinkt wird.
-				$params = array('statskey' => $linkId, 'referee'=>$item->record['referee']);
+				$params = array('statskey' => $linkId, 'referee'=>$item->getProperty('referee'));
 				$this->initLink($markerArray, $subpartArray, $wrappedSubpartArray, $formatter, $confId, $linkId, $marker, $params, $template);
 			}
 			else {
 				$linkMarker = $marker . '_' . strtoupper($linkId).'LINK';
-				$remove = intval($formatter->configurations->get($confId.'links.'.$linkId.'.removeIfDisabled'));
+				$remove = intval($formatter->getConfigurations()->get($confId.'links.'.$linkId.'.removeIfDisabled'));
 				$this->disableLink($markerArray, $subpartArray, $wrappedSubpartArray, $linkMarker, $remove > 0);
 			}
 		}
@@ -148,4 +145,3 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_RefereeStats.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_RefereeStats.php']);
 }
-?>

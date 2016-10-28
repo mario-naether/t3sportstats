@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2008-2010 Rene Nitzsche
+ *  (c) 2008-2016 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -21,12 +21,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_rnbase_filter_BaseFilter');
 
 /**
  * Extend marker classes
- * 
+ *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_Marker {
@@ -42,7 +41,6 @@ class tx_t3sportstats_hooks_Marker {
 	 * @param tx_cfcleaguefe_util_ProfileMarker $parent
 	 */
 	public function parseProfile($params, $parent) {
-//t3lib_div::debug($params, 'class.tx_t3sportstats_hooks_Marker.php'); // TODO: remove me
 		// Wir benötigen mehrere Statistiken pro Person
 		// Diese müssen per TS konfiguriert werden
 		// stats.liga.fields..
@@ -52,7 +50,7 @@ class tx_t3sportstats_hooks_Marker {
 		$profile = $params['item'];
 		$template = $params['template'];
 		$markerPrefix = $params['marker'];
-		
+
 		$subpartArray = array();
 		$statKeys = $config->getKeyNames($confId);
 		foreach($statKeys As $statKey) {
@@ -97,5 +95,3 @@ class tx_t3sportstats_hooks_Marker {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Marker.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Marker.php']);
 }
-
-?>

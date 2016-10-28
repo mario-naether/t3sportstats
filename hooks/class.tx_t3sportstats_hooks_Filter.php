@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010 Rene Nitzsche
+ *  (c) 2010-2016 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -21,12 +21,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
+tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
  * Make additional fields for match filter
- * 
+ *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_hooks_Filter {
@@ -66,24 +65,24 @@ class tx_t3sportstats_hooks_Filter {
 			if($profileType && $profileParam)
 				$profile = $parameters->getInt($profileParam);
 		}
-		
+
 
 		if(!$profile) return;
 
-		
+
 		$fields =& $params['fields'];
 		$confId .= 'filter.stats.'.$statsType.'.';
 
 		$cols = $configurations->get($confId.'columns');
 		if(!$cols) return;
-		$cols = array_flip(t3lib_div::trimExplode(',', $cols));
+		$cols = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
 
 		if($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
 			$fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;
 		}
 		else return;
 
-		// Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen 
+		// Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen
 		// fields der stats
 		tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
 		$fields[self::$tableData[$profileType]['tableAlias'].'.'.self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
@@ -94,5 +93,3 @@ class tx_t3sportstats_hooks_Filter {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Filter.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Filter.php']);
 }
-
-?>

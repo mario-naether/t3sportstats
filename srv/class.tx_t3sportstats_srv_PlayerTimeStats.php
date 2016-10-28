@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2014 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,15 +22,15 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
+tx_rnbase::load('Tx_Rnbase_Service_Base');
+tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 tx_rnbase::load('tx_cfcleague_util_MatchNote');
 
 /**
- * 
+ *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
+class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base {
 	private $types = array();
 
 	/**
@@ -57,7 +57,7 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 				$isEndPlayer = true;
 				$dataBag->setType('played', 1);
 			}
-			elseif(tx_cfcleague_util_MatchNote::isChangeOut($note) || 
+			elseif(tx_cfcleague_util_MatchNote::isChangeOut($note) ||
 				tx_cfcleague_util_MatchNote::isCardYellowRed($note) ||
 				tx_cfcleague_util_MatchNote::isCardRed($note) ) {
 				$time = $note->getMinute() - $startMin + $time;
@@ -79,18 +79,18 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 		return $ret == NULL ? 90 : $ret;
 	}
 	/**
-	 * 
+	 *
 	 * @param tx_cfcleague_models_Match $match
 	 * @param boolean $isHome
 	 */
 	private function isStartPlayer($player, $match, $isHome) {
-		$startPlayer = array_flip(t3lib_div::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
+		$startPlayer = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
 		return array_key_exists($player, $startPlayer);
 	}
 
 	private function isType($type, $typeList) {
 		if(!array_key_exists($typeList, $this->types)) {
-			$this->types[$typeList] = array_flip(t3lib_div::intExplode(',', $typeList));
+			$this->types[$typeList] = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
 		}
 		$types = $this->types[$typeList];
 		return array_key_exists($type, $types);
@@ -100,5 +100,3 @@ class tx_t3sportstats_srv_PlayerTimeStats extends t3lib_svbase {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_PlayerTimeStats.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_PlayerTimeStats.php']);
 }
-
-?>

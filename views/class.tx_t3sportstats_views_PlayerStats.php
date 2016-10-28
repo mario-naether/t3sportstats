@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2014 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,11 +22,10 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-require_once(t3lib_extMgm::extPath('rn_base') . 'class.tx_rnbase.php');
-
 
 tx_rnbase::load('tx_rnbase_view_Base');
 tx_rnbase::load('tx_rnbase_util_Templates');
+tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 
 /**
@@ -41,7 +40,7 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 		$listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
 		$team =& $viewData->offsetGet('team');
 		if($team) {
-			$this->playerIds = array_flip(t3lib_div::intExplode(',',$team->record['players']));
+			$this->playerIds = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',',$team->getProperty('players')));
 			$listBuilder->addVisitor(array($this, 'highlightPlayer'));
 		}
 
@@ -61,8 +60,8 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 	}
 
 	public function highlightPlayer($item) {
-		if(array_key_exists($item->record['player'], $this->playerIds)) {
-			$item->record['hlTeam'] = 1;
+		if(array_key_exists($item->getProperty('player'), $this->playerIds)) {
+			$item->setProperty('hlTeam', 1);
 		}
 	}
 	/**
@@ -79,4 +78,3 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_PlayerStats.php']){
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_PlayerStats.php']);
 }
-?>
