@@ -80,10 +80,12 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 	protected function addPlayer($template, &$item, &$formatter, $confId, $markerPrefix) {
 		$sub = $item->getPlayerUid();
 		if(!$sub) {
-			// Kein Stadium vorhanden. Leere Instanz anlegen und altname setzen
+			// Kein Item vorhanden. Leere Instanz anlegen und altname setzen
 			$sub = tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Profile');
 		}
-		else	$sub = tx_cfcleague_models_Profile::getInstance($sub);
+		else {
+			$sub = tx_cfcleague_models_Profile::getProfileInstance($sub);
+		}
 		$marker = tx_rnbase::makeInstance('tx_cfcleaguefe_util_ProfileMarker');
 		$template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 		return $template;
