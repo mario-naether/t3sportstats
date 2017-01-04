@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2015 Rene Nitzsche (rene@system25.de)
+*  (c) 2008-2017 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -65,9 +65,3 @@ class tx_t3sportstats_tests_Util {
 	}
 }
 
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srv_srvStatistics_testcase.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/tests/class.tx_t3sportstats_tests_srv_srvStatistics_testcase.php']);
-}
-
-?>

@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -68,6 +68,3 @@ class tx_t3sportstats_models_CoachStat extends Tx_Rnbase_Domain_Model_Base {
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/models/class.tx_t3sportstats_models_CoachStat.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/models/class.tx_t3sportstats_models_CoachStat.php']);
-}

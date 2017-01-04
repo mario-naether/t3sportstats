@@ -34,7 +34,7 @@ class tx_t3sportstats_marker_CoachStats extends tx_rnbase_util_BaseMarker {
 
   /**
    * @param $template das HTML-Template
-   * @param tx_cfcleaguefe_models_match $match das Spiel
+   * @param tx_t3sportstats_models_CoachStat $item
    * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
    * @param $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
    * @param $marker Name des Markers für ein Spiel, z.B. MATCH
@@ -42,15 +42,15 @@ class tx_t3sportstats_marker_CoachStats extends tx_rnbase_util_BaseMarker {
    */
 	public function parseTemplate($template, $item, &$formatter, $confId, $marker = 'MATCH') {
 		if(!is_object($item)) {
-			return $formatter->configurations->getLL('item_notFound');
+			return $formatter->getConfigurations()->getLL('item_notFound');
 		}
 		$this->prepareFields($item, $template, $marker);
 		tx_rnbase_util_Misc::callHook('t3sportstats','coachStatsMarker_initRecord',
 			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 
 		// Das Markerarray wird gefüllt
-		$ignore = self::findUnusedCols($item->record, $template, $marker);
-		$markerArray = $formatter->getItemMarkerArrayWrapped($item->record, $confId, $ignore, $marker.'_');
+		$ignore = self::findUnusedCols($item->getProperties(), $template, $marker);
+		$markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperties(), $confId, $ignore, $marker.'_');
 		$wrappedSubpartArray = array();
 		$subpartArray = array();
 

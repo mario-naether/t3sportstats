@@ -261,11 +261,15 @@ class tx_t3sportstats_srv_Statistics extends Tx_Rnbase_Service_Base {
 	 */
 	public function getRefereeBags($match, $home) {
 		$refereeUid = $match->getProperty('referee');
-		$ids = $match->record['referee'];
-		if(strlen($match->record['assists']) > 0){
+		$ids = $match->getProperty('referee');
+		if(strlen($match->getProperty('assists')) > 0){
 			// Auch Assistenten anhängen
-			if(strlen($ids) > 0) $ids .= ',' . $match->getProperty('assists');
-			else $ids = $match->record['assists'];
+			if(strlen($ids) > 0){
+				$ids .= ',' . $match->getProperty('assists');
+			}
+			else {
+				$ids = $match->getProperty('assists');
+			}
 		}
 
 		$bags = array();

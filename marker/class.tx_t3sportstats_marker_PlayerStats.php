@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -35,7 +35,7 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 
   /**
    * @param $template das HTML-Template
-   * @param tx_cfcleague_models_match $item das Spiel
+   * @param tx_t3sportstats_models_PlayerStat $item
    * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
    * @param $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
    * @param $marker Name des Markers für ein Spiel, z.B. MATCH
@@ -43,15 +43,15 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
    */
 	public function parseTemplate($template, $item, &$formatter, $confId, $marker = 'MATCH') {
 		if(!is_object($item)) {
-			return $formatter->configurations->getLL('item_notFound');
+			return $formatter->getConfigurations()->getLL('item_notFound');
 		}
 		$this->prepareFields($item, $template, $marker);
 		tx_rnbase_util_Misc::callHook('t3sportstats','playerStatsMarker_initRecord',
-			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
+			array('item' => $item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 
 		// Das Markerarray wird gefüllt
-		$ignore = self::findUnusedCols($item->record, $template, $marker);
-		$markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperty(), $confId, $ignore, $marker.'_');
+		$ignore = self::findUnusedCols($item->getProperties(), $template, $marker);
+		$markerArray = $formatter->getItemMarkerArrayWrapped($item->getProperties(), $confId, $ignore, $marker.'_');
 		$wrappedSubpartArray = array();
 		$subpartArray = array();
 
@@ -63,7 +63,7 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 
 		$template = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
 		tx_rnbase_util_Misc::callHook('t3sportstats','playerStatsMarker_afterSubst',
-			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
+			array('item' => $item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 		return $template;
 	}
 
@@ -77,7 +77,7 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 	 * @param string $markerPrefix
 	 * @return string
 	 */
-	protected function addPlayer($template, &$item, &$formatter, $confId, $markerPrefix) {
+	protected function addPlayer($template, $item, $formatter, $confId, $markerPrefix) {
 		$sub = $item->getPlayerUid();
 		if(!$sub) {
 			// Kein Item vorhanden. Leere Instanz anlegen und altname setzen
@@ -143,8 +143,4 @@ class tx_t3sportstats_marker_PlayerStats extends tx_rnbase_util_BaseMarker {
 		}
 
 	}
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_PlayerStats.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_PlayerStats.php']);
 }

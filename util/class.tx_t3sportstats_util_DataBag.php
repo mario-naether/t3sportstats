@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -53,10 +53,7 @@ class tx_t3sportstats_util_DataBag {
 			$out .= $key. ' = ' . $val . "\n";
 		}
 		reset($this->data);
-		return $out; //t3lib_div::view_array($this->record);
+		return $out;
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_DataBag.php']){
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/util/class.tx_t3sportstats_util_DataBag.php']);
-}

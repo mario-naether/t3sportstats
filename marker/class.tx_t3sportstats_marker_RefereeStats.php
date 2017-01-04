@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -34,7 +34,7 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 
   /**
    * @param $template das HTML-Template
-   * @param tx_cfcleaguefe_models_match $item das Spiel
+   * @param tx_t3sportstats_models_RefereeStat $item
    * @param tx_rnbase_util_FormatUtil $formatter der zu verwendente Formatter
    * @param $confId Pfad der TS-Config des Spiels, z.B. 'listView.match.'
    * @param $marker Name des Markers für ein Spiel, z.B. MATCH
@@ -42,11 +42,11 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
    */
 	public function parseTemplate($template, $item, &$formatter, $confId, $marker = 'MATCH') {
 		if(!is_object($item)) {
-			return $formatter->configurations->getLL('item_notFound');
+			return $formatter->getConfigurations()->getLL('item_notFound');
 		}
 		$this->prepareFields($item, $template, $marker);
 		tx_rnbase_util_Misc::callHook('t3sportstats','refereeStatsMarker_initRecord',
-			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
+			array('item' => $item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 
 		// Das Markerarray wird gefüllt
 		$ignore = self::findUnusedCols($item->getProperty(), $template, $marker);
@@ -62,7 +62,7 @@ class tx_t3sportstats_marker_RefereeStats extends tx_rnbase_util_BaseMarker {
 
 		$template = tx_rnbase_util_Templates::substituteMarkerArrayCached($template, $markerArray, $subpartArray, $wrappedSubpartArray);
 		tx_rnbase_util_Misc::callHook('t3sportstats','refereeStatsMarker_afterSubst',
-			array('item' => &$item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
+			array('item' => $item, 'template'=>&$template, 'confid'=>$confId, 'marker'=>$marker, 'formatter'=>$formatter), $this);
 		return $template;
 	}
 
