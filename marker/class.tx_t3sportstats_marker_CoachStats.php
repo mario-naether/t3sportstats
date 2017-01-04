@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -82,7 +82,9 @@ class tx_t3sportstats_marker_CoachStats extends tx_rnbase_util_BaseMarker {
 			// Kein Stadium vorhanden. Leere Instanz anlegen und altname setzen
 			$sub = tx_rnbase_util_BaseMarker::getEmptyInstance('tx_cfcleague_models_Profile');
 		}
-		else	$sub = tx_cfcleague_models_Profile::getInstance($sub);
+		else {
+			$sub = tx_cfcleague_models_Profile::getProfileInstance($sub);
+		}
 		$marker = tx_rnbase::makeInstance('tx_cfcleaguefe_util_ProfileMarker');
 		$template = $marker->parseTemplate($template, $sub, $formatter, $confId, $markerPrefix);
 		return $template;
@@ -142,6 +144,3 @@ class tx_t3sportstats_marker_CoachStats extends tx_rnbase_util_BaseMarker {
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_CoachStats.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/marker/class.tx_t3sportstats_marker_CoachStats.php']);
-}

@@ -59,6 +59,3 @@ class tx_t3sportstats_views_CoachStats extends tx_rnbase_view_Base {
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_CoachStats.php']){
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_CoachStats.php']);
-}
