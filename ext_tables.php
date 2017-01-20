@@ -11,7 +11,7 @@ $TCA['tt_content']['types']['list']['subtypes_excludelist']['tx_t3sportstats']='
 $TCA['tt_content']['types']['list']['subtypes_addlist']['tx_t3sportstats']='pi_flexform';
 
 tx_rnbase::load('tx_rnbase_util_Extensions');
-tx_rnbase_util_Extensions::addPiFlexFormValue('tx_t3sportstats','FILE:EXT:'.$_EXTKEY.'/flexform_main.xml');
+tx_rnbase_util_Extensions::addPiFlexFormValue('tx_t3sportstats','FILE:EXT:'.$_EXTKEY.'/'.(tx_rnbase_util_TYPO3::isTYPO70OrHigher() ? 'plugin' : 'flexform' ).'_main.xml');
 tx_rnbase_util_Extensions::addPlugin(Array('LLL:EXT:'.$_EXTKEY.'/locallang_db.php:plugin.t3sportstats.label','tx_t3sportstats'));
 
 
