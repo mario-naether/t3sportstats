@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009-2014 Rene Nitzsche (rene[@]system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene[@]system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -23,6 +23,7 @@
 ***************************************************************/
 
 tx_rnbase::load('tx_rnbase_util_Wizicon');
+tx_rnbase::load('tx_rnbase_util_Extensions');
 
 /**
  * Class that adds the wizard icon.

@@ -22,19 +22,18 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
-
 tx_rnbase::load('tx_rnbase_action_BaseIOC');
-
+tx_rnbase::load('Tx_Rnbase_Utility_Strings');
+tx_rnbase::load('Tx_Rnbase_Database_Connection');
 
 /**
  * Controller
- * 
+ *
  */
 class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC {
 
 	/**
-	 * 
+	 *
 	 *
 	 * @param array_object $parameters
 	 * @param tx_rnbase_configurations $configurations
@@ -43,7 +42,7 @@ class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC {
 	 */
 	public function handleRequest(&$parameters,&$configurations, &$viewData){
 		// Zuerst die Art der Statistik ermitteln
-		$tables = Tx_Rnbase_Utility_T3General::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
+		$tables = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'tables'), 1);
 		if(!count($tables)) {
 			// Abbruch kein Typ angegeben
 			throw new Exception('No database table configured in: ' . $this->getConfId().'tables');
@@ -66,7 +65,7 @@ class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC {
 		if($debug)
 			$options['debug'] = 1;
 
-		$res = tx_rnbase_util_DB::doSelect('count(*) AS cnt', $table, $options);
+		$res = Tx_Rnbase_Database_Connection::getInstance()->doSelect('count(*) AS cnt', $table, $options);
 
 		$items['size'] = $res[0]['cnt'];
 
@@ -80,5 +79,3 @@ class tx_t3sportstats_actions_DBStats extends tx_rnbase_action_BaseIOC {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/actions/class.tx_t3sportstats_actions_DBStats.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/actions/class.tx_t3sportstats_actions_DBStats.php']);
 }
-
-?>

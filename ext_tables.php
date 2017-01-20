@@ -34,6 +34,3 @@ if (TYPO3_MODE=="BE")	{
 // 		'LLL:EXT:t3sportstats/mod/locallang.xml:tx_t3sportstats_module_name'
 // 	);
 }
-
-
-?>

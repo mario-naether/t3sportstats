@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010 Rene Nitzsche
+ *  (c) 2010-2016 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -21,13 +21,12 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
 tx_rnbase::load('tx_rnbase_util_SearchBase');
 
 
 /**
  * Mit dem Builder werden haufig auftretende Suchanfragen zusammengebaut
- * 
+ *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_search_Builder {
@@ -91,5 +90,3 @@ class tx_t3sportstats_search_Builder {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/search/class.tx_t3sportstats_search_Builder.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/search/class.tx_t3sportstats_search_Builder.php']);
 }
-
-?>

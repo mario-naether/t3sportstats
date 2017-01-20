@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010-2014 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,11 +22,11 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
-
+tx_rnbase::load('Tx_Rnbase_Service_Base');
+tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
- * 
+ *
  * @author Rene Nitzsche
  */
 class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base {
@@ -49,7 +49,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base {
 		$this->indexJokerGoals($dataBag, $match, $isHome, $mnProv);
 	}
 	/**
-	 * 
+	 *
 	 * @param tx_t3sportstats_util_DataBag $dataBag
 	 * @param tx_cfcleague_models_Match $match
 	 * @param boolean $isHome
@@ -70,7 +70,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base {
 		}
 	}
 	/**
-	 * 
+	 *
 	 * @param tx_t3sportstats_util_DataBag $dataBag
 	 * @param tx_cfcleague_models_Match $match
 	 * @param boolean $isHome
@@ -85,7 +85,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base {
 		$dataBag->addType($isHome ? 'goalshomeagainst':'goalsawayagainst', $goals);
 	}
 	/**
-	 * 
+	 *
 	 * @param tx_t3sportstats_util_DataBag $dataBag
 	 * @param tx_cfcleague_models_Match $match
 	 * @param boolean $isHome
@@ -123,7 +123,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base {
 	}
 	private function isType($type, $typeList) {
 		if(!array_key_exists($typeList, $this->types)) {
-			$this->types[$typeList] = array_flip(Tx_Rnbase_Utility_T3General::intExplode(',', $typeList));
+			$this->types[$typeList] = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $typeList));
 		}
 		$types = $this->types[$typeList];
 		return array_key_exists($type, $types);
@@ -134,7 +134,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base {
 	 * @param boolean $isHome
 	 */
 	private function isStartPlayer($player, $match, $isHome) {
-		$startPlayer = array_flip(Tx_Rnbase_Utility_T3General::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
+		$startPlayer = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
 		return array_key_exists($player, $startPlayer);
 	}
 }
@@ -142,5 +142,3 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_CoachStats.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/srv/class.tx_t3sportstats_srv_CoachStats.php']);
 }
-
-?>

@@ -100,4 +100,3 @@ tx_t3sportstats_util_Config::registerPlayerStatsReport('assistlist');
 tx_t3sportstats_util_Config::registerCoachStatsReport('default');
 tx_t3sportstats_util_Config::registerRefereeStatsReport('default');
 
-?>

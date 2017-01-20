@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,8 +22,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
-
 
 tx_rnbase::load('tx_rnbase_view_Base');
 tx_rnbase::load('tx_rnbase_util_Templates');
@@ -36,7 +34,7 @@ class tx_t3sportstats_views_DBStats extends tx_rnbase_view_Base {
 	private $playerIds = array();
 
 	/**
-	 * 
+	 *
 	 * @param string $template
 	 * @param ArrayObject $viewData
 	 * @param tx_rnbase_configurations $configurations
@@ -60,7 +58,7 @@ class tx_t3sportstats_views_DBStats extends tx_rnbase_view_Base {
 
 	/**
 	 * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
-	 * createOutput automatisch als $template übergeben. 
+	 * createOutput automatisch als $template übergeben.
 	 *
 	 * @return string
 	 */
@@ -72,4 +70,3 @@ class tx_t3sportstats_views_DBStats extends tx_rnbase_view_Base {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_DBStats.php']){
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_DBStats.php']);
 }
-?>

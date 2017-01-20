@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Rene Nitzsche (rene@system25.de)
+*  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -22,20 +22,19 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(tx_rnbase_util_Extensions::extPath('rn_base') . 'class.tx_rnbase.php');
-
 tx_rnbase::load('tx_rnbase_action_BaseIOC');
 tx_rnbase::load('tx_rnbase_filter_BaseFilter');
+tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 
 /**
  * Controller für Suchformular für Dokumenten
- * 
+ *
  */
 class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC {
 
 	/**
-	 * 
+	 *
 	 *
 	 * @param array_object $parameters
 	 * @param tx_rnbase_configurations $configurations
@@ -44,12 +43,12 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC {
 	 */
 	public function handleRequest(&$parameters,&$configurations, &$viewData){
 		// Zuerst die Art der Statistik ermitteln
-		$types = Tx_Rnbase_Utility_T3General::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
+		$types = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($this->getConfId().'statisticTypes'), 1);
 		if(!count($types)) {
 			// Abbruch kein Typ angegeben
 			throw new Exception('No statistics type configured in: ' . $this->getConfId().'statisticTypes');
 		}
-		
+
 
 		$statsData = array();
 		foreach ($types as $type) {
@@ -78,10 +77,10 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC {
 		if($debug)
 			$options['debug'] = 1;
 
-		self::handlePageBrowser($configurations, 
+		self::handlePageBrowser($configurations,
 			$confId.'data.pagebrowser', $viewData, $fields, $options, array(
-			'searchcallback'=> array($srv, 'searchRefereeStats'),
-			'pbid' => $type.'ps',
+				'searchcallback'=> array($srv, 'searchRefereeStats'),
+				'pbid' => $type.'ps',
 			)
 		);
 
@@ -134,5 +133,3 @@ class tx_t3sportstats_actions_RefereeStats extends tx_rnbase_action_BaseIOC {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/actions/class.tx_t3sportstats_actions_RefereeStats.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/actions/class.tx_t3sportstats_actions_RefereeStats.php']);
 }
-
-?>
