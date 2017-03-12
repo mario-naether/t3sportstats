@@ -1,6 +1,12 @@
 <?php
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
+if(!tx_rnbase_util_TYPO3::isTYPO62OrHigher()) {
+	// TCA registration for 4.5
+	$TCA['tx_t3sportstats_tags'] = require tx_rnbase_util_Extensions::extPath($_EXTKEY).'Configuration/TCA/tx_t3sportstats_tags.php';
+	require tx_rnbase_util_Extensions::extPath($_EXTKEY).'Configuration/TCA/Overrides/tx_cfcleague_competition.php';
+};
+
 ////////////////////////////////
 // Plugin anmelden
 ////////////////////////////////
