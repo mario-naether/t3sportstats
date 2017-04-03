@@ -18,7 +18,7 @@
 	],
 	"support" : {
 		"email" : "rene@system25.de",
-		"source" : "https://github.com/digedag/t3sportstats",
+		"source" : "https://github.com/digedag/t3sportstats"
 	},
 	"replace" : {
 		"t3sportstats" : "self.version",
