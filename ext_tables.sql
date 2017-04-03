@@ -1,3 +1,40 @@
+#
+# Table structure for table 'tx_cfcleague_group'
+#
+CREATE TABLE tx_t3sportstats_tags (
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+	tstamp int(11) DEFAULT '0' NOT NULL,
+	crdate int(11) DEFAULT '0' NOT NULL,
+	cruser_id int(11) DEFAULT '0' NOT NULL,
+	sorting int(10) DEFAULT '0' NOT NULL,
+	deleted tinyint(4) DEFAULT '0' NOT NULL,
+	hidden tinyint(4) DEFAULT '0' NOT NULL,
+	fe_group int(11) DEFAULT '0' NOT NULL,
+	name varchar(255) DEFAULT '' NOT NULL,
+	label varchar(255) DEFAULT '' NOT NULL,
+	target int(11) DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
+
+CREATE TABLE tx_cfcleague_competition (
+	tags int(11) DEFAULT '0' NOT NULL,
+);
+#
+# Table structure for table 'tx_t3sportstats_tag_mm'
+# uid_local used for tags
+#
+CREATE TABLE tx_t3sportstats_tags_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	tablenames varchar(50) DEFAULT '' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);
 
 #
 # Table structure for table 'tx_t3sportstats_players'
