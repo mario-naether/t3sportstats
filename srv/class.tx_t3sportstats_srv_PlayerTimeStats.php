@@ -70,6 +70,28 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base {
 			$time = $time ? $time : 1; // Give the player at least 1 minute.
 		}
 		$dataBag->addType('playtime', $time);
+
+        if ($match->isExtratime()) {
+            $profId = $dataBag->getParentUid();
+            $notes = $mnProv->getMatchNotes4Profile($profId);
+
+            $startMin = $this->isStartPlayer($profId, $match, $isHome) ? 0 : -1;
+            $isEndPlayer = $startMin == 0 ? true : false;
+            foreach ($notes as $note) {
+                if (tx_cfcleague_util_MatchNote::isChangeIn($note)) {
+                    $isEndPlayer = true;
+                } elseif (tx_cfcleague_util_MatchNote::isChangeOut($note) ||
+                    tx_cfcleague_util_MatchNote::isCardYellowRed($note) ||
+                    tx_cfcleague_util_MatchNote::isCardRed($note)
+                ) {
+                    $isEndPlayer = false;
+                }
+            }
+
+            if ($isEndPlayer ) {
+                $dataBag->addType('playtime', 30);
+            }
+        }
 	}
 	protected function retrieveEndTime(tx_cfcleague_models_Match $match) {
 		$sports = $match->getCompetition()->getSportsService();
