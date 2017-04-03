@@ -2,9 +2,9 @@
 if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 
 if(!tx_rnbase_util_TYPO3::isTYPO62OrHigher()) {
-	// TCA registration for 4.5
-	$TCA['tx_t3sportstats_tags'] = require tx_rnbase_util_Extensions::extPath($_EXTKEY).'Configuration/TCA/tx_t3sportstats_tags.php';
-	require tx_rnbase_util_Extensions::extPath($_EXTKEY).'Configuration/TCA/Overrides/tx_cfcleague_competition.php';
+    // TCA registration for 4.5
+    $TCA['tx_t3sportstats_tags'] = require tx_rnbase_util_Extensions::extPath($_EXTKEY).'Configuration/TCA/tx_t3sportstats_tags.php';
+    require tx_rnbase_util_Extensions::extPath($_EXTKEY).'Configuration/TCA/Overrides/tx_cfcleague_competition.php';
 };
 
 ////////////////////////////////
@@ -17,7 +17,7 @@ $TCA['tt_content']['types']['list']['subtypes_excludelist']['tx_t3sportstats']='
 $TCA['tt_content']['types']['list']['subtypes_addlist']['tx_t3sportstats']='pi_flexform';
 
 tx_rnbase::load('tx_rnbase_util_Extensions');
-tx_rnbase_util_Extensions::addPiFlexFormValue('tx_t3sportstats','FILE:EXT:'.$_EXTKEY.'/flexform_main.xml');
+tx_rnbase_util_Extensions::addPiFlexFormValue('tx_t3sportstats','FILE:EXT:'.$_EXTKEY.'/'.(tx_rnbase_util_TYPO3::isTYPO70OrHigher() ? 'plugin' : 'flexform' ).'_main.xml');
 tx_rnbase_util_Extensions::addPlugin(Array('LLL:EXT:'.$_EXTKEY.'/locallang_db.php:plugin.t3sportstats.label','tx_t3sportstats'));
 
 

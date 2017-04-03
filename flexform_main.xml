@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-
+<!-- used until 6.2 -->
 <T3DataStructure>
   <sheets>
     <sDEF>
@@ -68,7 +68,7 @@
               </config>
             </TCEforms>
           </saisonSelectionInput>
-    
+
           <groupSelection> <!-- Bezeichner ist frei wählbar -->
             <TCEforms>
               <exclude>1</exclude>
@@ -90,7 +90,7 @@
               </config>
             </TCEforms>
           </groupSelectionInput>
-    
+
           <competitionSelection> <!-- Bezeichner ist frei wählbar -->
             <TCEforms>
               <exclude>1</exclude>
@@ -201,20 +201,20 @@
                 <size>24</size>
                 <max>256</max>
                 <eval>trim</eval>
-								<wizards type="array">
-									<_PADDING>2</_PADDING>
-									<link type="array">
-										<type>popup</type>
-										<title>Link</title>
-										<icon>link_popup.gif</icon>
-										<script>browse_links.php?mode=wizard&amp;act=file</script>
-										<params type="array">
-											<blindLinkOptions>page,url,mail,spec</blindLinkOptions>
-											<allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
-										</params>
-										<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
-									</link>
-								</wizards>
+                <wizards type="array">
+                  <_PADDING>2</_PADDING>
+                  <link type="array">
+                    <type>popup</type>
+                    <title>Link</title>
+                    <icon>link_popup.gif</icon>
+                    <script>browse_links.php?mode=wizard&amp;act=file</script>
+                    <params type="array">
+                      <blindLinkOptions>page,url,mail,spec</blindLinkOptions>
+                      <allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
+                    </params>
+                    <JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                  </link>
+                </wizards>
               </config>
             </TCEforms>
           </scopeTemplate>
@@ -276,20 +276,20 @@
                 <size>24</size>
                 <max>256</max>
                 <eval>trim</eval>
-								<wizards type="array">
-									<_PADDING>2</_PADDING>
-									<link type="array">
-										<type>popup</type>
-										<title>Link</title>
-										<icon>link_popup.gif</icon>
-										<script>browse_links.php?mode=wizard&amp;act=file</script>
-										<params type="array">
-											<blindLinkOptions>page,url,mail,spec</blindLinkOptions>
-											<allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
-										</params>
-										<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
-									</link>
-								</wizards>
+                <wizards type="array">
+                  <_PADDING>2</_PADDING>
+                  <link type="array">
+                    <type>popup</type>
+                    <title>Link</title>
+                    <icon>link_popup.gif</icon>
+                    <script>browse_links.php?mode=wizard&amp;act=file</script>
+                    <params type="array">
+                      <blindLinkOptions>page,url,mail,spec</blindLinkOptions>
+                      <allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
+                    </params>
+                    <JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                  </link>
+                </wizards>
               </config>
             </TCEforms>
           </playerstatsTemplate>
@@ -339,20 +339,20 @@
                 <size>24</size>
                 <max>256</max>
                 <eval>trim</eval>
-								<wizards type="array">
-									<_PADDING>2</_PADDING>
-									<link type="array">
-										<type>popup</type>
-										<title>Link</title>
-										<icon>link_popup.gif</icon>
-										<script>browse_links.php?mode=wizard&amp;act=file</script>
-										<params type="array">
-											<blindLinkOptions>page,url,mail,spec</blindLinkOptions>
-											<allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
-										</params>
-										<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
-									</link>
-								</wizards>
+                <wizards type="array">
+                  <_PADDING>2</_PADDING>
+                  <link type="array">
+                    <type>popup</type>
+                    <title>Link</title>
+                    <icon>link_popup.gif</icon>
+                    <script>browse_links.php?mode=wizard&amp;act=file</script>
+                    <params type="array">
+                      <blindLinkOptions>page,url,mail,spec</blindLinkOptions>
+                      <allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
+                    </params>
+                    <JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                  </link>
+                </wizards>
               </config>
             </TCEforms>
           </coachstatsTemplate>
@@ -402,20 +402,20 @@
                 <size>24</size>
                 <max>256</max>
                 <eval>trim</eval>
-								<wizards type="array">
-									<_PADDING>2</_PADDING>
-									<link type="array">
-										<type>popup</type>
-										<title>Link</title>
-										<icon>link_popup.gif</icon>
-										<script>browse_links.php?mode=wizard&amp;act=file</script>
-										<params type="array">
-											<blindLinkOptions>page,url,mail,spec</blindLinkOptions>
-											<allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
-										</params>
-										<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
-									</link>
-								</wizards>
+                <wizards type="array">
+                  <_PADDING>2</_PADDING>
+                  <link type="array">
+                    <type>popup</type>
+                    <title>Link</title>
+                    <icon>link_popup.gif</icon>
+                    <script>browse_links.php?mode=wizard&amp;act=file</script>
+                    <params type="array">
+                      <blindLinkOptions>page,url,mail,spec</blindLinkOptions>
+                      <allowedExtensions>htm,html,tmpl,tpl</allowedExtensions>
+                    </params>
+                    <JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+                  </link>
+                </wizards>
               </config>
             </TCEforms>
           </refereestatsTemplate>
@@ -424,27 +424,27 @@
       </ROOT>
     </s_refereestats>
 
-		<s_tssetup>
-			<ROOT>
-				<TCEforms>
-					<sheetTitle>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.tab.TSSetup</sheetTitle>
-				</TCEforms>
-				<type>array</type>
-				<el>
-					<flexformTS>
-						<TCEforms>
-							<exclude>1</exclude>
-							<label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.tssetup</label>
-							<config>
-								<type>text</type>
-								<cols>80</cols>
-								<rows>10</rows>
-							</config>
-						</TCEforms>
-					</flexformTS>
-				</el>
-			</ROOT>
-		</s_tssetup>
+    <s_tssetup>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.tab.TSSetup</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <flexformTS>
+            <TCEforms>
+              <exclude>1</exclude>
+              <label>LLL:EXT:t3sportstats/locallang_db.xml:plugin.t3sportstats.flexform.tssetup</label>
+              <config>
+                <type>text</type>
+                <cols>80</cols>
+                <rows>10</rows>
+              </config>
+            </TCEforms>
+          </flexformTS>
+        </el>
+      </ROOT>
+    </s_tssetup>
 
   </sheets>
 </T3DataStructure>
