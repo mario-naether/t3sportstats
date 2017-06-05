@@ -25,7 +25,6 @@
 		"typo3-ter/t3sportstats" : "self.version"
 	},
 	"require" : {
-		"php": "~5.5",
 		"typo3/cms-core" : ">=4.5.0 <=8.7.99",
 		"digedag/rn-base" : ">=1.14.0",
 		"digedag/cfc-league" : ">=1.1.1",
