@@ -1,8 +1,9 @@
 <?php
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2016 Rene Nitzsche
+ *  (c) 2010-2017 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -21,33 +22,31 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-
 /**
  * Make additional join for match search
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_hooks_Search {
+class tx_t3sportstats_hooks_Search
+{
 
-	public function getTableMappingMatch($params, $parent) {
-		$params['tableMapping']['PLAYERSTAT'] = 'tx_t3sportstats_players';
-		$params['tableMapping']['COACHSTAT'] = 'tx_t3sportstats_coachs';
-		$params['tableMapping']['REFEREESTAT'] = 'tx_t3sportstats_referees';
-	}
-	public function getJoinsMatch($params, $parent) {
-		if(isset($params['tableAliases']['PLAYERSTAT'])) {
-			$params['join'] .= ' JOIN tx_t3sportstats_players ON tx_cfcleague_games.uid = tx_t3sportstats_players.t3match ';
-		}
-		if(isset($params['tableAliases']['COACHSTAT'])) {
-			$params['join'] .= ' JOIN tx_t3sportstats_coachs ON tx_cfcleague_games.uid = tx_t3sportstats_coachs.t3match ';
-		}
-		if(isset($params['tableAliases']['REFEREESTAT'])) {
-			$params['join'] .= ' JOIN tx_t3sportstats_referees ON tx_cfcleague_games.uid = tx_t3sportstats_referees.t3match ';
-		}
-	}
+    public function getTableMappingMatch($params, $parent)
+    {
+        $params['tableMapping']['PLAYERSTAT'] = 'tx_t3sportstats_players';
+        $params['tableMapping']['COACHSTAT'] = 'tx_t3sportstats_coachs';
+        $params['tableMapping']['REFEREESTAT'] = 'tx_t3sportstats_referees';
+    }
 
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Search.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Search.php']);
+    public function getJoinsMatch($params, $parent)
+    {
+        if (isset($params['tableAliases']['PLAYERSTAT'])) {
+            $params['join'] .= ' JOIN tx_t3sportstats_players ON tx_cfcleague_games.uid = tx_t3sportstats_players.t3match ';
+        }
+        if (isset($params['tableAliases']['COACHSTAT'])) {
+            $params['join'] .= ' JOIN tx_t3sportstats_coachs ON tx_cfcleague_games.uid = tx_t3sportstats_coachs.t3match ';
+        }
+        if (isset($params['tableAliases']['REFEREESTAT'])) {
+            $params['join'] .= ' JOIN tx_t3sportstats_referees ON tx_cfcleague_games.uid = tx_t3sportstats_referees.t3match ';
+        }
+    }
 }

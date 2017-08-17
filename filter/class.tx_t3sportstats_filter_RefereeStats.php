@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2016 Rene Nitzsche
+ *  (c) 2010-2017 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -45,20 +45,17 @@ class tx_t3sportstats_filter_RefereeStats extends tx_rnbase_filter_BaseFilter {
 	protected function initFilter(&$fields, &$options, &$parameters, &$configurations, $confId) {
 //  	$options['distinct'] = 1;
 		// Wir benötigen zuerst die Spalten für WHAT
-		$cols = Tx_Rnbase_Utility_Strings::trimExplode(',',$configurations->get($confId.'columns'));
+		$cols = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId.'columns'));
 		$columns = array();
 		foreach($cols As $col) {
-			if($col)
+			if($col) {
 				$columns[] = 'sum('. $col . ') AS '.$col;
+			}
 		}
-		if(count($columns))
+		if(count($columns)) {
 			$options['what'] = 'referee, ' . implode(', ', $columns);
-		$scopeArr = tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters,$configurations);
+		}
+		$scopeArr = tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
 		tx_t3sportstats_search_Builder::buildRefereeStatsByScope($fields, $scopeArr);
 	}
-
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/filter/class.tx_t3sportstats_filter_RefereeStats.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/filter/class.tx_t3sportstats_filter_RefereeStats.php']);
 }

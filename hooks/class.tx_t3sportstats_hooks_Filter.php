@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2016 Rene Nitzsche
+ *  (c) 2010-2017 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -20,7 +20,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
-
 tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
 /**
@@ -28,68 +27,77 @@ tx_rnbase::load('Tx_Rnbase_Utility_Strings');
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_hooks_Filter {
-	private static $tableData = array(
-		'player' => array('tableAlias' => 'PLAYERSTAT', 'colName' => 'player'),
-		'coach' => array('tableAlias' => 'COACHSTAT', 'colName' => 'coach'),
-		'referee' => array('tableAlias' => 'REFEREESTAT', 'colName' => 'referee'),
-	);
+class tx_t3sportstats_hooks_Filter
+{
 
-	public function handleMatchFilter($params, $parent) {
-		$configurations = $params['configurations'];
-		$confId = $params['confid'];
+    private static $tableData = array(
+        'player' => array(
+            'tableAlias' => 'PLAYERSTAT',
+            'colName' => 'player'
+        ),
+        'coach' => array(
+            'tableAlias' => 'COACHSTAT',
+            'colName' => 'coach'
+        ),
+        'referee' => array(
+            'tableAlias' => 'REFEREESTAT',
+            'colName' => 'referee'
+        )
+    );
 
-		$parameters = $configurations->getParameters();
-		$statsType = $parameters->get('statstype');
-		if(!$statsType)  // Ist was per TS konfiguriert
-			$statsType = $configurations->get($confId.'filter.statsType');
-		if(!$statsType) return;
+    public function handleMatchFilter($params, $parent)
+    {
+        $configurations = $params['configurations'];
+        $confId = $params['confid'];
 
-		$statsKey = $parameters->get('statskey');
-		if(!$statsKey)  // Ist was per TS konfiguriert
-			$statsKey = $configurations->get($confId.'filter.statsKey');
+        $parameters = $configurations->getParameters();
+        $statsType = $parameters->get('statstype');
+        if (! $statsType) // Ist was per TS konfiguriert
+            $statsType = $configurations->get($confId . 'filter.statsType');
+        if (! $statsType)
+            return;
 
-		$profileType = 'player';
-		$profile = $parameters->getInt($profileType);
-		if(!$profile) {
-			$profileType = 'coach';
-			$profile = $parameters->getInt($profileType);
-		}
-		if(!$profile) {
-			$profileType = 'referee';
-			$profile = $parameters->getInt($profileType);
-		}
-		if(!$profile) { // Ist was per TS konfiguriert
-			$profileType = $configurations->get($confId.'filter.profileType');
-			$profileParam = $configurations->get($confId.'filter.profileParam');
-			if($profileType && $profileParam)
-				$profile = $parameters->getInt($profileParam);
-		}
+        $statsKey = $parameters->get('statskey');
+        if (! $statsKey) // Ist was per TS konfiguriert
+            $statsKey = $configurations->get($confId . 'filter.statsKey');
 
+        $profileType = 'player';
+        $profile = $parameters->getInt($profileType);
+        if (! $profile) {
+            $profileType = 'coach';
+            $profile = $parameters->getInt($profileType);
+        }
+        if (! $profile) {
+            $profileType = 'referee';
+            $profile = $parameters->getInt($profileType);
+        }
+        if (! $profile) { // Ist was per TS konfiguriert
+            $profileType = $configurations->get($confId . 'filter.profileType');
+            $profileParam = $configurations->get($confId . 'filter.profileParam');
+            if ($profileType && $profileParam)
+                $profile = $parameters->getInt($profileParam);
+        }
 
-		if(!$profile) return;
+        if (! $profile)
+            return;
 
+        $fields = & $params['fields'];
+        $confId .= 'filter.stats.' . $statsType . '.';
 
-		$fields =& $params['fields'];
-		$confId .= 'filter.stats.'.$statsType.'.';
+        $cols = $configurations->get($confId . 'columns');
+        if (! $cols)
+            return;
+        $cols = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
 
-		$cols = $configurations->get($confId.'columns');
-		if(!$cols) return;
-		$cols = array_flip(Tx_Rnbase_Utility_Strings::trimExplode(',', $cols));
+        if ($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
+            $fields[self::$tableData[$profileType]['tableAlias'] . '.' . strtoupper($statsKey)][OP_GT_INT] = 0;
+        } else
+            return;
 
-		if($statsKey && array_key_exists(strtolower($statsKey), $cols)) {
-			$fields[self::$tableData[$profileType]['tableAlias'].'.'.strtoupper($statsKey)][OP_GT_INT] = 0;
-		}
-		else return;
-
-		// Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen
-		// fields der stats
-		tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId.'fields.');
-		$fields[self::$tableData[$profileType]['tableAlias'].'.'.self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
-		$parent->addFilterData($profileType, $profile);
-	}
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Filter.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_Filter.php']);
+        // Ziel ist ein JOIN auf die playerstats, für den aktuellen Spieler und die aktuellen
+        // fields der stats
+        tx_rnbase_util_SearchBase::setConfigFields($fields, $configurations, $confId . 'fields.');
+        $fields[self::$tableData[$profileType]['tableAlias'] . '.' . self::$tableData[$profileType]['colName']][OP_EQ_INT] = $profile;
+        $parent->addFilterData($profileType, $profile);
+    }
 }
