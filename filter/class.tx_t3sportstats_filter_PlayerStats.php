@@ -46,13 +46,14 @@ class tx_t3sportstats_filter_PlayerStats extends tx_rnbase_filter_BaseFilter
     {
         // Wir benötigen zuerst die Spalten für WHAT
         $cols = Tx_Rnbase_Utility_Strings::trimExplode(',', $configurations->get($confId . 'columns'));
-        $columns = array();
+        $columns = [];
         foreach ($cols as $col) {
-            if ($col)
+            if ($col) {
                 $columns[] = 'sum(' . $col . ') AS ' . $col;
+            }
         }
         if (count($columns)) {
-            $options['what'] = 'player, ' . implode(', ', $columns);
+            $options['what'] .= ', ' . implode(', ', $columns);
         }
         $scopeArr = tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
         tx_t3sportstats_search_Builder::buildPlayerStatsByScope($fields, $scopeArr);

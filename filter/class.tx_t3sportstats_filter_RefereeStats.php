@@ -53,7 +53,7 @@ class tx_t3sportstats_filter_RefereeStats extends tx_rnbase_filter_BaseFilter {
 			}
 		}
 		if(count($columns)) {
-			$options['what'] = 'referee, ' . implode(', ', $columns);
+			$options['what'] .= ',' . implode(', ', $columns);
 		}
 		$scopeArr = tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
 		tx_t3sportstats_search_Builder::buildRefereeStatsByScope($fields, $scopeArr);

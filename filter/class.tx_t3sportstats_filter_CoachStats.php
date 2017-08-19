@@ -54,7 +54,7 @@ class tx_t3sportstats_filter_CoachStats extends tx_rnbase_filter_BaseFilter
             }
         }
         if (count($columns)) {
-            $options['what'] = 'coach, ' . implode(', ', $columns);
+            $options['what'] .= ',' . implode(', ', $columns);
         }
         $scopeArr = tx_cfcleaguefe_util_ScopeController::handleCurrentScope($parameters, $configurations);
         tx_t3sportstats_search_Builder::buildCoachStatsByScope($fields, $scopeArr);
