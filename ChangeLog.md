@@ -2,6 +2,10 @@
 Changelog
 ----------
 
+v0.4.1 (??.08.2017)
+ * Support for TYPO3 7.6 and 8.7
+ * Allow to render competition and club info in stats table of players
+
 v0.4.0 (??.01.2014)
  * Support for TYPO3 6.2
 
