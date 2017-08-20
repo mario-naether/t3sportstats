@@ -8,12 +8,12 @@ Weitere Reports kann man leicht selber integrieren. Dazu muss man sich zunächst
 Extension erstellen und in TYPO3 registrieren.
 
 Der eigene Report benötigt zunächst einen eindeutigen eigenen Identifier. Für die 
-Torschützenliste wird die ID *scorerlist* verwendet. In der Datei ext_localconf.php wird diese
+Torschützenliste wird die ID `scorerlist` verwendet. In der Datei ext_localconf.php wird diese
 ID registriert:
 ```php
 tx_t3sportstats_util_Config::registerPlayerStatsReport('scorerlist');
 ```
-Nach Löschen des System-Caches sollte diese ID direkt im Plugin von *T3sportstats* mit angezeigt 
+Nach Löschen des System-Caches sollte diese ID direkt im Plugin von **T3sportstats** mit angezeigt 
 werden.
 
 Die eigentliche Konfiguration des Reports erfolgt nun per Typoscript. Für die Torschützenliste 
@@ -51,3 +51,48 @@ Großschreibweise. Für die Torschützen also `###SCORERLIST###`. So kann ein ei
 
 ###SCORERLIST###
 ```
+
+## Anzeige von zusätzlichen Daten in der Statistikliste
+
+Je nach Anwendungsfall ist es möglich, auch einige Basisdaten in den Statistiktabellen anzuzeigen.
+
+### Wettbewerb
+Wenn man eine Statistik erstellt, in der die Personen nur in genau einem Wettbewerb vorkommen, dann kann 
+man diesen Wettbewerb in der Ergebnisliste mit anzeigen.
+
+Zunächst muss dafür der Wettbwerb mit in das Ergebnis-Set der Datenbank-Abfrage aufgenommen werden. Das
+geschieht per Typoscript. Hier beispielhaft für die Torschützen-Statistik:
+
+```
+plugin.tx_t3sportstats {
+  playerstats {
+    scorerlist {
+      options.what = player,competition
+      options.groupby = PLAYERSTAT.player,PLAYERSTAT.competition
+    }
+  }
+}
+```
+Die Spalte `competition` wird also in die Ergebnisliste und die `GROUP BY` Anweisung aufgenommen.
+Sollte ein Spieler in dieser Statistik seine Tore doch in unterschiedlichen Wettbewerben erzielt
+haben, dann wird er einmal pro gefundenem Wettbewerb in der Ergebnisliste erscheinen.
+
+Im HTML-Template kann man den Namen des Wettbewerb über folgenden Marker anzeigen: `######DATA_COMPETITION_NAME######`.
+Es können natürlich auch alle anderen Marker des Wettbewerbs genutzt werden.
+
+### Verein
+Auch den Verein kann man in der Ergebnisliste anzeigen, wenn die Daten entsprechend abgerufen werden. Die Datenbankabfrage
+muss dazu wie folgt per Typoscript erweitert werden:
+
+```
+plugin.tx_t3sportstats {
+  playerstats {
+    scorerlist {
+      options.what = player,club
+      options.groupby = PLAYERSTAT.player,PLAYERSTAT.club
+    }
+  }
+}
+```
+Im HTML-Template kann man den Namen des Vereins über folgenden Marker anzeigen: `######DATA_CLUB_NAME######`.
+Und auch hier können natürlich auch alle anderen Marker des Wettbewerbs genutzt werden.
