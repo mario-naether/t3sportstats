@@ -64,13 +64,15 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
 			$item->setProperty('hlTeam', 1);
 		}
 	}
-	/**
-	 * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
-	 * createOutput automatisch als $template übergeben.
-	 *
-	 * @return string
-	 */
-	function getMainSubpart() {
+
+    /**
+     * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
+     * createOutput automatisch als $template übergeben.
+     *
+     * @param $viewData
+     * @return string
+     */
+    public function getMainSubpart(&$viewData) {
 		return '###PLAYERSTATS###';
 	}
 }
