@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2016 Rene Nitzsche
+ *  (c) 2010-2017 Rene Nitzsche
  *  Contact: rene@system25.de
  *  All rights reserved
  *
@@ -20,7 +20,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
-
 tx_rnbase::load('tx_cfcleague_models_Competition');
 tx_rnbase::load('tx_rnbase_util_DB');
 
@@ -28,23 +27,29 @@ tx_rnbase::load('tx_rnbase_util_DB');
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_hooks_MergeProfiles {
+class tx_t3sportstats_hooks_MergeProfiles
+{
 
-	/**
-	 * Update der Statistikdaten. Abgleich erfolgt ohne TCE, da die Tabellen nicht in der TCA beschrieben sind.
-	 * @param array $params
-	 * @param tx_cfcleague_mod1_profileMerger $parent
-	 */
-	public function mergeProfile($params, $parent) {
-		$leading = $params['leadingUid'];
-		$obsolete = $params['obsoleteUid'];
+    /**
+     * Update der Statistikdaten.
+     * Abgleich erfolgt ohne TCE, da die Tabellen nicht in der TCA beschrieben sind.
+     *
+     * @param array $params
+     * @param tx_cfcleague_mod1_profileMerger $parent
+     */
+    public function mergeProfile($params, $parent)
+    {
+        $leading = $params['leadingUid'];
+        $obsolete = $params['obsoleteUid'];
 
-		Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_players', 'player='.$obsolete, array('player' => $leading));
-		Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_coachs', 'coach='.$obsolete, array('coach' => $leading));
-		Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_referees', 'referee='.$obsolete, array('referee' => $leading));
-	}
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_MergeProfiles.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_MergeProfiles.php']);
+        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_players', 'player=' . $obsolete, array(
+            'player' => $leading
+        ));
+        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_coachs', 'coach=' . $obsolete, array(
+            'coach' => $leading
+        ));
+        Tx_Rnbase_Database_Connection::getInstance()->doUpdate('tx_t3sportstats_referees', 'referee=' . $obsolete, array(
+            'referee' => $leading
+        ));
+    }
 }

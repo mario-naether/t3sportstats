@@ -24,15 +24,16 @@ tx_rnbase_util_Extensions::addPlugin(Array('LLL:EXT:'.$_EXTKEY.'/locallang_db.ph
 tx_rnbase_util_Extensions::addStaticFile($_EXTKEY,'static/ts/', 'T3sportstats');
 
 if (TYPO3_MODE=="BE")	{
-	# Add plugin wizard
-	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_t3sportstats_util_wizicon'] = tx_rnbase_util_Extensions::extPath($_EXTKEY).'util/class.tx_t3sportstats_util_Wizicon.php';
+    # Add plugin wizard
+    tx_rnbase::load('tx_rnbase_util_Wizicon');
+    tx_rnbase_util_Wizicon::addWizicon('tx_t3sportstats_util_Wizicon', tx_rnbase_util_Extensions::extPath($_EXTKEY).'util/class.tx_t3sportstats_util_Wizicon.php');
 
-	// Einbindung einer PageTSConfig
-	tx_rnbase_util_Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/mod/pageTSconfig.txt">');
+    // Einbindung einer PageTSConfig
+    tx_rnbase_util_Extensions::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3sportstats/mod/pageTSconfig.txt">');
 
-	////////////////////////////////
-	// Submodul anmelden
-	////////////////////////////////
+    ////////////////////////////////
+    // Submodul anmelden
+    ////////////////////////////////
 // 	tx_rnbase_util_Extensions::insertModuleFunction(
 // 		'web_txcfcleagueM1',
 // 		'tx_t3sportstats_mod_index',

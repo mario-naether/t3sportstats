@@ -21,6 +21,9 @@ lib.t3sports.statsData {
   player =< lib.t3sports.profile
   coach =< lib.t3sports.profile
   referee =< lib.t3sports.profile
+  competition =< lib.t3sports.competition
+  club =< lib.t3sports.club
+  team =< lib.t3sports.team
   goals.ifEmpty = -
   goals_per_match {
     wrap = (|)

@@ -1,4 +1,5 @@
 <?php
+
 /***************************************************************
  *  Copyright notice
  *
@@ -21,22 +22,18 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************/
 
-
 /**
  *
  * @author Rene Nitzsche
  */
-class tx_t3sportstats_hooks_ClearStats {
-
-	public function clearStats4Comp($params, $parent) {
-		$srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
-		/* @var $comp tx_cfcleague_models_Competition */
-		$comp = tx_rnbase::makeInstance('tx_cfcleague_models_Competition', $params['compUid']);
-		if($comp && $comp->isValid())
-			$srv->indexPlayerStatsByCompetition($comp);
-	}
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_ClearStats.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/hooks/class.tx_t3sportstats_hooks_ClearStats.php']);
+class tx_t3sportstats_hooks_ClearStats
+{
+    public function clearStats4Comp($params, $parent)
+    {
+        $srv = tx_t3sportstats_util_ServiceRegistry::getStatisticService();
+        /* @var $comp tx_cfcleague_models_Competition */
+        $comp = tx_rnbase::makeInstance('tx_cfcleague_models_Competition', $params['compUid']);
+        if ($comp && $comp->isValid())
+            $srv->indexPlayerStatsByCompetition($comp);
+    }
 }
