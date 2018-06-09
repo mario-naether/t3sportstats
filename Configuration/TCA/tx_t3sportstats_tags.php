@@ -14,7 +14,7 @@ $tx_t3sportstats_tags = Array (
 			'delete' => 'deleted',
 			'enablecolumns' => Array (
 			),
-			'iconfile' => tx_rnbase_util_Extensions::extRelPath('cfc_league').'Resources/Public/Icons/icon_table.gif',
+			'iconfile' => 'EXT:cfc_league/Resources/Public/Icons/icon_table.gif',
 	),
 	'interface' => Array (
 			'showRecordFieldList' => 'name'
