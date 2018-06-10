@@ -91,7 +91,7 @@ class tx_t3sportstats_srv_PlayerTimeStats extends Tx_Rnbase_Service_Base
     private function isStartPlayer($player, $match, $isHome)
     {
         $startPlayer = array_flip(
-            Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest())
+            Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest'))
         );
         return array_key_exists($player, $startPlayer);
     }

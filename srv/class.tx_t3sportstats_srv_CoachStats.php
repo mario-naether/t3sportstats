@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2018 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -150,7 +150,7 @@ class tx_t3sportstats_srv_CoachStats extends Tx_Rnbase_Service_Base
      */
     private function isStartPlayer($player, $match, $isHome)
     {
-        $startPlayer = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getPlayersHome() : $match->getPlayersGuest()));
+        $startPlayer = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $isHome ? $match->getProperty('players_home') : $match->getProperty('players_guest')));
         return array_key_exists($player, $startPlayer);
     }
 }
