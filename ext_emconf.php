@@ -32,10 +32,10 @@ $EM_CONF[$_EXTKEY] = array(
 	'lockType' => '',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '4.3.0-7.6.99',
-			'rn_base' => '0.14.0-0.0.0',
-			'cfc_league' => '0.9.1-0.0.0',
-			'cfc_league_fe' => '0.9.0-0.0.0',
+			'typo3' => '6.2.0-8.7.99',
+			'rn_base' => '1.7.1-0.0.0',
+			'cfc_league' => '1.1.1-0.0.0',
+			'cfc_league_fe' => '1.1.1-0.0.0',
 		),
 		'conflicts' => array(
 		),
