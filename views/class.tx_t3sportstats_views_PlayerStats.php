@@ -37,13 +37,13 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base
     {
         $items = & $viewData->offsetGet('items');
         $listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
-        $team = & $viewData->offsetGet('team');
+        $team = $viewData->offsetGet('team');
         if ($team) {
             $this->playerIds = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $team->getProperty('players')));
-            $listBuilder->addVisitor(array(
+            $listBuilder->addVisitor([
                 $this,
                 'highlightPlayer'
-            ));
+            ]);
         }
 
         $out = '';
@@ -51,8 +51,9 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base
             // Marker class can be configured
             $markerClass = $configurations->get($this->getController()
                 ->getConfId() . $type . '.markerClass');
-            if (! $markerClass)
+            if (! $markerClass) {
                 $markerClass = 'tx_t3sportstats_marker_PlayerStats';
+            }
 
             $subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###' . strtoupper($type) . '###');
             $out .= $listBuilder->render($data, $viewData, $subTemplate, $markerClass, $this->getController()

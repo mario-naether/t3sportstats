@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2017 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2018 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,7 +33,7 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
 
     /**
      *
-     * @param array_object $parameters
+     * @param tx_rnbase_IParameters $parameters
      * @param tx_rnbase_configurations $configurations
      * @param array $viewData
      * @return string error msg or null
@@ -54,10 +54,10 @@ class tx_t3sportstats_actions_PlayerStats extends tx_rnbase_action_BaseIOC
         $viewData->offsetSet('items', $statsData);
         $teamId = $configurations->get($this->getConfId() . 'highlightTeam');
         if ($teamId) {
-            tx_rnbase::load('tx_cfcleague_models_Team');
-            $team = tx_cfcleague_models_Team::getInstance($teamId);
-            if (is_object($team) && $team->isValid())
+            $team = tx_rnbase::makeInstance('tx_cfcleague_models_Team', $teamId);
+            if (is_object($team) && $team->isValid()) {
                 $viewData->offsetSet('team', $team);
+            }
         }
         return null;
     }
