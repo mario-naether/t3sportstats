@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2010-2016 Rene Nitzsche (rene@system25.de)
+ *  (c) 2010-2018 Rene Nitzsche (rene@system25.de)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -21,60 +21,62 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-
 tx_rnbase::load('tx_rnbase_view_Base');
 tx_rnbase::load('tx_rnbase_util_Templates');
 tx_rnbase::load('Tx_Rnbase_Utility_Strings');
 
-
 /**
  * Viewklasse für die Darstellung von Nutzerinformationen aus der DB
  */
-class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base {
-	private $playerIds = array();
+class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base
+{
 
-	function createOutput($template, &$viewData, &$configurations, &$formatter) {
+    private $playerIds = array();
 
-		$items =& $viewData->offsetGet('items');
-		$listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
-		$team =& $viewData->offsetGet('team');
-		if($team) {
-			$this->playerIds = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',',$team->getProperty('players')));
-			$listBuilder->addVisitor(array($this, 'highlightPlayer'));
-		}
+    public function createOutput($template, &$viewData, &$configurations, &$formatter)
+    {
+        $items = & $viewData->offsetGet('items');
+        $listBuilder = tx_rnbase::makeInstance('tx_rnbase_util_ListBuilder');
+        $team = & $viewData->offsetGet('team');
+        if ($team) {
+            $this->playerIds = array_flip(Tx_Rnbase_Utility_Strings::intExplode(',', $team->getProperty('players')));
+            $listBuilder->addVisitor(array(
+                $this,
+                'highlightPlayer'
+            ));
+        }
 
-		$out = '';
-		foreach($items As $type => $data) {
-			// Marker class can be configured
-			$markerClass = $configurations->get($this->getController()->getConfId().$type.'.markerClass');
-			if(!$markerClass)
-				$markerClass = 'tx_t3sportstats_marker_PlayerStats';
+        $out = '';
+        foreach ($items as $type => $data) {
+            // Marker class can be configured
+            $markerClass = $configurations->get($this->getController()
+                ->getConfId() . $type . '.markerClass');
+            if (! $markerClass)
+                $markerClass = 'tx_t3sportstats_marker_PlayerStats';
 
-			$subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###'.strtoupper($type).'###');
-			$out .= $listBuilder->render($data,
-					$viewData, $subTemplate, $markerClass,
-					$this->getController()->getConfId().$type.'.data.', 'DATA', $formatter);
-		}
-		return $out;
-	}
+            $subTemplate = tx_rnbase_util_Templates::getSubpart($template, '###' . strtoupper($type) . '###');
+            $out .= $listBuilder->render($data, $viewData, $subTemplate, $markerClass, $this->getController()
+                ->getConfId() . $type . '.data.', 'DATA', $formatter);
+        }
+        return $out;
+    }
 
-	public function highlightPlayer($item) {
-		if(array_key_exists($item->getProperty('player'), $this->playerIds)) {
-			$item->setProperty('hlTeam', 1);
-		}
-	}
-	/**
-	 * Subpart der im HTML-Template geladen werden soll. Dieser wird der Methode
-	 * createOutput automatisch als $template übergeben.
-	 *
-	 * @return string
-	 */
-	function getMainSubpart() {
-		return '###PLAYERSTATS###';
-	}
-}
+    public function highlightPlayer($item)
+    {
+        if (array_key_exists($item->getProperty('player'), $this->playerIds)) {
+            $item->setProperty('hlTeam', 1);
+        }
+    }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_PlayerStats.php']){
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3sportstats/views/class.tx_t3sportstats_views_PlayerStats.php']);
+    /**
+     * Subpart der im HTML-Template geladen werden soll.
+     * Dieser wird der Methode
+     * createOutput automatisch als $template übergeben.
+     *
+     * @return string
+     */
+    public function getMainSubpart()
+    {
+        return '###PLAYERSTATS###';
+    }
 }
