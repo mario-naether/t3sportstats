@@ -76,7 +76,7 @@ class tx_t3sportstats_views_PlayerStats extends tx_rnbase_view_Base
      *
      * @return string
      */
-    public function getMainSubpart()
+    public function getMainSubpart(&$viewData)
     {
         return '###PLAYERSTATS###';
     }
